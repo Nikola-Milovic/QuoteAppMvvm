@@ -25,12 +25,12 @@ class QuotesViewModel : ViewModel() {
 
     //Mine
     var currentQuote : Quote? = Quote("null" , "null")
-    var currentQuoteLiveData : MutableLiveData<Quote> = MutableLiveData<Quote>()
-    var quotes : MutableList<Quote>? = null
+    var currentQuoteLiveData : MutableLiveData<Quote> = MutableLiveData()
+    var quotes = mutableListOf<Quote>()
 
     fun fetchQuotes(){
         scope.launch {
-            quotes = repository.getQuotes()
+            quotes = repository.getQuotes()!!
             quotesLiveData.postValue(quotes)
             newCurrentQuote()
         }
@@ -38,15 +38,18 @@ class QuotesViewModel : ViewModel() {
 
     fun newCurrentQuote(){
         scope.launch {
-           val pos = getRandomNumber()
-            currentQuote  = quotes?.get(pos)
+            if(!repository.loadedQuotes){
+                fetchQuotes()
+            }
+           val pos = getRandomNumber(quotes.size)
+            currentQuote  = quotes.get(pos)
             currentQuoteLiveData.postValue(currentQuote)
         }
     }
 
-    fun getRandomNumber() : Int{
-        val rnds  = (1..5000).random()
-        return rnds
+    fun getRandomNumber(size : Int) : Int{
+        val pos  = (0..size - 1).random()
+        return pos
     }
 
 
