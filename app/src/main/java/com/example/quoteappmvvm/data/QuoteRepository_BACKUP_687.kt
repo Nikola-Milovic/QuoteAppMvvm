@@ -14,6 +14,21 @@ class QuoteRepository(
 ) : BaseRepository() {
      var loadedQuotes : Boolean = false
 
+<<<<<<< HEAD
+        //safeApiCall is defined in BaseRepository.kt (https://gist.github.com/navi25/67176730f5595b3f1fb5095062a92f15)
+//        val quoteResponse = safeApiCall(
+//            call = {api.getQuotes().await()},
+//            errorMessage = "Error Fetching Quotes"
+//        )
+        val quoteResponse = safeApiCall(
+            call = {api.getQuotes().await()},
+            errorMessage = "Error Fetching Quotes"
+        )
+
+
+        return quoteResponse?.toMutableList()
+=======
+
     fun checkIfNeededToFetchQuotes() : Boolean {
         return loadedQuotes
     }
@@ -34,6 +49,7 @@ class QuoteRepository(
             loadedQuotes = false
             Log.d("TAG", "Nema neta")
         }
+>>>>>>> mistake
 
         val noInternet = mutableListOf<Quote>()
         noInternet.add(Quote("Dev", "No internet connection"))

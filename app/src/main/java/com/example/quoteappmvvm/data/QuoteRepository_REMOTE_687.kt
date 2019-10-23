@@ -14,6 +14,7 @@ class QuoteRepository(
 ) : BaseRepository() {
      var loadedQuotes : Boolean = false
 
+
     fun checkIfNeededToFetchQuotes() : Boolean {
         return loadedQuotes
     }

@@ -33,6 +33,7 @@ class QuotesFragment : Fragment() {
         viewModel.fetchQuotes()
         viewModel.currentQuoteLiveData.observe(this, Observer {
            textView_quoteText.text = it.quoteText + "\n" + "    - " + it.quoteAuthor
+
         })
 
         button_reloadQuote.setOnClickListener {
