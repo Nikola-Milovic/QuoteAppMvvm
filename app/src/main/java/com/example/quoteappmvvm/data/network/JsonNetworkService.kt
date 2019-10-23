@@ -1,6 +1,6 @@
 package com.example.quoteappmvvm.data.network
 
-import com.example.quoteappmvvm.data.network.model.QuoteApi
+import com.example.quoteappmvvm.data.model.QuoteApi
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.*
 import retrofit2.Retrofit

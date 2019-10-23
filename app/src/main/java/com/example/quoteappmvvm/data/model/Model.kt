@@ -1,4 +1,4 @@
-package com.example.quoteappmvvm.data.network.model
+package com.example.quoteappmvvm.data.model
 
 import kotlinx.coroutines.Deferred
 import retrofit2.Response

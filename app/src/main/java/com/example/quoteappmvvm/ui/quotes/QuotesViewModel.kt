@@ -1,17 +1,14 @@
 package com.example.quoteappmvvm.ui.quotes
 
 import android.util.Log
-import androidx.core.util.rangeTo
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel;
-import com.example.quoteappmvvm.data.QuoteRepository
+import com.example.quoteappmvvm.data.DefaultQuoteRepository
 import com.example.quoteappmvvm.data.network.JsonNetworkService
-import com.example.quoteappmvvm.data.network.model.Quote
+import com.example.quoteappmvvm.data.model.Quote
 import kotlinx.coroutines.*
 import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
-import kotlin.math.log
 
 class QuotesViewModel : ViewModel() {
     private val parentJob = Job()
@@ -21,7 +18,7 @@ class QuotesViewModel : ViewModel() {
 
     private val scope = CoroutineScope(coroutineContext)
 
-    private val repository : QuoteRepository = QuoteRepository(JsonNetworkService.quoteApi)
+    private val repository : DefaultQuoteRepository = DefaultQuoteRepository(JsonNetworkService.quoteApi)
 
     val quotesLiveData = MutableLiveData<MutableList<Quote>>()
 
