@@ -31,10 +31,10 @@ class QuotesFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(QuotesViewModel::class.java)
 
         viewModel.fetchQuotes()
-        viewModel.currentQuoteLiveData.observe(this, Observer {
-           textView_quoteText.text = it.quoteText + "\n" + "    - " + it.quoteAuthor
-
-        })
+//        viewModel.currentQuoteLiveData.observe(this, Observer {
+//           textView_quoteText.text = it.quoteText + "\n" + "    - " + it.quoteAuthor
+//
+//        })
 
         button_reloadQuote.setOnClickListener {
             viewModel.newCurrentQuote()
