@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.architecture.blueprints.todoapp.data
+package com.example.quoteappmvvm.data
 
 import com.example.android.architecture.blueprints.todoapp.data.Result.Success
 

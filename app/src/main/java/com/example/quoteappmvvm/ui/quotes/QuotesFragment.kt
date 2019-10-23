@@ -31,7 +31,9 @@ class QuotesFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(QuotesViewModel::class.java)
 
         viewModel.fetchQuotes()
+        viewModel.newCurrentQuote()
         viewModel.currentQuoteLiveData.observe(viewLifecycleOwner, Observer {
+            //textView_quoteText.text = it.toString()
             textView_quoteText.text = it.quoteText + "\n" + "    - " + it.quoteAuthor
         })
 
