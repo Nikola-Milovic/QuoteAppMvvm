@@ -12,6 +12,8 @@ object JsonNetworkService {
     private val okHttpClient = OkHttpClient().newBuilder()
         .build()
 
+    fun getServiceApi(retrofit : Retrofit) = retrofit.create(QuoteApi::class.java)
+
     fun retrofit() : Retrofit = Retrofit.Builder()
         .client(okHttpClient)
         .baseUrl("https://raw.githubusercontent.com/JamesFT/Database-Quotes-JSON/master/")
@@ -19,9 +21,7 @@ object JsonNetworkService {
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()
 
-
-    val quoteApi : QuoteApi = retrofit().create(QuoteApi::class.java)
-
+    val apiService = getServiceApi(retrofit())
 }
 
 
