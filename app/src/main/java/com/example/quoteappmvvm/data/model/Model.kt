@@ -1,18 +1,19 @@
 package com.example.quoteappmvvm.data.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET
+import java.util.*
 
-// Data Model for TMDB Movie item
+
+@Entity(tableName = "quotes")
 data class Quote(
-   val quoteAuthor : String,
-   val quoteText : String
-)
-
-// Data Model for the Response returned from the TMDB Api
-data class QuoteResponse(
-    val results : List<Quote>
+    @ColumnInfo(name = "quote_author") var quoteAuthor: String = "",
+    @ColumnInfo(name = "quote_text") var quoteText: String = "",
+    @PrimaryKey @ColumnInfo(name = "entryid") var id: String = UUID.randomUUID().toString()
 )
 
 //A retrofit Network Interface for the Api
