@@ -29,6 +29,7 @@ import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import retrofit2.Retrofit
 import javax.inject.Qualifier
 import javax.inject.Singleton
 import kotlin.annotation.AnnotationRetention.RUNTIME
@@ -46,13 +47,14 @@ object ApplicationModule {
     @Retention(RUNTIME)
     annotation class QuoteLocalDataSource
 
-    @JvmStatic
-    @Singleton
-    @QuoteRemoteDataSource
-    @Provides
-    fun provideQuoteRemoteDataSource(): QuoteDataSource {
-        return com.example.quoteappmvvm.data.network.QuoteRemoteDataSource
-    }
+//    @JvmStatic
+//    @Singleton
+//    @QuoteRemoteDataSource
+//    @Provides
+//    fun provideQuoteRemoteDataSource(retrofit: Retrofit)
+//            : QuoteDataSource {
+//        return QuoteRemoteDataSource(retrofit)
+//    }
 
     @JvmStatic
     @Singleton
