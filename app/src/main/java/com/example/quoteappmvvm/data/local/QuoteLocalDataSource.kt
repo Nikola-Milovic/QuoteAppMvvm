@@ -6,9 +6,10 @@ import com.example.quoteappmvvm.data.Result.Success
 import com.example.quoteappmvvm.data.model.Quote
 import kotlinx.coroutines.*
 import java.io.IOException
+import javax.inject.Inject
 
 
-class TasksLocalDataSource internal constructor(
+class QuoteLocalDataSource constructor(
     private val quotesDao: QuotesDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : QuoteDataSource{

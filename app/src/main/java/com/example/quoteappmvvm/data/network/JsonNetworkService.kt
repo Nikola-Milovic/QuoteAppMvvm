@@ -8,12 +8,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 
-object JsonNetworkService {
-
+class JsonNetworkService {
         private val okHttpClient = OkHttpClient().newBuilder()
         .build()
 
-    fun getServiceApi(retrofit : Retrofit) = retrofit.create(QuoteApi::class.java)
+    internal fun getServiceApi(retrofit : Retrofit) = retrofit.create(QuoteApi::class.java)
 
     fun retrofit() : Retrofit = Retrofit.Builder()
         .client(okHttpClient)
@@ -23,6 +22,7 @@ object JsonNetworkService {
         .build()
 
     val apiService = getServiceApi(retrofit())
+
 }
 
 

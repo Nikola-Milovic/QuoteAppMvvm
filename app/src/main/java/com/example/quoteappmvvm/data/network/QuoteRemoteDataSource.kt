@@ -11,7 +11,8 @@ import com.example.quoteappmvvm.data.model.QuoteApi
 
 
 class QuoteRemoteDataSource @Inject constructor (
-    private val apiService : QuoteApi) : QuoteDataSource {
+    private val apiService : QuoteApi)
+    : QuoteDataSource {
 
     override suspend fun getQuotes(): Result<List<Quote>> {
         val response = apiService.getQuotes().await()
@@ -23,10 +24,11 @@ class QuoteRemoteDataSource @Inject constructor (
         Result.Error(IOException("Unable to fetch quotes!"))
     }
         return Result.Error(IOException("Unable to fetch quotes!"))
-        //https://codinginfinite.com/kotlin-coroutine-call-adapter-retrofit/
     }
 }
 
+
+//https://codinginfinite.com/kotlin-coroutine-call-adapter-retrofit/
 //*return if(response.isSuccessful) {
 //    if(response.body() != null) {
 //        Result.Success(response.body())
