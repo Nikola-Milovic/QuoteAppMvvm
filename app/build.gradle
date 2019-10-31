@@ -8,7 +8,6 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: "kotlin-kapt"
 
 
-
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
@@ -50,10 +49,10 @@ dependencies {
 
 
     // Navigation
-    implementation 'androidx.navigation:navigation-fragment:2.2.0-beta01'
-    implementation 'androidx.navigation:navigation-ui:2.2.0-beta01'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0-beta01'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-beta01'
+    implementation 'androidx.navigation:navigation-fragment:2.2.0-rc01'
+    implementation 'androidx.navigation:navigation-ui:2.2.0-rc01'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0-rc01'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-rc01'
 
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation "androidx.constraintlayout:constraintlayout:1.1.3"
@@ -88,30 +87,17 @@ dependencies {
     implementation "com.squareup.moshi:moshi-kotlin:$moshiVersion"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
 
-      // Dagger
-//    implementation "com.google.dagger:dagger:$dagger_version"
-//    implementation "com.google.dagger:dagger-android-support:$dagger_version"
-//    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
-//    kapt "com.google.dagger:dagger-compiler:$dagger_version"
-//    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
-//    annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
-
-//    implementation "com.google.dagger:dagger:$dagger2_version"
-//    implementation "com.google.dagger:dagger-android:$dagger2_version"
-//    implementation "com.google.dagger:dagger-android-support:$dagger2_version"
-//    kapt "com.google.dagger:dagger-compiler:$dagger2_version"
-//    kapt "com.google.dagger:dagger-android-processor:$dagger2_version"
-//    annotationProcessor "com.google.dagger:dagger-compiler:$dagger2_version"
-//    compileOnly 'javax.annotation:jsr250-api:1.0'
-//    implementation 'javax.inject:javax.inject:1'
     // Dagger
     implementation "com.google.dagger:dagger:$dagger2_version"
     implementation "com.google.dagger:dagger-android-support:$dagger2_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger2_version"
     kapt "com.google.dagger:dagger-compiler:$dagger2_version"
 
+
+    //Testing
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.0.1'
+
 }
 kapt {
     generateStubs = true
 }
-

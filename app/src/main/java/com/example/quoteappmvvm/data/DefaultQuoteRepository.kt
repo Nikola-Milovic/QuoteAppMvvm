@@ -20,7 +20,7 @@ class DefaultQuoteRepository @Inject constructor(
 ) : BaseRepository(), QuoteRepository {
 
 
-    override suspend fun GetQuotes(): Result<List<Quote>> {
+    override suspend fun GetQuotes(): Result<List<Quote>> { // Fetch quotes from the quotes api
         // Remote first
         val remoteQuotes = quoteRemoteDataSource.getQuotes()
         when (remoteQuotes) {

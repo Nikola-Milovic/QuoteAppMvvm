@@ -7,6 +7,6 @@ import com.example.quoteappmvvm.data.model.Quote
 
 @Dao
 interface QuotesDao {
-    @Query("SELECT * FROM quotes")
+    @Query("SELECT * FROM quotes") // get all locally saved quotes from the DB
     suspend fun getQuotes(): List<Quote>
 }

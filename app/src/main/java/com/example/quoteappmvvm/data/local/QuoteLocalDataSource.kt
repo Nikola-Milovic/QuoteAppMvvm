@@ -9,7 +9,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 
-class QuoteLocalDataSource constructor(
+class QuoteLocalDataSource constructor( // for fetching locally stored quotes, might save favorite quootes or save the json quotes
     private val quotesDao: QuotesDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : QuoteDataSource{
