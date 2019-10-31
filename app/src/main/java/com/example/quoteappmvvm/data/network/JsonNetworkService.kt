@@ -9,8 +9,9 @@ class JsonNetworkService @Inject constructor(
     val retrofitService : Retrofit
 ) {
 
-     fun getServiceApi(retrofitService : Retrofit) = retrofitService.create(QuoteApi::class.java)
+     fun getServiceApi(retrofit : Retrofit) = retrofit.create(QuoteApi::class.java)
 
+    val apiService = getServiceApi(retrofitService)
 }
 
 

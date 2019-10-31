@@ -26,26 +26,3 @@ class QuoteRemoteDataSource @Inject constructor (
         return Result.Error(IOException("Unable to fetch quotes!"))
     }
 }
-
-
-//https://codinginfinite.com/kotlin-coroutine-call-adapter-retrofit/
-//*return if(response.isSuccessful) {
-//    if(response.body() != null) {
-//        Result.Success(response.body())
-//    }
-//    else {
-//      Response.Error(EmptyResponseException())
-//    }
-//} else {
-// Result.Error(EndpointRequestFailedException())
-//}
-
-//
-//    try {
-//        if (response.isSuccessful)
-//            return Result.Success(response.body())
-//        return Result.Error(IOException("Error occurred during fetching quotes!"))
-//    } catch (e: Exception) {
-//        Result.Error(IOException("Unable to fetch quotes!"))
-//    }
-//}

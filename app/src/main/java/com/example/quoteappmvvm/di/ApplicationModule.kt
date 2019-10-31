@@ -19,11 +19,12 @@ package com.example.quoteappmvvm.di
 import android.content.Context
 import androidx.room.Room
 import com.example.quoteappmvvm.data.DefaultQuoteRepository
-
 import com.example.quoteappmvvm.data.QuoteDataSource
 import com.example.quoteappmvvm.data.QuoteRepository
 import com.example.quoteappmvvm.data.local.LocalQuoteDataBase
 import com.example.quoteappmvvm.data.local.QuoteLocalDataSource
+import com.example.quoteappmvvm.data.network.JsonNetworkService
+import com.example.quoteappmvvm.data.network.QuoteRemoteDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -33,7 +34,6 @@ import retrofit2.Retrofit
 import javax.inject.Qualifier
 import javax.inject.Singleton
 import kotlin.annotation.AnnotationRetention.RUNTIME
-
 
 
 @Module(includes = [ApplicationModuleBinds::class])
@@ -47,14 +47,15 @@ object ApplicationModule {
     @Retention(RUNTIME)
     annotation class QuoteLocalDataSource
 
-//    @JvmStatic
-//    @Singleton
-//    @QuoteRemoteDataSource
-//    @Provides
-//    fun provideQuoteRemoteDataSource(retrofit: Retrofit)
-//            : QuoteDataSource {
-//        return QuoteRemoteDataSource(retrofit)
-//    }
+    @JvmStatic
+    @Singleton
+    @QuoteRemoteDataSource
+    @Provides
+    fun provideQuoteRemoteDataSource(
+        jsonNetworkService: JsonNetworkService
+    ): QuoteDataSource {
+        return QuoteRemoteDataSource(jsonNetworkService.apiService)
+    }
 
     @JvmStatic
     @Singleton
