@@ -24,7 +24,7 @@ import com.example.quoteappmvvm.data.model.Quote
  */
 interface QuoteRepository {
 
-    suspend fun GetQuotes(): Result<List<Quote>>
+    suspend fun getQuotes(): Result<List<Quote>>
 
 
 }

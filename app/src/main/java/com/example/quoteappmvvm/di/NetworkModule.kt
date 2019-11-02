@@ -12,6 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 class NetworkModule {
+
     @Provides
     fun provideRetrofitService(): Retrofit {
          val okHttpClient = OkHttpClient().newBuilder()

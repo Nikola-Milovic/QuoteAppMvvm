@@ -1,19 +1,34 @@
 package com.example.quoteappmvvm.ui.quotes
 
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel;
-import com.example.quoteappmvvm.data.DefaultQuoteRepository
+import androidx.lifecycle.viewModelScope
 import com.example.quoteappmvvm.data.QuoteRepository
-import com.example.quoteappmvvm.data.network.JsonNetworkService
+import com.example.quoteappmvvm.data.Result
 import com.example.quoteappmvvm.data.model.Quote
 import kotlinx.coroutines.*
-import java.lang.Exception
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
 class QuotesViewModel @Inject constructor(
-    private val repository: QuoteRepository
+    private val quoteRepository: QuoteRepository
 ) : ViewModel() {
 
+    private val _items = MutableLiveData<List<Quote>>().apply { value = emptyList() }
+    val items: LiveData<List<Quote>> = _items
+
+    init{
+        loadQuotes()
+    }
+
+    fun loadQuotes() {
+            viewModelScope.launch {
+                val quoteResult = quoteRepository.getQuotes()
+
+                if (quoteResult is Result.Success) {
+                    val quotes = quoteResult.data
+                    _items.value = quotes
+                }
+            }
+    }
 }
