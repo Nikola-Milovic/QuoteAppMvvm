@@ -31,6 +31,10 @@ android {
         enabledForTests = true
     }
 
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
 
 }
 
@@ -46,6 +50,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation 'com.android.support:support-v4:28'
+
+    implementation "androidx.fragment:fragment-ktx:$fragmentKtxVersion"
+    implementation "androidx.fragment:fragment:$fragmentVersion"
 
 
     // Navigation
@@ -92,12 +101,21 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$dagger2_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger2_version"
     kapt "com.google.dagger:dagger-compiler:$dagger2_version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger2_version"
+    // Using Dagger in androidTest and Robolectric too
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger2_version"
+    kaptTest "com.google.dagger:dagger-compiler:$dagger2_version"
+    implementation 'com.google.code.findbugs:jsr305:3.0.2' // error if not implemented
 
 
     //Testing
     testImplementation 'com.squareup.okhttp3:mockwebserver:4.0.1'
 
+
+
+
 }
+
 kapt {
     generateStubs = true
 }
