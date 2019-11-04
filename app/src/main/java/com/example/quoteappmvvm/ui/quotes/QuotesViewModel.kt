@@ -1,5 +1,6 @@
 package com.example.quoteappmvvm.ui.quotes
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel;
@@ -28,6 +29,7 @@ class QuotesViewModel @Inject constructor(
                 if (quoteResult is Result.Success) {
                     val quotes = quoteResult.data
                     _items.value = quotes
+                    Log.d("TAG", quotes.toString() )
                 }
             }
     }
