@@ -7,14 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.quoteappmvvm.databinding.QuotesFragmentBinding
-import com.example.quoteappmvvm.R
-import kotlinx.android.synthetic.main.quotes_fragment.*
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
+import dagger.android.support.AndroidSupportInjection
 
-class QuotesFragment : Fragment() {
+
+
+class QuotesFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -22,10 +23,6 @@ class QuotesFragment : Fragment() {
     private val viewModel by viewModels<QuotesViewModel> { viewModelFactory }
 
     private lateinit var viewDataBinding: QuotesFragmentBinding
-
-    companion object {
-        fun newInstance() = QuotesFragment()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,4 +38,5 @@ class QuotesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
     }
+
 }
