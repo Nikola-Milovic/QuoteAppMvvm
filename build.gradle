@@ -11,6 +11,11 @@ buildscript {
     ext.dagger2_version = '2.23.2'
     ext.fragmentVersion = '1.1.0-alpha07'
     ext.fragmentKtxVersion = '1.1.0-rc01'
+    ext.mockitoVersion = '2.8.9'
+    ext.junitVersion = '4.12'
+    ext.coroutinesVersion = '1.2.1'
+    ext.dexMakerVersion = '2.12.1'
+    ext.mockk_version = '1.9.3.kotlin12'
 
     ext.moshiVersion="1.8.0"
 
