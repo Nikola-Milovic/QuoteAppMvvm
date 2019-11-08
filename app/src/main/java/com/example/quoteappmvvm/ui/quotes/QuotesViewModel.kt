@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.viewModelScope
+import com.example.quoteappmvvm.constants.apiState
 import com.example.quoteappmvvm.data.QuoteRepository
 import com.example.quoteappmvvm.data.Result
 import com.example.quoteappmvvm.data.model.Quote
@@ -18,19 +19,49 @@ class QuotesViewModel @Inject constructor(
     private val _items = MutableLiveData<List<Quote>>().apply { value = emptyList() }
     val items: LiveData<List<Quote>> = _items
 
+    //Used for displaying the current quote
+    private  var _currentItem = MutableLiveData<Quote>()
+    val currentItem: LiveData<Quote>
+        get() = _currentItem
+
+
+    private  var _state = MutableLiveData<apiState>()
+    val state: LiveData<apiState>
+        get() = _state
+
     init{
         loadQuotes()
     }
 
     fun loadQuotes() {
             viewModelScope.launch {
-                val quoteResult = quoteRepository.getQuotes()
+                _state.value = apiState.LOADING // SET THE INITIAL STATE AS LOADING
+                try {
+                    val quoteResult = quoteRepository.getQuotes()
 
-                if (quoteResult is Result.Success) {
-                    val quotes = quoteResult.data
-                    _items.value = quotes
-                    Log.d("TAG", quotes.toString() )
+                    if (quoteResult is Result.Success) {
+                        _state.value = apiState.SUCCESS // SET THE INITIAL STATE AS SUCCESS
+                        val quotes = quoteResult.data
+                        _items.value = quotes
+                    } else {
+                        _state.value = apiState.FAILURE // SET THE INITIAL STATE AS FAILED
+                        _items.value = null
+                    }
+                } catch(e : Exception){
+                    _state.value = apiState.FAILURE // SET THE INITIAL STATE AS FAILED
+                    _items.value = null
                 }
             }
+    }
+
+    fun setStateTest(){
+
+        Log.d("TAG", state.value.toString())
+
+        if (_state.value == apiState.SUCCESS){
+            _state.value = apiState.FAILURE
+        } else {
+            _state.value = apiState.SUCCESS
+        }
     }
 }

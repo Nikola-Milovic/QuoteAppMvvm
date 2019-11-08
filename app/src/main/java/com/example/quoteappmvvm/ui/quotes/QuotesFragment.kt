@@ -2,6 +2,7 @@ package com.example.quoteappmvvm.ui.quotes
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,13 @@ class QuotesFragment : DaggerFragment() {
         viewDataBinding = QuotesFragmentBinding.inflate(inflater, container, false).apply {
             viewmodel = viewModel
         }
+
+        viewDataBinding.setLifecycleOwner(this)
+
+        viewDataBinding.buttonReloadQuote.setOnClickListener {
+            viewModel.setStateTest()
+        }
+
         setHasOptionsMenu(true)
         return viewDataBinding.root
     }

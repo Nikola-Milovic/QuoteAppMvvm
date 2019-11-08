@@ -6,6 +6,9 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+                name="status"
+                type="com.example.quoteappmvvm.ui.quotes.DataBinderQuotesKt" />
 
         <import type="android.view.View" />
 
@@ -19,12 +22,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
+            android:id="@+id/Text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".ui.quotes.QuotesFragment">
 
         <TextView
-                android:id="@+id/textView_quoteText"
+                android:id="@+id/textView_quote_author"
+                viewConnectionVisibility="@{viewmodel.state}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{viewmodel.items.toString()}"
@@ -43,14 +48,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_quoteText" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_quote_author" />
 
         <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imageView_no_connection"
+                viewNoConnectionVisibility="@{viewmodel.state}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_no_internet"
-                app:layout_constraintBottom_toTopOf="@+id/textView_quoteText"
+                app:layout_constraintBottom_toTopOf="@+id/textView_quote_author"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,17 +64,31 @@
                 app:layout_constraintVertical_bias="0.68" />
 
         <TextView
-                android:id="@+id/textView"
+                android:id="@+id/textView_quote_text"
+                viewConnectionVisibility="@{viewmodel.state}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="45dp"
                 android:text="TextView"
-                app:layout_constraintBottom_toTopOf="@+id/textView_quoteText"
-                app:layout_constraintEnd_toEndOf="@+id/imageView"
+                app:layout_constraintBottom_toTopOf="@+id/textView_quote_author"
+                app:layout_constraintEnd_toEndOf="@+id/imageView_no_connection"
                 app:layout_constraintHorizontal_bias="0.514"
-                app:layout_constraintStart_toStartOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="@+id/imageView"
+                app:layout_constraintStart_toStartOf="@+id/imageView_no_connection"
+                app:layout_constraintTop_toTopOf="@+id/imageView_no_connection"
                 app:layout_constraintVertical_bias="0.634" />
+
+        <TextView
+                android:id="@+id/textView_no_connection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Internet Connection"
+                viewNoConnectionVisibility="@{viewmodel.state}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/imageView_no_connection"
+                app:layout_constraintHorizontal_bias="0.514"
+                app:layout_constraintStart_toStartOf="@+id/imageView_no_connection"
+                app:layout_constraintTop_toBottomOf="@+id/imageView_no_connection"
+                app:layout_constraintVertical_bias="0.136" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
