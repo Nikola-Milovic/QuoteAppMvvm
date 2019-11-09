@@ -13,18 +13,19 @@ import javax.inject.Inject
 @SuppressLint("Registered")
 open class QuoteApplication : DaggerApplication(), HasAndroidInjector {
 
-
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
     override fun androidInjector(): AndroidInjector<Any> = androidInjector
 
+    lateinit var component: AndroidInjector<QuoteApplication>
+
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerApplicationComponent.factory().create(this)
+        return component
     }
 
-
     override fun onCreate() {
+        component = DaggerApplicationComponent.factory().create(this)
         super.onCreate()
         // if (BuildConfig.DEBUG) Timber.plant(DebugTree())
     }
