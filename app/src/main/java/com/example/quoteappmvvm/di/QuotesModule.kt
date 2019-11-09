@@ -11,9 +11,11 @@ import dagger.multibindings.IntoMap
 @Module
 abstract class QuotesModule {
 
-    @ContributesAndroidInjector(modules = [
-        ViewModelBuilder::class
-    ])
+    @ContributesAndroidInjector(
+        modules = [
+            ViewModelBuilder::class
+        ]
+    )
     internal abstract fun QuotesFragment(): QuotesFragment
 
     @Binds

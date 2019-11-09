@@ -6,6 +6,7 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
                 name="status"
                 type="com.example.quoteappmvvm.ui.quotes.DataBinderQuotesKt" />
@@ -32,23 +33,27 @@
                 viewConnectionVisibility="@{viewmodel.state}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewmodel.items.toString()}"
+                android:text="@{viewmodel.items[viewmodel.currentQuote].quoteAuthor.toString()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <ImageButton
                 android:id="@+id/button_reloadQuote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:src="@drawable/ic_autorenew_24px"
+                android:tint="#0040E068"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_quote_author" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_quote_author"
+                app:layout_constraintVertical_bias="0.471" />
 
         <ImageView
                 android:id="@+id/imageView_no_connection"
@@ -69,7 +74,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="45dp"
-                android:text="TextView"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="@{viewmodel.items[viewmodel.currentQuote].quoteText.toString()}"
                 app:layout_constraintBottom_toTopOf="@+id/textView_quote_author"
                 app:layout_constraintEnd_toEndOf="@+id/imageView_no_connection"
                 app:layout_constraintHorizontal_bias="0.514"
@@ -79,16 +86,41 @@
 
         <TextView
                 android:id="@+id/textView_no_connection"
+                viewNoConnectionVisibility="@{viewmodel.state}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="No Internet Connection"
-                viewNoConnectionVisibility="@{viewmodel.state}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/imageView_no_connection"
                 app:layout_constraintHorizontal_bias="0.514"
                 app:layout_constraintStart_toStartOf="@+id/imageView_no_connection"
                 app:layout_constraintTop_toBottomOf="@+id/imageView_no_connection"
                 app:layout_constraintVertical_bias="0.136" />
+
+        <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                viewLoadingVisibility="@{viewmodel.state}"
+                app:layout_constraintBottom_toTopOf="@+id/button_reloadQuote"
+                app:layout_constraintEnd_toStartOf="@+id/textView_no_connection"
+                app:layout_constraintHorizontal_bias="0.492"
+                app:layout_constraintStart_toEndOf="@+id/textView_no_connection"
+                app:layout_constraintTop_toBottomOf="@+id/imageView_no_connection"
+                app:layout_constraintVertical_bias="0.273" />
+
+        <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button_reloadQuote"
+                app:layout_constraintHorizontal_bias="0.525"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_quote_author"
+                app:layout_constraintVertical_bias="0.482"
+                app:srcCompat="@drawable/ic_favorite" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

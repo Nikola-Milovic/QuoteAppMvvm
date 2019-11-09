@@ -15,14 +15,13 @@ open class QuoteApplication : DaggerApplication(), HasAndroidInjector {
 
 
     @Inject
-    lateinit var androidInjector : DispatchingAndroidInjector<Any>
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
-    override  fun androidInjector(): AndroidInjector<Any> = androidInjector
+    override fun androidInjector(): AndroidInjector<Any> = androidInjector
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-       return DaggerApplicationComponent.factory().create(this)
+        return DaggerApplicationComponent.factory().create(this)
     }
-
 
 
     override fun onCreate() {

@@ -17,7 +17,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.example.quoteappmvvm.di.UiRunner"
     }
     buildTypes {
         release {
@@ -25,6 +25,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
 
     dataBinding {
         enabled = true
@@ -62,10 +63,10 @@ dependencies {
 
 
     // Navigation
-    implementation 'androidx.navigation:navigation-fragment:2.2.0-rc01'
-    implementation 'androidx.navigation:navigation-ui:2.2.0-rc01'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0-rc01'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-rc01'
+    implementation 'androidx.navigation:navigation-fragment:2.2.0-rc02'
+    implementation 'androidx.navigation:navigation-ui:2.2.0-rc02'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0-rc02'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-rc02'
 
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation "androidx.constraintlayout:constraintlayout:1.1.3"
@@ -123,11 +124,14 @@ dependencies {
     androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
     androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$dexMakerVersion"
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+
     androidTestImplementation "io.mockk:mockk-android:$mockk_version"
+    androidTestImplementation 'com.squareup.okhttp:mockwebserver:2.7.0'
     testImplementation "io.mockk:mockk:$mockk_version"
     testImplementation "io.mockk:mockk:$mockk_version"
 
-
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
 
 
 }

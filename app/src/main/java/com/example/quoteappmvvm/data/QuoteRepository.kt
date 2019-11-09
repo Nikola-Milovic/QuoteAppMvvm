@@ -26,5 +26,8 @@ interface QuoteRepository {
 
     suspend fun getQuotes(): Result<List<Quote>>
 
+    suspend fun insertFavoriteQuote(quote: Quote)
+
+    suspend fun getFavoriteQuotes(): Result<List<Quote>>
 
 }

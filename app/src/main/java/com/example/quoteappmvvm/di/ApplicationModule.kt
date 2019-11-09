@@ -91,5 +91,5 @@ abstract class ApplicationModuleBinds {
 
     @Singleton
     @Binds
-    abstract fun bindRepository(repo: DefaultQuoteRepository ): QuoteRepository
+    abstract fun bindRepository(repo: DefaultQuoteRepository): QuoteRepository
 }

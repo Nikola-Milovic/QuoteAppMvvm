@@ -3,9 +3,9 @@
     <item
             android:id="@+id/favoriteQuotesFragment"
             android:icon="@drawable/ic_favorite"
-            android:title="Favorites"/>
+            android:title="Favorites" />
     <item
             android:id="@+id/settingsFragment"
             android:icon="@drawable/ic_settings"
-            android:title="Settings"/>
+            android:title="Settings" />
 </menu>

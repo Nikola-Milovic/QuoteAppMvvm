@@ -1,7 +1,6 @@
 package com.example.quoteappmvvm.ui.quotes
 
 import android.view.View
-import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.example.quoteappmvvm.constants.apiState
 import com.example.quoteappmvvm.constants.apiState.*
@@ -17,7 +16,7 @@ import com.example.quoteappmvvm.constants.apiState.*
 
 @BindingAdapter("viewNoConnectionVisibility")
 fun View.setNoConnectionVisibility(apiState: apiState) {
-    this.visibility = when(apiState){
+    this.visibility = when (apiState) {
         FAILURE -> View.VISIBLE
         SUCCESS -> View.INVISIBLE
         LOADING -> View.INVISIBLE
@@ -26,9 +25,18 @@ fun View.setNoConnectionVisibility(apiState: apiState) {
 
 @BindingAdapter("viewConnectionVisibility")
 fun View.setConnectionVisibility(apiState: apiState) {
-    this.visibility = when(apiState){
+    this.visibility = when (apiState) {
         FAILURE -> View.INVISIBLE
         SUCCESS -> View.VISIBLE
         LOADING -> View.INVISIBLE
+    }
+}
+
+@BindingAdapter("viewLoadingVisibility")
+fun View.setLoadingVisibility(apiState: apiState) {
+    this.visibility = when (apiState) {
+        FAILURE -> View.INVISIBLE
+        SUCCESS -> View.INVISIBLE
+        LOADING -> View.VISIBLE
     }
 }

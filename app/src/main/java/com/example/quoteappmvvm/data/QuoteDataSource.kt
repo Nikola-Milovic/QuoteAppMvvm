@@ -16,7 +16,6 @@
 package com.example.quoteappmvvm.data
 
 import com.example.quoteappmvvm.data.model.Quote
-import com.example.quoteappmvvm.data.Result
 
 
 /**
@@ -25,5 +24,6 @@ import com.example.quoteappmvvm.data.Result
 interface QuoteDataSource {
 
     suspend fun getQuotes(): Result<List<Quote>>
+
 
 }

@@ -15,7 +15,7 @@ class NetworkModule {
 
     @Provides
     fun provideRetrofitService(): Retrofit {
-         val okHttpClient = OkHttpClient().newBuilder()
+        val okHttpClient = OkHttpClient().newBuilder()
             .build()
 
         return Retrofit.Builder()

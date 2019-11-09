@@ -17,7 +17,7 @@ data class Quote(
 )
 
 //A retrofit Network Interface for the Api
-interface QuoteApi{
+interface QuoteApi {
     @GET("quotes.json")
     //fun getQuotes(): Deferred<Response<QuoteResponse>>
     fun getQuotes(): Deferred<Response<List<Quote>>>
