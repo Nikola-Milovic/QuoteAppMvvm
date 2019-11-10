@@ -18,7 +18,6 @@ package com.example.quoteappmvvm.data.local
 import com.example.quoteappmvvm.data.QuoteDataSource
 import com.example.quoteappmvvm.data.Result
 import com.example.quoteappmvvm.data.model.Quote
-import kotlinx.coroutines.Job
 
 
 /**
@@ -28,7 +27,6 @@ interface LocalDataSource : QuoteDataSource {
 
     override suspend fun getQuotes(): Result<List<Quote>>
 
-    suspend fun insertQuote(quote: Quote): Job
-
+    suspend fun insertQuote(quote: Quote)
 
 }

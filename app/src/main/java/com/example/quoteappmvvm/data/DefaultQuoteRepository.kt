@@ -17,7 +17,7 @@ class DefaultQuoteRepository @Inject constructor(
 
 
     override suspend fun insertQuote(quote: Quote) {
-       TODO() //master
+       //
     }
 
     override suspend fun getLocalQuotes(): Result<List<Quote>> {
