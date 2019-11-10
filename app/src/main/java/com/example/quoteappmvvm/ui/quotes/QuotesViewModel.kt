@@ -80,7 +80,7 @@ class QuotesViewModel @Inject constructor(
     }
 
     fun getRandomNumber(size: Int): Int {
-        return (0..size).random()
+        return (0..size-1).random()
     }
 
 }

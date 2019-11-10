@@ -42,6 +42,7 @@ class QuoteTest {
         onView(withId(R.id.textView_quote_author)).check(matches(withText("Expected Author")))
     }
 
+
     @Test
     fun willDisplayErrorWhenQuoteCannotBeReturned() {
         TestApplicationModule.mockQuoteDataSource.mockFailure(IOException("Fake network error"))

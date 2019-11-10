@@ -13,21 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.example.quoteappmvvm.data.local
 
-package com.example.quoteappmvvm.data
-
-
+import com.example.quoteappmvvm.data.QuoteDataSource
+import com.example.quoteappmvvm.data.Result
 import com.example.quoteappmvvm.data.model.Quote
+import kotlinx.coroutines.Job
+
 
 /**
- * Interface to the data layer.
+ * Main entry point for accessing tasks data.
  */
-interface QuoteRepository {
+interface LocalDataSource : QuoteDataSource {
 
-    suspend fun getQuotes(): Result<List<Quote>>
+    override suspend fun getQuotes(): Result<List<Quote>>
 
-    suspend fun insertQuote(quote: Quote)
+    suspend fun insertQuote(quote: Quote): Job
 
-    suspend fun getLocalQuotes(): Result<List<Quote>>
 
 }

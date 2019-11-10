@@ -12,11 +12,12 @@ import javax.inject.Inject
 class QuoteRemoteDataSource @Inject constructor(
     private val apiService: QuoteApi
 ) : QuoteDataSource {
-    
+
     override suspend fun getQuotes(): Result<List<Quote>> {
         val response = apiService.getQuotes().await()
         try {
             if (response.isSuccessful)
+                if(!response.body().isNullOrEmpty())
                 return Result.Success(response.body()) as Result<List<Quote>>
             return Result.Error(IOException("Error occurred during fetching quotes!"))
         } catch (e: Exception) {

@@ -16,11 +16,11 @@ class DefaultQuoteRepository @Inject constructor(
 ) : BaseRepository(), QuoteRepository {
 
 
-    override suspend fun insertFavoriteQuote(quote: Quote) {
-        //
+    override suspend fun insertQuote(quote: Quote) {
+       TODO() //master
     }
 
-    override suspend fun getFavoriteQuotes(): Result<List<Quote>> {
+    override suspend fun getLocalQuotes(): Result<List<Quote>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

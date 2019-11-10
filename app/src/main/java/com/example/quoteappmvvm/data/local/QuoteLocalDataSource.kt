@@ -1,19 +1,16 @@
 package com.example.quoteappmvvm.data.local
 
-import com.example.quoteappmvvm.data.QuoteDataSource
 import com.example.quoteappmvvm.data.Result
 import com.example.quoteappmvvm.data.Result.Success
 import com.example.quoteappmvvm.data.model.Quote
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.io.IOException
 
 
 class QuoteLocalDataSource constructor( // for fetching locally stored quotes, might save favorite quootes or save the json quotes
     private val quotesDao: QuotesDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
-) : QuoteDataSource {
+) : LocalDataSource {
 
     override suspend fun getQuotes(): Result<List<Quote>> = withContext(ioDispatcher) {
         return@withContext try {
@@ -23,11 +20,13 @@ class QuoteLocalDataSource constructor( // for fetching locally stored quotes, m
         }
     }
 
-    suspend fun insertQuote(quote: Quote) = withContext(ioDispatcher) {
-        try {
-            quotesDao.insertFavoriteQuote(quote)
-        } catch (e: Exception) {
-            Result.Error(IOException("Unable to insert quote!"))
+    override suspend fun insertQuote(quote: Quote) = runBlocking {
+        launch(ioDispatcher) {
+            try {
+                quotesDao.insertQuote(quote)
+            } catch (e: Exception) {
+                Result.Error(IOException("Unable to insert quote!"))
+            }
         }
     }
 
