@@ -4,6 +4,7 @@ import com.example.quoteappmvvm.data.model.Quote
 import com.example.quoteappmvvm.di.ApplicationModule
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.IOException
 import javax.inject.Inject
 
@@ -14,7 +15,7 @@ class DefaultQuoteRepository @Inject constructor(
 ) :  QuoteRepository {
 
 
-    override suspend fun fetchQuotes(){
+    override suspend fun fetchQuotes() = withContext(ioDispatcher){
         quoteLocalDataSource.fetchRemoteQuotesAndInsertThemIntoDataBase()
     }
 

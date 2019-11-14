@@ -45,7 +45,7 @@ class QuotesViewModel @Inject constructor(
             try{
                 quoteRepository.fetchQuotes()
             } catch(e: Exception){
-                Log.d("TAG", e.message.toString())
+                Log.d("TAG", "Message " +  e.message)
                 _state.value = apiState.FAILURE // SET THE INITIAL STATE AS FAILED
             }
         }

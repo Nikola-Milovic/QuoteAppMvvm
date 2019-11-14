@@ -1,6 +1,7 @@
 package com.example.quoteappmvvm.data.network
 
 
+import android.util.Log
 import com.example.quoteappmvvm.data.Result
 import com.example.quoteappmvvm.data.model.Quote
 import com.example.quoteappmvvm.data.model.QuoteApi
@@ -11,25 +12,30 @@ class QuoteRemoteDataSource @Inject constructor(
     private val apiService: QuoteApi
 ) {
 
+
     suspend fun getQuotes(): Result<List<Quote>> {
-        return apiService.getQuotes()
+        return try {
+            val quotes = apiService.getQuotes()
+            Result.Success(quotes)
+        } catch (e: Exception) {
+            Log.d("TAG", "FetchRemote")
+            Result.Error(Exception("Cannot Fetch"))
+        }
+
     }
-
-
 }
 
-//suspend fun getQuotes(): Result<List<Quote>> {
+
+
 //    return apiService.getQuotes().body()
 //}
-/*  suspend fun getQuotes(): Result<List<Quote>> {
-        val response = apiService.getQuotes().await()
-        try {
+
+/* try {
             if (response.isSuccessful)
                 if(!response.body().isNullOrEmpty())
-                return Result.Success(response.body()) as Result<List<Quote>>
+                return Result.Success(response.body()) as Result1<List<Quote>>
             return Result.Error(IOException("Error occurred during fetching quotes!"))
         } catch (e: Exception) {
             Result.Error(IOException("Unable to fetch quotes!"))
         }
-        return Result.Error(IOException("Unable to fetch quotes!"))
-    }*/
+        return Result.Error(IOException("Unable to fetch quotes!"))*/

@@ -1,5 +1,6 @@
 package com.example.quoteappmvvm.data.local
 
+import android.util.Log
 import com.example.quoteappmvvm.data.QuoteDataSource
 import com.example.quoteappmvvm.data.Result
 import com.example.quoteappmvvm.data.Result.Success
@@ -21,16 +22,17 @@ class QuoteLocalDataSource @Inject constructor( // for fetching locally stored q
 
 
     override suspend fun fetchRemoteQuotesAndInsertThemIntoDataBase(){
-       // try {
+        try {
             val quotes = quoteRemoteDataSource.getQuotes()
-//           when(quotes){
-//               is Success -> quotesDao.insertQuotes(quotes.data)
-//               is Result.Error -> throw IllegalStateException()
-//           }
-
-//        } catch (e : Exception){
-//            throw IllegalStateException()
-//        }
+            when(quotes){
+               is Success -> Log.d("TAG", quotes.toString())//quotesDao.insertQuotes(quotes.data)
+               is Result.Error -> Log.d("TAG", "Quotes not fetched")//throw IllegalStateException()
+                is Result.Loading -> Log.d("TAG", "Quotes loading")
+           }
+        } catch (e : Exception){
+            Log.d("TAG", "FetchRemote")
+            throw IllegalStateException()
+        }
     }
 
     override suspend fun getQuotes(): Result<List<Quote>> = withContext(ioDispatcher) {

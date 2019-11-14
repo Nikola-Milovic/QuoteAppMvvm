@@ -3,7 +3,6 @@ package com.example.quoteappmvvm.data.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.quoteappmvvm.data.Result
 import retrofit2.http.GET
 import java.util.*
 
@@ -18,5 +17,5 @@ data class Quote(
 //A retrofit Network Interface for the Api
 interface QuoteApi {
     @GET("quotes.json")
-    suspend fun getQuotes(): Result<List<Quote>>
+    suspend fun getQuotes(): List<Quote>
 }
