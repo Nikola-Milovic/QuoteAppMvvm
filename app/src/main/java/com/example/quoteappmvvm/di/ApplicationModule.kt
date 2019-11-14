@@ -38,9 +38,7 @@ import kotlin.annotation.AnnotationRetention.RUNTIME
 @Module(includes = [ApplicationModuleBinds::class])
 object ApplicationModule {
 
-    @Qualifier
-    @Retention(RUNTIME)
-    annotation class QuoteRemoteDataSource
+
 
     @Qualifier
     @Retention(RUNTIME)
@@ -48,11 +46,10 @@ object ApplicationModule {
 
     @JvmStatic
     @Singleton
-    @QuoteRemoteDataSource
     @Provides
     fun provideQuoteRemoteDataSource(
         jsonNetworkService: JsonNetworkService
-    ): QuoteDataSource {
+    ): QuoteRemoteDataSource {
         return QuoteRemoteDataSource(jsonNetworkService.apiService)
     }
 
@@ -61,11 +58,12 @@ object ApplicationModule {
     @QuoteLocalDataSource
     @Provides
     fun provideQuoteLocalDataSource(
+        quoteRemoteDataSource: QuoteRemoteDataSource,
         database: LocalQuoteDataBase,
         ioDispatcher: CoroutineDispatcher
     ): QuoteDataSource {
         return QuoteLocalDataSource(
-            database.quotesDao(), ioDispatcher
+            quoteRemoteDataSource ,database.quotesDao(), ioDispatcher
         )
     }
 

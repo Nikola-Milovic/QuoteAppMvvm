@@ -35,8 +35,22 @@ class QuotesViewModel @Inject constructor(
 
 
     init {
+        fetchQuotes()
         loadQuotes()
     }
+
+
+    fun fetchQuotes(){
+        viewModelScope.launch {
+            try{
+                quoteRepository.fetchQuotes()
+            } catch(e: Exception){
+                Log.d("TAG", e.message.toString())
+                _state.value = apiState.FAILURE // SET THE INITIAL STATE AS FAILED
+            }
+        }
+    }
+
 
     fun loadQuotes() {
         viewModelScope.launch {

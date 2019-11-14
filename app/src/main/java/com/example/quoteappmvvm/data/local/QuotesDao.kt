@@ -13,6 +13,6 @@ interface QuotesDao {
     suspend fun getQuotes(): List<Quote>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertQuote(quote: Quote)
+    suspend fun insertQuotes(quotes: List<Quote>)
 
 }

@@ -1,9 +1,7 @@
 package com.example.quoteappmvvm.di
 
-import com.example.quoteappmvvm.data.model.QuoteApi
-import com.example.quoteappmvvm.data.network.JsonNetworkService
+import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.squareup.moshi.Json
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -21,7 +19,7 @@ class NetworkModule {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl("https://raw.githubusercontent.com/JamesFT/Database-Quotes-JSON/master/")
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
     }

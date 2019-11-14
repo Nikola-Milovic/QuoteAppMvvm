@@ -26,8 +26,6 @@ interface QuoteRepository {
 
     suspend fun getQuotes(): Result<List<Quote>>
 
-    suspend fun insertQuote(quote: Quote)
-
-    suspend fun getLocalQuotes(): Result<List<Quote>>
+    suspend fun fetchQuotes()
 
 }
