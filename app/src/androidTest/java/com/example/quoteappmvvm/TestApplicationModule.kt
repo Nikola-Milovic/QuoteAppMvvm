@@ -10,6 +10,7 @@ import com.example.quoteappmvvm.data.local.LocalQuoteDataBase
 import com.example.quoteappmvvm.data.local.QuoteLocalDataSource
 import com.example.quoteappmvvm.data.model.Quote
 import com.example.quoteappmvvm.data.network.JsonNetworkService
+import com.example.quoteappmvvm.data.network.QuoteRemoteDataSource
 import com.example.quoteappmvvm.di.ApplicationModule
 import dagger.Binds
 import dagger.Module
@@ -19,6 +20,10 @@ import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
 class MockQuoteDataSource : QuoteDataSource {
+    override suspend fun fetchRemoteQuotesAndInsertThemIntoDataBase() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     private lateinit var result: Result<List<Quote>>
     override suspend fun getQuotes(): Result<List<Quote>> {
         return result
@@ -39,7 +44,6 @@ object TestApplicationModule {
 
     @JvmStatic
     @Singleton
-    @ApplicationModule.QuoteRemoteDataSource
     @Provides
     fun provideQuoteRemoteDataSource(
         jsonNetworkService: JsonNetworkService
@@ -47,16 +51,19 @@ object TestApplicationModule {
         return mockQuoteDataSource
     }
 
+
+
     @JvmStatic
     @Singleton
     @ApplicationModule.QuoteLocalDataSource
     @Provides
     fun provideQuoteLocalDataSource(
+        quoteRemoteDataSource: QuoteRemoteDataSource,
         database: LocalQuoteDataBase,
         ioDispatcher: CoroutineDispatcher
     ): QuoteDataSource {
         return QuoteLocalDataSource(
-            database.quotesDao(), ioDispatcher
+            quoteRemoteDataSource ,database.quotesDao(), ioDispatcher
         )
     }
 

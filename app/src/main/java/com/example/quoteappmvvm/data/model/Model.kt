@@ -15,7 +15,8 @@ data class Quote(
 )
 
 //A retrofit Network Interface for the Api
-interface QuoteApi {
+
+interface QuoteApi{
     @GET("quotes.json")
     suspend fun getQuotes(): List<Quote>
 }

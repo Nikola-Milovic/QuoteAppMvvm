@@ -44,6 +44,8 @@ object ApplicationModule {
     @Retention(RUNTIME)
     annotation class QuoteLocalDataSource
 
+
+
     @JvmStatic
     @Singleton
     @Provides
