@@ -40,20 +40,20 @@ class QuotesViewModel @Inject constructor(
     }
 
 
-    fun fetchQuotes() {
+    private fun fetchQuotes() {
         viewModelScope.launch {
             try {
                 _state.postValue(apiState.LOADING)
                 quoteRepository.fetchQuotes()
             } catch (e: Exception) {
                 Log.d("TAG", "Message " + e.message)
-                _state.postValue(apiState.FAILURE) // SET THE INITIAL STATE AS FAILED
+               _state.postValue(apiState.FAILURE) // SET THE INITIAL STATE AS FAILED
             }
         }
     }
 
 
-    fun loadQuotes() {
+    private fun loadQuotes() {
         viewModelScope.launch {
             _state.postValue(apiState.LOADING) // SET THE INITIAL STATE AS LOADING
             try {
@@ -63,14 +63,17 @@ class QuotesViewModel @Inject constructor(
                     _state.postValue(apiState.SUCCESS)  // SET THE INITIAL STATE AS SUCCESS
                     val quotes = quoteResult.data
                     _items.postValue(quotes)
+                    Log.d("TAG", "Succes")
 
                     _currentQuote.value = getRandomNumber(items.value!!.size)
 
                 } else {
                     _state.postValue(apiState.FAILURE) // SET THE INITIAL STATE AS FAILED
                     _items.postValue(null)
+                    Log.d("TAG", "Failure")
                 }
             } catch (e: Exception) {
+                Log.d("TAG", e.message.toString())
                 _state.postValue(apiState.FAILURE) // SET THE INITIAL STATE AS FAILED
                 _items.postValue(null)
             }
@@ -81,11 +84,11 @@ class QuotesViewModel @Inject constructor(
 
         Log.d("TAG", state.value.toString())
 
-        if (_state.value == apiState.SUCCESS) {
-            _state.value = apiState.FAILURE
-        } else {
-            _state.value = apiState.SUCCESS
-        }
+//        if (_state.value == apiState.SUCCESS) {
+//            _state.value = apiState.FAILURE
+//        } else {
+//            _state.value = apiState.SUCCESS
+//        }
     }
 
     fun selectNewQuote() {
@@ -94,8 +97,8 @@ class QuotesViewModel @Inject constructor(
         }
     }
 
-    fun getRandomNumber(size: Int): Int {
-        return (0 until size - 1).random()
+    private fun getRandomNumber(size: Int): Int {
+        return (0 until size+1).random()
     }
 
 }

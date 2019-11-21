@@ -29,7 +29,6 @@ class QuoteLocalDataSource @Inject constructor( // for fetching locally stored q
                 is Result.Loading -> Log.d("TAG", "Quotes loading")
             }
         } catch (e: Exception) {
-            Log.d("TAG", "FetchRemote")
             throw IllegalStateException()
         }
     }

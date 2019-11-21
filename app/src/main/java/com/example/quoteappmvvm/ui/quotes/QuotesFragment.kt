@@ -31,7 +31,7 @@ class QuotesFragment : DaggerFragment() {
         viewDataBinding.setLifecycleOwner(this)
 
         viewDataBinding.buttonReloadQuote.setOnClickListener {
-            // viewModel.setStateTest()
+            //viewModel.setStateTest()
             viewModel.selectNewQuote()
         }
 
