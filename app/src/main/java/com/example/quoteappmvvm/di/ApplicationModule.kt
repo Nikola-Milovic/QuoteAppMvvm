@@ -39,11 +39,9 @@ import kotlin.annotation.AnnotationRetention.RUNTIME
 object ApplicationModule {
 
 
-
     @Qualifier
     @Retention(RUNTIME)
     annotation class QuoteLocalDataSource
-
 
 
     @JvmStatic
@@ -65,7 +63,7 @@ object ApplicationModule {
         ioDispatcher: CoroutineDispatcher
     ): QuoteDataSource {
         return QuoteLocalDataSource(
-            quoteRemoteDataSource ,database.quotesDao(), ioDispatcher
+            quoteRemoteDataSource, database.quotesDao(), ioDispatcher
         )
     }
 

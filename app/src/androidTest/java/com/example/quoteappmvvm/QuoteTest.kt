@@ -25,8 +25,8 @@ class QuoteTest {
     @Throws(Exception::class)
     fun setUp() {
         val component = DaggerTestApplicationComponent.factory().create(getApp())
-
         component.inject(getApp())
+
     }
 
     private fun getApp() =
@@ -34,7 +34,14 @@ class QuoteTest {
 
     @Test
     fun willDisplayQuote() {
-        TestApplicationModule.mockQuoteDataSource.mockSuccess(listOf(Quote("Expected Author", "Expected Quote")))
+        TestApplicationModule.mockQuoteDataSource.mockSuccess(
+            listOf(
+                Quote(
+                    "Expected Author",
+                    "Expected Quote"
+                )
+            )
+        )
 
         rule.launchActivity(null)
 

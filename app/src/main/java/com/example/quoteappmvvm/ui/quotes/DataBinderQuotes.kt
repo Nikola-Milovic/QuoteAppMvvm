@@ -15,28 +15,31 @@ import com.example.quoteappmvvm.constants.apiState.*
 //}
 
 @BindingAdapter("viewNoConnectionVisibility")
-fun View.setNoConnectionVisibility(apiState: apiState) {
+fun View.setNoConnectionVisibility(apiState: apiState?) {
     this.visibility = when (apiState) {
         FAILURE -> View.VISIBLE
         SUCCESS -> View.INVISIBLE
         LOADING -> View.INVISIBLE
+        else -> View.INVISIBLE
     }
 }
 
 @BindingAdapter("viewConnectionVisibility")
-fun View.setConnectionVisibility(apiState: apiState) {
+fun View.setConnectionVisibility(apiState: apiState?) {
     this.visibility = when (apiState) {
         FAILURE -> View.INVISIBLE
         SUCCESS -> View.VISIBLE
         LOADING -> View.INVISIBLE
+        else -> View.INVISIBLE
     }
 }
 
 @BindingAdapter("viewLoadingVisibility")
-fun View.setLoadingVisibility(apiState: apiState) {
+fun View.setLoadingVisibility(apiState: apiState?) {
     this.visibility = when (apiState) {
         FAILURE -> View.INVISIBLE
         SUCCESS -> View.INVISIBLE
         LOADING -> View.VISIBLE
+        else -> View.VISIBLE
     }
 }

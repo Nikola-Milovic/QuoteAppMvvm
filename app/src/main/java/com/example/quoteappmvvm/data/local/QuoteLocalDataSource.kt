@@ -21,15 +21,14 @@ class QuoteLocalDataSource @Inject constructor( // for fetching locally stored q
 ) : QuoteDataSource {
 
 
-    override suspend fun fetchRemoteQuotesAndInsertThemIntoDataBase(){
+    override suspend fun fetchRemoteQuotesAndInsertThemIntoDataBase() {
         try {
-            val quotes = quoteRemoteDataSource.getQuotes()
-            when(quotes){
-               is Success -> Log.d("TAG", quotes.toString())//quotesDao.insertQuotes(quotes.data)
-               is Result.Error -> Log.d("TAG", "Quotes not fetched")//throw IllegalStateException()
+            when (val quotes = quoteRemoteDataSource.getQuotes()) {
+                is Success -> quotesDao.insertQuotes(quotes.data)
+                is Result.Error -> throw IllegalStateException()
                 is Result.Loading -> Log.d("TAG", "Quotes loading")
-           }
-        } catch (e : Exception){
+            }
+        } catch (e: Exception) {
             Log.d("TAG", "FetchRemote")
             throw IllegalStateException()
         }

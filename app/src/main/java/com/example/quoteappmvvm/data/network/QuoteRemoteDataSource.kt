@@ -1,7 +1,6 @@
 package com.example.quoteappmvvm.data.network
 
 
-import android.util.Log
 import com.example.quoteappmvvm.data.Result
 import com.example.quoteappmvvm.data.model.Quote
 import com.example.quoteappmvvm.data.model.QuoteApi
@@ -18,13 +17,11 @@ class QuoteRemoteDataSource @Inject constructor(
             val quotes = apiService.getQuotes()
             Result.Success(quotes)
         } catch (e: Exception) {
-            Log.d("TAG", "FetchRemote")
             Result.Error(Exception("Cannot Fetch"))
         }
 
     }
 }
-
 
 
 //    return apiService.getQuotes().body()

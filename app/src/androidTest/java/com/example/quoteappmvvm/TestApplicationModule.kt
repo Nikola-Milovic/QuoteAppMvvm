@@ -9,15 +9,18 @@ import com.example.quoteappmvvm.data.Result
 import com.example.quoteappmvvm.data.local.LocalQuoteDataBase
 import com.example.quoteappmvvm.data.local.QuoteLocalDataSource
 import com.example.quoteappmvvm.data.model.Quote
+import com.example.quoteappmvvm.data.model.QuoteApi
 import com.example.quoteappmvvm.data.network.JsonNetworkService
 import com.example.quoteappmvvm.data.network.QuoteRemoteDataSource
 import com.example.quoteappmvvm.di.ApplicationModule
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import io.mockk.mockk
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
+
 
 class MockQuoteDataSource : QuoteDataSource {
     override suspend fun fetchRemoteQuotesAndInsertThemIntoDataBase() {
@@ -40,7 +43,21 @@ class MockQuoteDataSource : QuoteDataSource {
 
 @Module(includes = [TestApplicationModuleBinds::class])
 object TestApplicationModule {
+
     val mockQuoteDataSource = MockQuoteDataSource()
+
+    @JvmStatic
+    @Provides
+    fun provideQuoteApi(): QuoteApi {
+        return mockk()
+    }
+
+    @JvmStatic
+    @Singleton
+    @Provides
+    fun provideMockDataSource(): MockQuoteDataSource {
+        return mockQuoteDataSource
+    }
 
     @JvmStatic
     @Singleton
@@ -50,7 +67,6 @@ object TestApplicationModule {
     ): QuoteDataSource {
         return mockQuoteDataSource
     }
-
 
 
     @JvmStatic
@@ -63,7 +79,7 @@ object TestApplicationModule {
         ioDispatcher: CoroutineDispatcher
     ): QuoteDataSource {
         return QuoteLocalDataSource(
-            quoteRemoteDataSource ,database.quotesDao(), ioDispatcher
+            quoteRemoteDataSource, database.quotesDao(), ioDispatcher
         )
     }
 

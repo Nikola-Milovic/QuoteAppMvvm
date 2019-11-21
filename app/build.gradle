@@ -18,6 +18,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "com.example.quoteappmvvm.QuoteTestRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -117,6 +118,7 @@ dependencies {
     // Mockito
     testImplementation "org.mockito:mockito-core:2.19.0"
     testImplementation "io.mockk:mockk:$mockk_version"
+    androidTestImplementation "io.mockk:mockk-android:$mockk_version"
 
     // Dependencies for Android unit tests
     androidTestImplementation "junit:junit:$junitVersion"

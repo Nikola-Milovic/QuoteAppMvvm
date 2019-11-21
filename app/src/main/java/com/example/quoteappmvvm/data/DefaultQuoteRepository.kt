@@ -12,10 +12,10 @@ import javax.inject.Inject
 class DefaultQuoteRepository @Inject constructor(
     @ApplicationModule.QuoteLocalDataSource private val quoteLocalDataSource: QuoteDataSource,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
-) :  QuoteRepository {
+) : QuoteRepository {
 
 
-    override suspend fun fetchQuotes() = withContext(ioDispatcher){
+    override suspend fun fetchQuotes() = withContext(ioDispatcher) {
         quoteLocalDataSource.fetchRemoteQuotesAndInsertThemIntoDataBase()
     }
 
