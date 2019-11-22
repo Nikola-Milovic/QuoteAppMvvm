@@ -15,15 +15,19 @@ class DefaultQuoteRepository @Inject constructor(
 ) : QuoteRepository {
 
 
-    override suspend fun fetchQuotes() = withContext(ioDispatcher) {
+    override suspend fun fetchRemoteQuotes() = withContext(ioDispatcher) {
         quoteLocalDataSource.fetchRemoteQuotesAndInsertThemIntoDataBase()
     }
 
-    override suspend fun getQuotes(): Result<List<Quote>> { // Fetch quotes from local db
+    override suspend fun getQuotesFromLocalDataBase(): Result<List<Quote>> { // Fetch quotes from local db
         return when (val quotes = quoteLocalDataSource.getQuotes()) {
             is Error -> Result.Error(IOException("Error occurred during fetching quotes!"))
             is Result.Success -> {
-                quotes
+                if (quotes.data.isNullOrEmpty()) {
+                    Result.Error(IOException("Error occurred during fetching quotes!"))
+                } else {
+                    quotes
+                }
             }
             else -> throw IllegalStateException()
         }

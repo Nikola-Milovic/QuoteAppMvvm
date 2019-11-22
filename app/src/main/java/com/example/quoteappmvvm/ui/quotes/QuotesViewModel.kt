@@ -9,6 +9,7 @@ import com.example.quoteappmvvm.constants.apiState
 import com.example.quoteappmvvm.data.QuoteRepository
 import com.example.quoteappmvvm.data.Result
 import com.example.quoteappmvvm.data.model.Quote
+import com.example.quoteappmvvm.data.succeeded
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,16 +36,36 @@ class QuotesViewModel @Inject constructor(
 
 
     init {
-        fetchQuotes()
-        loadQuotes()
+        startTheApp()
+    }
+
+    private fun startTheApp() {
+        viewModelScope.launch {
+            _state.postValue(apiState.LOADING)
+            try {
+                val result = quoteRepository.getQuotesFromLocalDataBase()
+                if (result.succeeded) {
+                    Log.d("TAG", "Already has data")
+                    loadQuotes(result)
+                } else {
+                    Log.d("TAG", "Doesnt have data")
+                    fetchQuotes()
+                }
+            } catch (e: Exception) {
+                Log.d("TAG", "Message " + e.message)
+                _state.postValue(apiState.FAILURE) // SET THE INITIAL STATE AS FAILED
+            }
+        }
+
     }
 
 
     private fun fetchQuotes() {
         viewModelScope.launch {
             try {
-                _state.postValue(apiState.LOADING)
-                quoteRepository.fetchQuotes()
+                quoteRepository.fetchRemoteQuotes().let {
+                    loadQuotes(quoteRepository.getQuotesFromLocalDataBase())
+                }
             } catch (e: Exception) {
                 Log.d("TAG", "Message " + e.message)
                _state.postValue(apiState.FAILURE) // SET THE INITIAL STATE AS FAILED
@@ -53,27 +74,21 @@ class QuotesViewModel @Inject constructor(
     }
 
 
-    private fun loadQuotes() {
+    private fun loadQuotes(quoteResult: Result<List<Quote>>) {
         viewModelScope.launch {
-            _state.postValue(apiState.LOADING) // SET THE INITIAL STATE AS LOADING
             try {
-                val quoteResult = quoteRepository.getQuotes()
-
+//                val quoteResult = quoteRepository.getQuotesFromLocalDataBase()
                 if (quoteResult is Result.Success) {
                     _state.postValue(apiState.SUCCESS)  // SET THE INITIAL STATE AS SUCCESS
                     val quotes = quoteResult.data
                     _items.postValue(quotes)
-                    Log.d("TAG", "Succes")
-
                     _currentQuote.value = getRandomNumber(items.value!!.size)
 
                 } else {
                     _state.postValue(apiState.FAILURE) // SET THE INITIAL STATE AS FAILED
                     _items.postValue(null)
-                    Log.d("TAG", "Failure")
                 }
             } catch (e: Exception) {
-                Log.d("TAG", e.message.toString())
                 _state.postValue(apiState.FAILURE) // SET THE INITIAL STATE AS FAILED
                 _items.postValue(null)
             }
