@@ -9,8 +9,9 @@ import java.util.*
 
 @Entity(tableName = "quotes")
 data class Quote(
-    @ColumnInfo(name = "quote_author") var quoteAuthor: String = "",
-    @ColumnInfo(name = "quote_text") var quoteText: String = "",
+    @ColumnInfo(name = "quote_author") var quoteAuthor: String,
+    @ColumnInfo(name = "quote_text") var quoteText: String,
+    @ColumnInfo(name = "favorite") var isFavorite: Boolean = false,
     @PrimaryKey @ColumnInfo(name = "entryid") var id: String = UUID.randomUUID().toString()
 )
 

@@ -23,6 +23,14 @@ import javax.inject.Singleton
 
 
 class MockQuoteDataSource : QuoteDataSource {
+    override suspend fun getFavoriteQuotes(): Result<List<Quote>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun favoriteAQuote(quoteID: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override suspend fun fetchRemoteQuotesAndInsertThemIntoDataBase() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

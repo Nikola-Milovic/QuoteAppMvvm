@@ -17,23 +17,17 @@ class QuotesViewModel @Inject constructor(
     private val quoteRepository: QuoteRepository
 ) : ViewModel() {
 
-    private val _items = MutableLiveData<List<Quote>>().apply { value = emptyList() }
-    val items: LiveData<List<Quote>> = _items
-
+    private lateinit var quotesList: List<Quote>
     //Used for displaying the current quote
-    private var _currentItem = MutableLiveData<Quote>()
-    val currentItem: LiveData<Quote>
-        get() = _currentItem
+    private var _currentQuote = MutableLiveData<Quote>()
+    val currentQuote: LiveData<Quote>
+        get() = _currentQuote
 
+    lateinit var quote: Quote
 
     private var _state = MutableLiveData<apiState>()
     val state: LiveData<apiState>
         get() = _state
-
-    private var _currentQuote = MutableLiveData<Int>()
-    val currentQuote: LiveData<Int>
-        get() = _currentQuote
-
 
     init {
         startTheApp()
@@ -52,11 +46,27 @@ class QuotesViewModel @Inject constructor(
                     fetchQuotes()
                 }
             } catch (e: Exception) {
-                Log.d("TAG", "Message " + e.message)
+                Log.d("TAG", "Message is" + e.message)
                 _state.postValue(apiState.FAILURE) // SET THE INITIAL STATE AS FAILED
             }
         }
 
+    }
+
+
+    fun favoriteAQuote() {
+        viewModelScope.launch {
+            if (state.value == apiState.SUCCESS && ::quote.isInitialized) {
+                quoteRepository.favoriteAQuote(quote.id)
+            }
+        }
+    }
+
+    fun getFavorites() {
+        viewModelScope.launch {
+            val quotes = quoteRepository.getFavoriteQuotes()
+            Log.d("TAG", quotes.toString())
+        }
     }
 
 
@@ -77,20 +87,19 @@ class QuotesViewModel @Inject constructor(
     private fun loadQuotes(quoteResult: Result<List<Quote>>) {
         viewModelScope.launch {
             try {
-//                val quoteResult = quoteRepository.getQuotesFromLocalDataBase()
+
                 if (quoteResult is Result.Success) {
                     _state.postValue(apiState.SUCCESS)  // SET THE INITIAL STATE AS SUCCESS
-                    val quotes = quoteResult.data
-                    _items.postValue(quotes)
-                    _currentQuote.value = getRandomNumber(items.value!!.size)
+                    quotesList = quoteResult.data
+                    _currentQuote.postValue(quotesList[getRandomNumber(quotesList.size)])
 
                 } else {
                     _state.postValue(apiState.FAILURE) // SET THE INITIAL STATE AS FAILED
-                    _items.postValue(null)
+                    _currentQuote.postValue(null)
                 }
             } catch (e: Exception) {
                 _state.postValue(apiState.FAILURE) // SET THE INITIAL STATE AS FAILED
-                _items.postValue(null)
+                _currentQuote.postValue(null)
             }
         }
     }
@@ -108,7 +117,9 @@ class QuotesViewModel @Inject constructor(
 
     fun selectNewQuote() {
         if (_state.value == apiState.SUCCESS) {
-            _currentQuote.value = getRandomNumber(items.value!!.size)
+            val pos = getRandomNumber(quotesList.size)
+            quote = quotesList[pos]
+            _currentQuote.value = quotesList[pos]
         }
     }
 

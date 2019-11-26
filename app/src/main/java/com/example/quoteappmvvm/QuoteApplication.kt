@@ -7,6 +7,7 @@ import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -27,6 +28,6 @@ open class QuoteApplication : DaggerApplication(), HasAndroidInjector {
     override fun onCreate() {
         component = DaggerApplicationComponent.factory().create(this)
         super.onCreate()
-        // if (BuildConfig.DEBUG) Timber.plant(DebugTree())
+        if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
     }
 }

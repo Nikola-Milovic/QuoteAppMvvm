@@ -1,33 +1,53 @@
 package com.example.quoteappmvvm.ui.favorite
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.quoteappmvvm.data.model.Quote
+import com.example.quoteappmvvm.databinding.FavoriteQuotesFragmentBinding
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-import com.example.quoteappmvvm.R
+class FavoriteQuotesFragment : DaggerFragment() {
 
-class FavoriteQuotesFragment : Fragment() {
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    companion object {
-        fun newInstance() = FavoriteQuotesFragment()
-    }
+    private val viewModel by viewModels<FavoriteQuotesViewModel> { viewModelFactory }
 
-    private lateinit var viewModel: FavoriteQuotesViewModel
+    private lateinit var viewDataBinding: FavoriteQuotesFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.favorite_quotes_fragment, container, false)
+        viewDataBinding = FavoriteQuotesFragmentBinding.inflate(inflater, container, false).apply {
+            viewmodel = viewModel
+        }
+        viewDataBinding.setLifecycleOwner(this)
+
+
+        val mNicolasCageMovies = listOf(
+            Quote("Raising Arizona", "bla"),
+            Quote("Vampire's Kiss", "bla"),
+            Quote("Con Air", "bla"),
+            Quote("Gone in 60 Seconds", "bla")
+        )
+
+        viewDataBinding.quotesList.apply {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = FavoriteQuotesAdapter(mNicolasCageMovies)
+        }
+        setHasOptionsMenu(true)
+        return viewDataBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(FavoriteQuotesViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
 }

@@ -28,4 +28,8 @@ interface QuoteRepository {
 
     suspend fun fetchRemoteQuotes()
 
+    suspend fun getFavoriteQuotes(): Result<List<Quote>>
+
+    suspend fun favoriteAQuote(quoteID: String)
+
 }

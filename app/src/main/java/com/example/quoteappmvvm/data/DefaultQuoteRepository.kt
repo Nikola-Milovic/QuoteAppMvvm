@@ -15,6 +15,25 @@ class DefaultQuoteRepository @Inject constructor(
 ) : QuoteRepository {
 
 
+    override suspend fun getFavoriteQuotes(): Result<List<Quote>> {
+        return when (val favoriteQuotes = quoteLocalDataSource.getFavoriteQuotes()) {
+            is Error -> Result.Error(IOException("Error occurred during fetching favorite quotes!"))
+            is Result.Success -> {
+                if (favoriteQuotes.data.isNullOrEmpty()) {
+                    Result.Error(IOException("Error occurred during fetching favorite quotes!"))
+                } else {
+                    favoriteQuotes
+                }
+            }
+            else -> throw IllegalStateException()
+        }
+    }
+
+    override suspend fun favoriteAQuote(quoteID: String) {
+        quoteLocalDataSource.favoriteAQuote(quoteID)
+    }
+
+
     override suspend fun fetchRemoteQuotes() = withContext(ioDispatcher) {
         quoteLocalDataSource.fetchRemoteQuotesAndInsertThemIntoDataBase()
     }

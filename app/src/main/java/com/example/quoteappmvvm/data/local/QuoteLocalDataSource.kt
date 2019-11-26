@@ -20,6 +20,18 @@ class QuoteLocalDataSource @Inject constructor( // for fetching locally stored q
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : QuoteDataSource {
 
+    override suspend fun getFavoriteQuotes(): Result<List<Quote>> = withContext(ioDispatcher) {
+        return@withContext try {
+            Success(quotesDao.getFavoriteQuotes())
+        } catch (e: Exception) {
+            Result.Error(IOException("Unable to fetch quotes!"))
+        }
+    }
+
+    override suspend fun favoriteAQuote(quoteID: String) {
+        quotesDao.favoriteAQuote(quoteID)
+    }
+
 
     override suspend fun fetchRemoteQuotesAndInsertThemIntoDataBase() {
         try {

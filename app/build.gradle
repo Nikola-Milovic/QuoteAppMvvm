@@ -58,6 +58,8 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:$fragmentKtxVersion"
     implementation "androidx.fragment:fragment:$fragmentVersion"
 
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+
     // Navigation
     implementation 'androidx.navigation:navigation-fragment:2.2.0-rc02'
     implementation 'androidx.navigation:navigation-ui:2.2.0-rc02'
@@ -131,6 +133,8 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test:rules:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }
 
 kapt {

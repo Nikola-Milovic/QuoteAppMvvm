@@ -8,7 +8,7 @@ import com.example.quoteappmvvm.data.model.Quote
     entities = [Quote::class],
     version = 1,
     exportSchema = false
-) // data base for the queotes, probably will be changed to favorite quotes but idk yet
+) // data base for the quetes
 abstract class LocalQuoteDataBase : RoomDatabase() {
 
     abstract fun quotesDao(): QuotesDao
