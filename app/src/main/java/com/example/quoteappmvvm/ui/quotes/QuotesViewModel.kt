@@ -42,17 +42,16 @@ class QuotesViewModel @Inject constructor(
                     Log.d("TAG", "Already has data")
                     loadQuotes(result)
                 } else {
-                    Log.d("TAG", "Doesnt have data")
+                    Log.d("TAG", "Doesn't have data")
                     fetchQuotes()
                 }
             } catch (e: Exception) {
-                Log.d("TAG", "Message is" + e.message)
+                Log.d("TAG", "Message is " + e.message)
                 _state.postValue(apiState.FAILURE) // SET THE INITIAL STATE AS FAILED
             }
         }
 
     }
-
 
     fun favoriteAQuote() {
         viewModelScope.launch {
@@ -69,25 +68,23 @@ class QuotesViewModel @Inject constructor(
         }
     }
 
-
     private fun fetchQuotes() {
         viewModelScope.launch {
             try {
                 quoteRepository.fetchRemoteQuotes().let {
                     loadQuotes(quoteRepository.getQuotesFromLocalDataBase())
                 }
+
             } catch (e: Exception) {
-                Log.d("TAG", "Message " + e.message)
+                Log.d("TAG", "Message fetch + " + e.localizedMessage)
                _state.postValue(apiState.FAILURE) // SET THE INITIAL STATE AS FAILED
             }
         }
     }
 
-
     private fun loadQuotes(quoteResult: Result<List<Quote>>) {
         viewModelScope.launch {
             try {
-
                 if (quoteResult is Result.Success) {
                     _state.postValue(apiState.SUCCESS)  // SET THE INITIAL STATE AS SUCCESS
                     quotesList = quoteResult.data
@@ -102,17 +99,6 @@ class QuotesViewModel @Inject constructor(
                 _currentQuote.postValue(null)
             }
         }
-    }
-
-    fun setStateTest() {
-
-        Log.d("TAG", state.value.toString())
-
-//        if (_state.value == apiState.SUCCESS) {
-//            _state.value = apiState.FAILURE
-//        } else {
-//            _state.value = apiState.SUCCESS
-//        }
     }
 
     fun selectNewQuote() {

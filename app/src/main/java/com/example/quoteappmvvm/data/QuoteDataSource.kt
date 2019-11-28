@@ -27,7 +27,7 @@ interface QuoteDataSource {
 
     suspend fun getFavoriteQuotes(): Result<List<Quote>>
 
-    suspend fun favoriteAQuote(quoteID: String)
+    suspend fun favoriteAQuote(quoteID: Int)
 
     suspend fun fetchRemoteQuotesAndInsertThemIntoDataBase()
 

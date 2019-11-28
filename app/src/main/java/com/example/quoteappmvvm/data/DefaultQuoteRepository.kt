@@ -20,7 +20,7 @@ class DefaultQuoteRepository @Inject constructor(
             is Error -> Result.Error(IOException("Error occurred during fetching favorite quotes!"))
             is Result.Success -> {
                 if (favoriteQuotes.data.isNullOrEmpty()) {
-                    Result.Error(IOException("Error occurred during fetching favorite quotes!"))
+                    Result.Error(IOException("Favorite Quotes Data is null or empty"))
                 } else {
                     favoriteQuotes
                 }
@@ -29,7 +29,7 @@ class DefaultQuoteRepository @Inject constructor(
         }
     }
 
-    override suspend fun favoriteAQuote(quoteID: String) {
+    override suspend fun favoriteAQuote(quoteID: Int) {
         quoteLocalDataSource.favoriteAQuote(quoteID)
     }
 
@@ -40,10 +40,10 @@ class DefaultQuoteRepository @Inject constructor(
 
     override suspend fun getQuotesFromLocalDataBase(): Result<List<Quote>> { // Fetch quotes from local db
         return when (val quotes = quoteLocalDataSource.getQuotes()) {
-            is Error -> Result.Error(IOException("Error occurred during fetching quotes!"))
+            is Error -> Result.Error(IOException("Error occurred during fetching local quotes!"))
             is Result.Success -> {
                 if (quotes.data.isNullOrEmpty()) {
-                    Result.Error(IOException("Error occurred during fetching quotes!"))
+                    Result.Error(IOException("Local Data is null or empty"))
                 } else {
                     quotes
                 }

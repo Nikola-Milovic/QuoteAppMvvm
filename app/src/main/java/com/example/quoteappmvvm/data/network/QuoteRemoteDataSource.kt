@@ -23,16 +23,3 @@ class QuoteRemoteDataSource @Inject constructor(
     }
 }
 
-
-//    return apiService.getQuotesFromLocalDataBase().body()
-//}
-
-/* try {
-            if (response.isSuccessful)
-                if(!response.body().isNullOrEmpty())
-                return Result.Success(response.body()) as Result1<List<Quote>>
-            return Result.Error(IOException("Error occurred during fetching quotes!"))
-        } catch (e: Exception) {
-            Result.Error(IOException("Unable to fetch quotes!"))
-        }
-        return Result.Error(IOException("Unable to fetch quotes!"))*/

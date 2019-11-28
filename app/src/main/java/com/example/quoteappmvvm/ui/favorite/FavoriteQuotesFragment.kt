@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.quoteappmvvm.data.model.Quote
 import com.example.quoteappmvvm.databinding.FavoriteQuotesFragmentBinding
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -30,18 +30,15 @@ class FavoriteQuotesFragment : DaggerFragment() {
         }
         viewDataBinding.setLifecycleOwner(this)
 
-
-        val mNicolasCageMovies = listOf(
-            Quote("Raising Arizona", "bla"),
-            Quote("Vampire's Kiss", "bla"),
-            Quote("Con Air", "bla"),
-            Quote("Gone in 60 Seconds", "bla")
-        )
-
-        viewDataBinding.quotesList.apply {
-            layoutManager = LinearLayoutManager(activity)
-            adapter = FavoriteQuotesAdapter(mNicolasCageMovies)
+        viewModel.quoteList.observe(this) {
+            viewDataBinding.quotesList.apply {
+                layoutManager = LinearLayoutManager(activity)
+                adapter = FavoriteQuotesAdapter(it)
+            }
         }
+
+
+
         setHasOptionsMenu(true)
         return viewDataBinding.root
     }

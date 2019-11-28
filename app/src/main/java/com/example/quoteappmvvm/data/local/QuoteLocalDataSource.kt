@@ -28,7 +28,7 @@ class QuoteLocalDataSource @Inject constructor( // for fetching locally stored q
         }
     }
 
-    override suspend fun favoriteAQuote(quoteID: String) {
+    override suspend fun favoriteAQuote(quoteID: Int) {
         quotesDao.favoriteAQuote(quoteID)
     }
 
@@ -41,6 +41,7 @@ class QuoteLocalDataSource @Inject constructor( // for fetching locally stored q
                 is Result.Loading -> Log.d("TAG", "Quotes loading")
             }
         } catch (e: Exception) {
+            Log.d("TAG", e.message.toString())
             throw IllegalStateException()
         }
     }

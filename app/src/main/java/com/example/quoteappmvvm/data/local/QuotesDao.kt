@@ -17,7 +17,7 @@ interface QuotesDao {
     suspend fun insertQuotes(quotes: List<Quote>)
 
     @Query("UPDATE quotes SET favorite = 1 WHERE entryid = :quoteID")
-    suspend fun favoriteAQuote(quoteID: String)
+    suspend fun favoriteAQuote(quoteID: Int)
 
     @Query("SELECT * FROM quotes WHERE favorite = 1") // get all locally saved quotes from the DB
     suspend fun getFavoriteQuotes(): List<Quote>
