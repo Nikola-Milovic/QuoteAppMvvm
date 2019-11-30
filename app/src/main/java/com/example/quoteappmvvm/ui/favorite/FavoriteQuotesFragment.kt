@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quoteappmvvm.databinding.FavoriteQuotesFragmentBinding
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
+
+
 
 class FavoriteQuotesFragment : DaggerFragment() {
 
@@ -34,6 +37,12 @@ class FavoriteQuotesFragment : DaggerFragment() {
             viewDataBinding.quotesList.apply {
                 layoutManager = LinearLayoutManager(activity)
                 adapter = FavoriteQuotesAdapter(it)
+                this.addItemDecoration(
+                    DividerItemDecoration(
+                        context!!,
+                        DividerItemDecoration.VERTICAL
+                    )
+                )
             }
         }
 

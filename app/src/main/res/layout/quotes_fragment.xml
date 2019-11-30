@@ -33,7 +33,7 @@
                 viewConnectionVisibility="@{viewmodel.state}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{String.valueOf(viewmodel.currentQuote.quoteAuthor)}"
+                noAuthorText="@{String.valueOf(viewmodel.currentQuote.quoteAuthor)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

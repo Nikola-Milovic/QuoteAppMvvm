@@ -3,6 +3,7 @@ package com.example.quoteappmvvm.ui.favorite
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quoteappmvvm.R
 import com.example.quoteappmvvm.data.model.Quote
@@ -23,6 +24,7 @@ class FavoriteQuotesAdapter(private val list: List<Quote>) :
 
     override fun getItemCount(): Int = list.size
 
+
 }
 
 
@@ -38,8 +40,25 @@ class FavoriteQuoteViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
     }
 
     fun bind(quote: Quote) {
-        quoteAuthorTextView?.text = quote.quoteAuthor
+        if(quote.quoteAuthor.isNullOrBlank()){
+            quoteAuthorTextView?.text = "Unknown Author"
+        } else
+        {
+            quoteAuthorTextView?.text = quote.quoteAuthor
+        }
+
         quoteTextTextView?.text = quote.quoteText
     }
 
+}
+
+class FavoriteQuoteDiffCallback :
+    DiffUtil.ItemCallback<Quote>() {
+    override fun areItemsTheSame(oldItem: Quote, newItem: Quote): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Quote, newItem: Quote): Boolean {
+        return oldItem == newItem
+    }
 }

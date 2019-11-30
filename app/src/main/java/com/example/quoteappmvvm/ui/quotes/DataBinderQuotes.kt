@@ -1,6 +1,7 @@
 package com.example.quoteappmvvm.ui.quotes
 
 import android.view.View
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.example.quoteappmvvm.constants.apiState
 import com.example.quoteappmvvm.constants.apiState.*
@@ -34,6 +35,7 @@ fun View.setConnectionVisibility(apiState: apiState?) {
     }
 }
 
+
 @BindingAdapter("viewLoadingVisibility")
 fun View.setLoadingVisibility(apiState: apiState?) {
     this.visibility = when (apiState) {
@@ -43,3 +45,22 @@ fun View.setLoadingVisibility(apiState: apiState?) {
         else -> View.VISIBLE
     }
 }
+
+@BindingAdapter("noAuthorText")
+fun TextView.noAuthorText(item: String?) {
+    item?.let {
+        text = if(item.isNullOrBlank()) {
+            "Unknown Author"
+        } else{
+            item
+        }
+    }
+}
+
+
+//@BindingAdapter("emptyAuthor")
+//fun TextView.emptyAuthor(string: String){
+//    if(string.isNullOrBlank()){
+//        TextView.text = "Unknown Author"
+//    }
+//}
