@@ -32,4 +32,8 @@ interface QuoteRepository {
 
     suspend fun favoriteAQuote(quoteID: Int)
 
+    suspend fun unfavoriteAQuote(quoteID: Int)
+
+    suspend fun deleteAllFavoriteQuotes()
+
 }

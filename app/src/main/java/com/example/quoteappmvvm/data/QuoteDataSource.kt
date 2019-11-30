@@ -31,4 +31,7 @@ interface QuoteDataSource {
 
     suspend fun fetchRemoteQuotesAndInsertThemIntoDataBase()
 
+    suspend fun unfavoriteAQuote(quoteID: Int)
+
+    suspend fun deleteAllFavoriteQuotes()
 }

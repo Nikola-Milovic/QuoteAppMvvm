@@ -24,7 +24,9 @@ class FavoriteQuotesAdapter(private val list: List<Quote>) :
 
     override fun getItemCount(): Int = list.size
 
-
+    fun getNoteAt(position: Int) : Quote {
+        return list[position]
+    }
 }
 
 
@@ -33,6 +35,7 @@ class FavoriteQuoteViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
     private var quoteAuthorTextView: TextView? = null
     private var quoteTextTextView: TextView? = null
 
+    lateinit var currentQuote : Quote
 
     init {
         quoteAuthorTextView = itemView.findViewById(R.id.textView_favorite_author)
@@ -40,6 +43,7 @@ class FavoriteQuoteViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
     }
 
     fun bind(quote: Quote) {
+        currentQuote = quote
         if(quote.quoteAuthor.isNullOrBlank()){
             quoteAuthorTextView?.text = "Unknown Author"
         } else
@@ -49,6 +53,8 @@ class FavoriteQuoteViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
 
         quoteTextTextView?.text = quote.quoteText
     }
+
+
 
 }
 

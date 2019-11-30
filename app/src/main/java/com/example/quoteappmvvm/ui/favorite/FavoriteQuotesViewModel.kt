@@ -36,4 +36,19 @@ class FavoriteQuotesViewModel @Inject constructor(
             }
         }
     }
+
+    suspend fun deleteFavoriteQuote(id: Int) {
+        viewModelScope.launch {
+            quoteRepository.unfavoriteAQuote(id)
+        }
+    }
+
+    suspend fun deleteAllFavoriteQuotes() {
+        viewModelScope.launch {
+            quoteRepository.deleteAllFavoriteQuotes()
+        }
+
+    }
 }
+
+

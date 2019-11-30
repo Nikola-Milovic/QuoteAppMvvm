@@ -19,6 +19,9 @@ class QuoteLocalDataSource @Inject constructor( // for fetching locally stored q
     private val quotesDao: QuotesDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : QuoteDataSource {
+    override suspend fun deleteAllFavoriteQuotes() {
+        quotesDao.unfavoriteAllQuote()
+    }
 
     override suspend fun getFavoriteQuotes(): Result<List<Quote>> = withContext(ioDispatcher) {
         return@withContext try {
@@ -31,6 +34,11 @@ class QuoteLocalDataSource @Inject constructor( // for fetching locally stored q
     override suspend fun favoriteAQuote(quoteID: Int) {
         quotesDao.favoriteAQuote(quoteID)
     }
+
+    override suspend fun unfavoriteAQuote(quoteID: Int) {
+        quotesDao.unfavoriteAQuote(quoteID)
+    }
+
 
 
     override suspend fun fetchRemoteQuotesAndInsertThemIntoDataBase() {

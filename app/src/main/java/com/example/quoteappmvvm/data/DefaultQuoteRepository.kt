@@ -14,6 +14,10 @@ class DefaultQuoteRepository @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : QuoteRepository {
 
+    override suspend fun deleteAllFavoriteQuotes() {
+        quoteLocalDataSource.deleteAllFavoriteQuotes()
+    }
+
 
     override suspend fun getFavoriteQuotes(): Result<List<Quote>> {
         return when (val favoriteQuotes = quoteLocalDataSource.getFavoriteQuotes()) {
@@ -32,6 +36,11 @@ class DefaultQuoteRepository @Inject constructor(
     override suspend fun favoriteAQuote(quoteID: Int) {
         quoteLocalDataSource.favoriteAQuote(quoteID)
     }
+
+    override suspend fun unfavoriteAQuote(quoteID: Int) {
+        quoteLocalDataSource.unfavoriteAQuote(quoteID)
+    }
+
 
 
     override suspend fun fetchRemoteQuotes() = withContext(ioDispatcher) {

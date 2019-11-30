@@ -22,4 +22,10 @@ interface QuotesDao {
     @Query("SELECT * FROM quotes WHERE favorite = 1") // get all locally saved quotes from the DB
     suspend fun getFavoriteQuotes(): List<Quote>
 
+    @Query("UPDATE quotes SET favorite = 0 WHERE entryid = :quoteID")
+    suspend fun unfavoriteAQuote(quoteID: Int)
+
+    @Query("UPDATE quotes SET favorite = 0 WHERE favorite = 1")
+    suspend fun unfavoriteAllQuote()
+
 }

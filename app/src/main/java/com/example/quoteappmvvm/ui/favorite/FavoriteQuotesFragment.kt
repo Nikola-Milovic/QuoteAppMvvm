@@ -1,18 +1,21 @@
 package com.example.quoteappmvvm.ui.favorite
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.quoteappmvvm.R
 import com.example.quoteappmvvm.databinding.FavoriteQuotesFragmentBinding
 import dagger.android.support.DaggerFragment
+import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 
 
 class FavoriteQuotesFragment : DaggerFragment() {
@@ -33,6 +36,8 @@ class FavoriteQuotesFragment : DaggerFragment() {
         }
         viewDataBinding.setLifecycleOwner(this)
 
+        setHasOptionsMenu(true)
+
         viewModel.quoteList.observe(this) {
             viewDataBinding.quotesList.apply {
                 layoutManager = LinearLayoutManager(activity)
@@ -47,6 +52,22 @@ class FavoriteQuotesFragment : DaggerFragment() {
         }
 
 
+        val mIth = ItemTouchHelper(
+            object : ItemTouchHelper.SimpleCallback(
+                0,
+                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+            ) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: ViewHolder, target: ViewHolder
+                ): Boolean {
+                    return false
+                }
+
+                override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
+                  //  viewModel.deleteFavoriteQuote(viewHolder.itemView.id)
+                }
+            })
 
         setHasOptionsMenu(true)
         return viewDataBinding.root
@@ -56,4 +77,18 @@ class FavoriteQuotesFragment : DaggerFragment() {
         super.onActivityCreated(savedInstanceState)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.delete_All_Quotes_Item){
+            lifecycleScope.launch{
+                viewModel.deleteAllFavoriteQuotes()
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.favorite_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 }
