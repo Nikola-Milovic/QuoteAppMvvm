@@ -27,6 +27,7 @@ class FavoriteQuotesFragment : DaggerFragment() {
 
     private lateinit var viewDataBinding: FavoriteQuotesFragmentBinding
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,7 +37,7 @@ class FavoriteQuotesFragment : DaggerFragment() {
         }
         viewDataBinding.setLifecycleOwner(this)
 
-        setHasOptionsMenu(true)
+
 
         viewModel.quoteList.observe(this) {
             viewDataBinding.quotesList.apply {
@@ -65,10 +66,9 @@ class FavoriteQuotesFragment : DaggerFragment() {
                 }
 
                 override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
-                  //  viewModel.deleteFavoriteQuote(viewHolder.itemView.id)
+                    // viewModel.deleteFavoriteQuote()
                 }
             })
-
         setHasOptionsMenu(true)
         return viewDataBinding.root
     }
@@ -83,7 +83,6 @@ class FavoriteQuotesFragment : DaggerFragment() {
                 viewModel.deleteAllFavoriteQuotes()
             }
         }
-
         return super.onOptionsItemSelected(item)
     }
 

@@ -24,7 +24,7 @@ class FavoriteQuotesAdapter(private val list: List<Quote>) :
 
     override fun getItemCount(): Int = list.size
 
-    fun getNoteAt(position: Int) : Quote {
+    fun getQuoteAt(position: Int): Quote {
         return list[position]
     }
 }
@@ -53,8 +53,6 @@ class FavoriteQuoteViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
 
         quoteTextTextView?.text = quote.quoteText
     }
-
-
 
 }
 
