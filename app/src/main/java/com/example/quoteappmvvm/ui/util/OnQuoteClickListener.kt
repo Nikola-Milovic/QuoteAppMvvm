@@ -1,7 +1,9 @@
 package com.example.quoteappmvvm.ui.util
 
-import com.example.quoteappmvvm.data.model.Quote
+import android.view.MotionEvent
 
 interface OnQuoteClickListener {
-    fun quoteClicked(quote: Quote)
+
+    fun onFling(p0: MotionEvent?, p1: MotionEvent?, p2: Float, p3: Float): Boolean
+
 }

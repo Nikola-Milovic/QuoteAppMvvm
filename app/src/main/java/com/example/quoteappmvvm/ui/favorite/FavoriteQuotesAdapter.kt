@@ -1,5 +1,7 @@
 package com.example.quoteappmvvm.ui.favorite
 
+import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -9,8 +11,12 @@ import com.example.quoteappmvvm.R
 import com.example.quoteappmvvm.data.model.Quote
 
 
-class FavoriteQuotesAdapter(private val list: List<Quote>) :
-    RecyclerView.Adapter<FavoriteQuoteViewHolder>() {
+class FavoriteQuotesAdapter(
+    private val context: Context
+) :
+    RecyclerView.Adapter<FavoriteQuotesAdapter.FavoriteQuoteViewHolder>() {
+
+    var quoteList = arrayListOf<Quote>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteQuoteViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -18,51 +24,73 @@ class FavoriteQuotesAdapter(private val list: List<Quote>) :
     }
 
     override fun onBindViewHolder(holder: FavoriteQuoteViewHolder, position: Int) {
-        val quote: Quote = list[position]
+        val quote: Quote = quoteList[position]
         holder.bind(quote)
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = quoteList.size
 
     fun getQuoteAt(position: Int): Quote {
-        return list[position]
-    }
-}
-
-
-class FavoriteQuoteViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
-    RecyclerView.ViewHolder(inflater.inflate(R.layout.favorite_quote_item, parent, false)) {
-    private var quoteAuthorTextView: TextView? = null
-    private var quoteTextTextView: TextView? = null
-
-    lateinit var currentQuote : Quote
-
-    init {
-        quoteAuthorTextView = itemView.findViewById(R.id.textView_favorite_author)
-        quoteTextTextView = itemView.findViewById(R.id.textView_favorite_text)
+        return quoteList[position]
     }
 
-    fun bind(quote: Quote) {
-        currentQuote = quote
-        if(quote.quoteAuthor.isNullOrBlank()){
-            quoteAuthorTextView?.text = "Unknown Author"
-        } else
-        {
-            quoteAuthorTextView?.text = quote.quoteAuthor
+
+    fun updateQuotes(quotes: List<Quote>) {
+        DiffUtil.calculateDiff(FavoriteQuoteDiffCallback(quotes, quoteList), false)
+            .dispatchUpdatesTo(this)
+        quoteList = ArrayList(quotes)
+        Log.d("TAG", "Update quotes list is $quoteList")
+    }
+
+    fun removeQuote(quotePos: Int) {
+        quoteList.removeAt(quotePos)
+        notifyItemRemoved(quotePos)
+        Log.d("TAG", "Item Removed $quoteList")
+    }
+
+    inner class FavoriteQuoteViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
+        RecyclerView.ViewHolder(inflater.inflate(R.layout.favorite_quote_item, parent, false)) {
+        private var quoteAuthorTextView: TextView? = null
+        private var quoteTextTextView: TextView? = null
+
+        init {
+            quoteAuthorTextView = itemView.findViewById(R.id.textView_favorite_author)
+            quoteTextTextView = itemView.findViewById(R.id.textView_favorite_text)
         }
 
-        quoteTextTextView?.text = quote.quoteText
-    }
+        fun bind(quote: Quote) {
+            if (quote.quoteAuthor.isNullOrBlank()) {
+                quoteAuthorTextView?.text = "Unknown Author"
+            } else {
+                quoteAuthorTextView?.text = quote.quoteAuthor
+            }
 
+            quoteTextTextView?.text = quote.quoteText
+
+        }
+
+
+    }
 }
 
-class FavoriteQuoteDiffCallback :
-    DiffUtil.ItemCallback<Quote>() {
-    override fun areItemsTheSame(oldItem: Quote, newItem: Quote): Boolean {
-        return oldItem.id == newItem.id
+
+class FavoriteQuoteDiffCallback(
+    private val newQuotes: List<Quote>,
+    private val oldQuotes: List<Quote>
+) : DiffUtil.Callback() {
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        val oldQuote = oldQuotes[oldItemPosition]
+        val newQuote = newQuotes[newItemPosition]
+        return oldQuote.id == newQuote.id
     }
 
-    override fun areContentsTheSame(oldItem: Quote, newItem: Quote): Boolean {
-        return oldItem == newItem
+    override fun getOldListSize(): Int = oldQuotes.size
+
+    override fun getNewListSize(): Int = newQuotes.size
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        val oldQuote = oldQuotes[oldItemPosition]
+        val newQuote = newQuotes[newItemPosition]
+        return oldQuote == newQuote
     }
 }
