@@ -1,7 +1,6 @@
 package com.example.quoteappmvvm.ui.favorite
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -9,10 +8,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quoteappmvvm.R
 import com.example.quoteappmvvm.data.model.Quote
+import com.example.quoteappmvvm.ui.util.OnQuoteClickListener
 
 
 class FavoriteQuotesAdapter(
-    private val context: Context
+    private val context: Context,
+    private val clickListener: OnQuoteClickListener
 ) :
     RecyclerView.Adapter<FavoriteQuotesAdapter.FavoriteQuoteViewHolder>() {
 
@@ -39,13 +40,11 @@ class FavoriteQuotesAdapter(
         DiffUtil.calculateDiff(FavoriteQuoteDiffCallback(quotes, quoteList), false)
             .dispatchUpdatesTo(this)
         quoteList = ArrayList(quotes)
-        Log.d("TAG", "Update quotes list is $quoteList")
     }
 
     fun removeQuote(quotePos: Int) {
         quoteList.removeAt(quotePos)
         notifyItemRemoved(quotePos)
-        Log.d("TAG", "Item Removed $quoteList")
     }
 
     inner class FavoriteQuoteViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
@@ -67,8 +66,10 @@ class FavoriteQuotesAdapter(
 
             quoteTextTextView?.text = quote.quoteText
 
+            itemView.setOnClickListener {
+                clickListener.quoteClicked(quote)
+            }
         }
-
 
     }
 }

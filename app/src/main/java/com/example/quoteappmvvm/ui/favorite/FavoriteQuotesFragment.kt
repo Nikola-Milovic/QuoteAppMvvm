@@ -1,8 +1,12 @@
 package com.example.quoteappmvvm.ui.favorite
 
+import android.app.AlertDialog
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -12,13 +16,16 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quoteappmvvm.R
+import com.example.quoteappmvvm.data.model.Quote
 import com.example.quoteappmvvm.databinding.FavoriteQuotesFragmentBinding
+import com.example.quoteappmvvm.ui.util.OnQuoteClickListener
 import dagger.android.support.DaggerFragment
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-class FavoriteQuotesFragment : DaggerFragment() {
+class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
+
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -29,10 +36,6 @@ class FavoriteQuotesFragment : DaggerFragment() {
 
     private lateinit var favoriteQuotesAdapter: FavoriteQuotesAdapter
 
-
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,7 +43,7 @@ class FavoriteQuotesFragment : DaggerFragment() {
         viewDataBinding = FavoriteQuotesFragmentBinding.inflate(inflater, container, false).apply {
             viewmodel = viewModel
         }
-        viewDataBinding.setLifecycleOwner(this)
+        viewDataBinding.lifecycleOwner = this
 
 
         val mIth = ItemTouchHelper(
@@ -63,12 +66,12 @@ class FavoriteQuotesFragment : DaggerFragment() {
                         viewModel.deleteFavoriteQuote(quote.id)
                         favoriteQuotesAdapter.removeQuote(pos)
                     }
-
                 }
             })
 
 
-        favoriteQuotesAdapter = FavoriteQuotesAdapter(requireContext())
+
+        favoriteQuotesAdapter = FavoriteQuotesAdapter(requireContext(), this)
         viewDataBinding.quotesList.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = favoriteQuotesAdapter
@@ -83,7 +86,6 @@ class FavoriteQuotesFragment : DaggerFragment() {
 
 
         viewModel.quoteList.observe(this) {
-            //favoriteQuotesAdapter.quoteList = it
             favoriteQuotesAdapter.updateQuotes(it)
             Log.d("TAG", "IT IS $it")
         }
@@ -109,6 +111,20 @@ class FavoriteQuotesFragment : DaggerFragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.favorite_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun quoteClicked(quote: Quote) {
+        val builder = AlertDialog.Builder(context)
+        builder.setCancelable(true)
+        builder.setNeutralButton("Copy") { dialog, which ->
+            val clipboard = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            viewModel.copyText(quote, clipboard)
+            Toast.makeText(context, "Successfully copied quote", Toast.LENGTH_SHORT).show()
+        }
+        // Finally, make the alert dialog using builder
+        val dialog: AlertDialog = builder.create()
+        // Display the alert dialog on app interface
+        dialog.show()
     }
 
 }

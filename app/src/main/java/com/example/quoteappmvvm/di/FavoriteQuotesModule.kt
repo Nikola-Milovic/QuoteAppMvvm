@@ -18,6 +18,7 @@ abstract class FavoriteQuotesModule {
     )
     internal abstract fun FavoriteQuotesFragment(): FavoriteQuotesFragment
 
+
     @Binds
     @IntoMap
     @ViewModelKey(FavoriteQuotesViewModel::class)

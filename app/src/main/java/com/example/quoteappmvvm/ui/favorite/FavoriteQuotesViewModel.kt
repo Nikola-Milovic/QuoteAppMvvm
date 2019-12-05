@@ -1,5 +1,7 @@
 package com.example.quoteappmvvm.ui.favorite
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -48,6 +50,12 @@ class FavoriteQuotesViewModel @Inject constructor(
             quoteRepository.deleteAllFavoriteQuotes()
         }
 
+    }
+
+    fun copyText(quote: Quote, clipboardManager: ClipboardManager) {
+        val clip: ClipData =
+            ClipData.newPlainText("quoteCopied", quote.quoteText + "\n" + " - " + quote.quoteAuthor)
+        clipboardManager.setPrimaryClip(clip)
     }
 }
 
