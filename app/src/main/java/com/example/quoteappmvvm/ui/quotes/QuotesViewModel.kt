@@ -88,7 +88,10 @@ class QuotesViewModel @Inject constructor(
                 if (quoteResult is Result.Success) {
                     _state.postValue(apiState.SUCCESS)  // SET THE INITIAL STATE AS SUCCESS
                     quotesList = quoteResult.data
-                    selectNewQuote()
+                    val pos = getRandomNumber(quotesList.size)
+                    quote = quotesList[pos]
+                    _currentQuote.postValue(quotesList[pos])
+
                 } else {
                     _state.postValue(apiState.FAILURE) // SET THE INITIAL STATE AS FAILED
                     _currentQuote.postValue(null)
