@@ -1,11 +1,11 @@
 package com.example.quoteappmvvm.ui.favorite
 
-import android.app.AlertDialog
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -27,6 +27,7 @@ import javax.inject.Inject
 class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
 
 
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -35,6 +36,8 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
     private lateinit var viewDataBinding: FavoriteQuotesFragmentBinding
 
     private lateinit var favoriteQuotesAdapter: FavoriteQuotesAdapter
+
+    private lateinit var currentQuote: Quote
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -103,7 +106,10 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
         if(item.itemId == R.id.delete_All_Quotes_Item){
             lifecycleScope.launch{
                 viewModel.deleteAllFavoriteQuotes()
+                favoriteQuotesAdapter.deleteAll()
             }
+
+            Toast.makeText(context, "Successfully cleared all favorite quotes", Toast.LENGTH_SHORT)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -111,20 +117,30 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.favorite_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
+
     }
 
-    override fun quoteClicked(quote: Quote) {
-        val builder = AlertDialog.Builder(context)
-        builder.setCancelable(true)
-        builder.setNeutralButton("Copy") { dialog, which ->
-            val clipboard = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            viewModel.copyText(quote, clipboard)
-            Toast.makeText(context, "Successfully copied quote", Toast.LENGTH_SHORT).show()
-        }
-        // Finally, make the alert dialog using builder
-        val dialog: AlertDialog = builder.create()
-        // Display the alert dialog on app interface
-        dialog.show()
+    override fun quoteClicked(quote: Quote, view: View) {
+        val popup = PopupMenu(context, view)
+        popup.menuInflater.inflate(R.menu.longclick_popup_menu, popup.menu)
+        popup.setOnMenuItemClickListener(this)
+        currentQuote = quote
+        popup.show()
     }
+
+    fun CopyQuote() {
+        val clipBoard = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        viewModel.copyText(currentQuote, clipBoard)
+        Toast.makeText(context, "Quote successfully copied", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onMenuItemClick(p0: MenuItem?): Boolean {
+        if (p0?.itemId == R.id.copy_item) {
+            CopyQuote()
+        }
+        return true
+    }
+
+
 
 }

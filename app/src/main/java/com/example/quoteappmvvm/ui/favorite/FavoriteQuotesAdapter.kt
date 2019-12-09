@@ -47,6 +47,11 @@ class FavoriteQuotesAdapter(
         notifyItemRemoved(quotePos)
     }
 
+    fun deleteAll() {
+        quoteList.clear()
+        notifyDataSetChanged()
+    }
+
     inner class FavoriteQuoteViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.favorite_quote_item, parent, false)) {
         private var quoteAuthorTextView: TextView? = null
@@ -67,7 +72,7 @@ class FavoriteQuotesAdapter(
             quoteTextTextView?.text = quote.quoteText
 
             itemView.setOnClickListener {
-                clickListener.quoteClicked(quote)
+                clickListener.quoteClicked(quote, itemView)
             }
         }
 
