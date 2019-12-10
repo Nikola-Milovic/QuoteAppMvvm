@@ -42,19 +42,17 @@
 
         <ImageButton
                 android:id="@+id/button_reloadQuote"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ic_autorenew_24px"
                 android:clickable="true"
-                android:src="@drawable/ic_autorenew_24px"
-                android:tint="#0040E068"
+                android:focusable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_quote_author"
-                app:layout_constraintVertical_bias="0.471"
-                android:focusable="true" />
+                app:layout_constraintVertical_bias="0.483" />
 
         <ImageView
                 android:id="@+id/imageView_no_connection"
@@ -90,6 +88,7 @@
                 viewNoConnectionVisibility="@{viewmodel.state}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
                 android:text="No Internet Connection"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/imageView_no_connection"
@@ -113,15 +112,15 @@
 
         <ImageButton
                 android:id="@+id/imageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ic_favorite"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/button_reloadQuote"
                 app:layout_constraintHorizontal_bias="0.525"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_quote_author"
-                app:layout_constraintVertical_bias="0.482"
-                app:srcCompat="@drawable/ic_favorite" />
+                app:layout_constraintVertical_bias="0.482" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

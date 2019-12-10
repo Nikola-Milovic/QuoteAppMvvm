@@ -1,10 +1,14 @@
 package com.example.quoteappmvvm.ui.favorite
 
+import android.app.AlertDialog
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -25,7 +29,6 @@ import javax.inject.Inject
 
 
 class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
-
 
 
     @Inject
@@ -90,10 +93,12 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
 
         viewModel.quoteList.observe(this) {
             favoriteQuotesAdapter.updateQuotes(it)
-            Log.d("TAG", "IT IS $it")
         }
 
-        setHasOptionsMenu(true)
+        viewDataBinding.deleteAllQuotes.setOnClickListener {
+            deleteAllQuote()
+        }
+
         return viewDataBinding.root
     }
 
@@ -102,21 +107,30 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
         super.onActivityCreated(savedInstanceState)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.delete_All_Quotes_Item){
-            lifecycleScope.launch{
+    fun deleteAllQuote() {
+
+        // Initialize a new instance of
+        val builder = AlertDialog.Builder(context)
+        builder.setMessage("Are you sure you want to delete ALL favorite quotes?")
+        builder.setPositiveButton("YES") { dialog, which ->
+            lifecycleScope.launch {
                 viewModel.deleteAllFavoriteQuotes()
                 favoriteQuotesAdapter.deleteAll()
             }
-
             Toast.makeText(context, "Successfully cleared all favorite quotes", Toast.LENGTH_SHORT)
-        }
-        return super.onOptionsItemSelected(item)
-    }
+                .show()
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.favorite_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
+        }
+        builder.setNegativeButton("No") { dialog, which ->
+            dialog.dismiss()
+        }
+
+        // Finally, make the alert dialog using builder
+        val dialog: AlertDialog = builder.create()
+
+        // Display the alert dialog on app interface
+        dialog.show()
+
 
     }
 
@@ -128,7 +142,7 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
         popup.show()
     }
 
-    fun CopyQuote() {
+    fun copyQuote() {
         val clipBoard = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         viewModel.copyText(currentQuote, clipBoard)
         Toast.makeText(context, "Quote successfully copied", Toast.LENGTH_SHORT).show()
@@ -136,11 +150,9 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
 
     override fun onMenuItemClick(p0: MenuItem?): Boolean {
         if (p0?.itemId == R.id.copy_item) {
-            CopyQuote()
+            copyQuote()
         }
         return true
     }
-
-
 
 }

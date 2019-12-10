@@ -52,7 +52,7 @@ fun TextView.noAuthorText(item: String?) {
         text = if(item.isNullOrBlank()) {
             "Unknown Author"
         } else{
-            item
+            "- $item"
         }
     }
 }
