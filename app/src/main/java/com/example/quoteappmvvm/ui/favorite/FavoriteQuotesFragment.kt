@@ -3,12 +3,14 @@ package com.example.quoteappmvvm.ui.favorite
 import android.app.AlertDialog
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -41,6 +43,13 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
     private lateinit var favoriteQuotesAdapter: FavoriteQuotesAdapter
 
     private lateinit var currentQuote: Quote
+
+    companion object {
+        private const val sharedPreferencesFile = "com.example.quoteappmvvm.preferences"
+        private const val IS_FIRST_RUN_QUOTES = "isFirstRunQuotes"
+    }
+
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -96,11 +105,13 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
         }
 
         viewDataBinding.deleteAllQuotes.setOnClickListener {
+            val anim = AnimationUtils.loadAnimation(context, R.anim.grow_anim)
+            it.startAnimation(anim)
             deleteAllQuote()
         }
-
         return viewDataBinding.root
     }
+
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -143,7 +154,8 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
     }
 
     fun copyQuote() {
-        val clipBoard = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipBoard =
+            context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager // THIS SHOULD PROBABLY BE INJECTED WITH DAGGER AND CONTEXT SHOULD BE PROVIDED WITH DAGGER, BUT DAGGER IS KINDA WEIRD AND I DONT LIKE IT
         viewModel.copyText(currentQuote, clipBoard)
         Toast.makeText(context, "Quote successfully copied", Toast.LENGTH_SHORT).show()
     }

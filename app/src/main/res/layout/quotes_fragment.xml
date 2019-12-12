@@ -42,9 +42,8 @@
 
         <ImageButton
                 android:id="@+id/button_reloadQuote"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/ic_autorenew_24px"
+                style="@style/ImageButtonStyle"
+                android:src="@drawable/ic_autorenew_24px"
                 android:clickable="true"
                 android:focusable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -111,10 +110,9 @@
                 app:layout_constraintVertical_bias="0.273" />
 
         <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/ic_favorite"
+                android:id="@+id/favoriteAQuote"
+                android:src="@drawable/ic_favorite"
+                style="@style/ImageButtonStyle"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/button_reloadQuote"
                 app:layout_constraintHorizontal_bias="0.525"
