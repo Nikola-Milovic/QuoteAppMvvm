@@ -25,7 +25,11 @@ import com.example.quoteappmvvm.R
 import com.example.quoteappmvvm.data.model.Quote
 import com.example.quoteappmvvm.databinding.FavoriteQuotesFragmentBinding
 import com.example.quoteappmvvm.ui.util.OnQuoteClickListener
+import com.skydoves.balloon.ArrowOrientation
+import com.skydoves.balloon.BalloonAnimation
+import com.skydoves.balloon.createBalloon
 import dagger.android.support.DaggerFragment
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -46,7 +50,7 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
 
     companion object {
         private const val sharedPreferencesFile = "com.example.quoteappmvvm.preferences"
-        private const val IS_FIRST_RUN_QUOTES = "isFirstRunQuotes"
+        private const val IS_FIRST_RUN_FAVORITE = "isFirstRunFavorite"
     }
 
     private lateinit var sharedPreferences: SharedPreferences
@@ -109,10 +113,73 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
             it.startAnimation(anim)
             deleteAllQuote()
         }
+
+        val btt = AnimationUtils.loadAnimation(context, R.anim.btt)
+        viewDataBinding.deleteAllQuotes.startAnimation(btt)
+
+        firstRun()
+//        sharedPreferences =
+//            requireActivity().getSharedPreferences(sharedPreferencesFile, Context.MODE_PRIVATE)
+//
+//        if (sharedPreferences.getBoolean(IS_FIRST_RUN_FAVORITE, true)) {
+//            Toast.makeText(context, "FIRST RUN FAVORITE", Toast.LENGTH_LONG).show()
+//            firstRun()
+//            with(sharedPreferences.edit()) {
+//                putBoolean(IS_FIRST_RUN_FAVORITE, false)
+//                apply()
+//            }
+//        }
+
         return viewDataBinding.root
     }
 
 
+    private fun firstRun() { // NEED A BETTER WAY TO HANDLE SHOWING BALLOONS
+        lifecycleScope.launch {
+            favoriteQuotesAdapter.quoteList.add(Quote("Sample quote", "The dev guy", true, 13101))
+            delay(1000)
+
+
+            val balloon2 = createBalloon(requireContext()) {
+                setArrowSize(10)
+                setWidthRatio(0.8f)
+                setHeight(50)
+                setArrowPosition(0.5f)
+                setArrowOrientation(ArrowOrientation.TOP)
+                setCornerRadius(4f)
+                setAlpha(0.9f)
+                setDismissWhenClicked(true)
+                setDismissWhenTouchOutside(true)
+                setText("You can click on a favorite quote to copy it or swipe right to delete it!")
+                setTextColorResource(R.color.colorAccent)
+                setBackgroundColorResource(R.color.colorPrimary)
+                setBalloonAnimation(BalloonAnimation.FADE)
+                setLifecycleOwner(this@FavoriteQuotesFragment)
+            }
+
+            val balloon1 = createBalloon(requireContext()) {
+                setArrowSize(10)
+                setWidthRatio(0.6f)
+                setHeight(50)
+                setArrowPosition(0.9f)
+                setArrowOrientation(ArrowOrientation.TOP)
+                setCornerRadius(4f)
+                setAlpha(0.9f)
+                setDismissWhenClicked(true)
+                setDismissWhenTouchOutside(true)
+                setOnBalloonDismissListener {
+                    balloon2.showAlignTop(viewDataBinding.quotesList, 0, 400)
+                }
+                setText("You can delete all favorite quotes by clicking here!")
+                setTextColorResource(R.color.colorAccent)
+                setBackgroundColorResource(R.color.colorPrimary)
+                setBalloonAnimation(BalloonAnimation.FADE)
+                setLifecycleOwner(this@FavoriteQuotesFragment)
+            }
+
+            balloon1.showAlignBottom(viewDataBinding.deleteAllQuotes)
+        }
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -168,3 +235,4 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
     }
 
 }
+
