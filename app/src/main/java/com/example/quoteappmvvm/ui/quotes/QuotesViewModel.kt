@@ -33,6 +33,7 @@ class QuotesViewModel @Inject constructor(
         startTheApp()
     }
 
+
     private fun startTheApp() {
         viewModelScope.launch {
             _state.postValue(apiState.LOADING)

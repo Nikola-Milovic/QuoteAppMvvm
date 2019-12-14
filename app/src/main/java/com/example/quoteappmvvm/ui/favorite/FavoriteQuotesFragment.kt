@@ -103,7 +103,6 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
             )
         }
 
-
         viewModel.quoteList.observe(this) {
             favoriteQuotesAdapter.updateQuotes(it)
         }
@@ -117,6 +116,8 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
         val btt = AnimationUtils.loadAnimation(context, R.anim.btt)
         viewDataBinding.deleteAllQuotes.startAnimation(btt)
 
+
+        enableNavigation()
         firstRun()
 //        sharedPreferences =
 //            requireActivity().getSharedPreferences(sharedPreferencesFile, Context.MODE_PRIVATE)
@@ -137,6 +138,7 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
     private fun firstRun() { // NEED A BETTER WAY TO HANDLE SHOWING BALLOONS
         lifecycleScope.launch {
             favoriteQuotesAdapter.quoteList.add(Quote("Sample quote", "The dev guy", true, 13101))
+            disableNavigation()
             delay(1000)
 
 
@@ -150,6 +152,7 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
                 setAlpha(0.9f)
                 setDismissWhenClicked(true)
                 setDismissWhenTouchOutside(true)
+                setOnBalloonDismissListener { enableNavigation() }
                 setText("You can click on a favorite quote to copy it or swipe right to delete it!")
                 setTextColorResource(R.color.colorAccent)
                 setBackgroundColorResource(R.color.colorPrimary)
@@ -168,7 +171,9 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
                 setDismissWhenClicked(true)
                 setDismissWhenTouchOutside(true)
                 setOnBalloonDismissListener {
-                    balloon2.showAlignTop(viewDataBinding.quotesList, 0, 400)
+                    if (this@FavoriteQuotesFragment.isVisible) {
+                        balloon2.showAlignTop(viewDataBinding.quotesList, 0, 400)
+                    }
                 }
                 setText("You can delete all favorite quotes by clicking here!")
                 setTextColorResource(R.color.colorAccent)
@@ -183,6 +188,24 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+    }
+
+    fun disableNavigation() {
+        lifecycleScope.launch {
+            val view = requireActivity().findViewById<View>(R.id.favoriteQuotesFragment)
+            val view2 = requireActivity().findViewById<View>(R.id.settingsFragment)
+            view.isClickable = false
+            view2.isClickable = false
+        }
+    }
+
+    fun enableNavigation() {
+        lifecycleScope.launch {
+            val view = requireActivity().findViewById<View>(R.id.favoriteQuotesFragment)
+            val view2 = requireActivity().findViewById<View>(R.id.settingsFragment)
+            view.isClickable = true
+            view2.isClickable = true
+        }
     }
 
     fun deleteAllQuote() {
@@ -202,14 +225,10 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
         builder.setNegativeButton("No") { dialog, which ->
             dialog.dismiss()
         }
-
         // Finally, make the alert dialog using builder
         val dialog: AlertDialog = builder.create()
-
         // Display the alert dialog on app interface
         dialog.show()
-
-
     }
 
     override fun quoteClicked(quote: Quote, view: View) {

@@ -25,6 +25,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        navController.popBackStack()
         return NavigationUI.navigateUp(navController, null)
     }
+
 }
