@@ -10,7 +10,9 @@ import com.example.quoteappmvvm.data.QuoteRepository
 import com.example.quoteappmvvm.data.Result
 import com.example.quoteappmvvm.data.model.Quote
 import com.example.quoteappmvvm.data.succeeded
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class QuotesViewModel @Inject constructor(
@@ -72,8 +74,10 @@ class QuotesViewModel @Inject constructor(
     private fun fetchQuotes() {
         viewModelScope.launch {
             try {
-                quoteRepository.fetchRemoteQuotes().let {
+                withContext(Dispatchers.IO) {
+                    quoteRepository.fetchRemoteQuotes().let {
                     loadQuotes(quoteRepository.getQuotesFromLocalDataBase())
+                    }
                 }
 
             } catch (e: Exception) {

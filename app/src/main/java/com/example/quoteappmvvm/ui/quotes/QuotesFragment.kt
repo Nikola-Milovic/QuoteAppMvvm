@@ -2,21 +2,30 @@ package com.example.quoteappmvvm.ui.quotes
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.quoteappmvvm.R
+import com.example.quoteappmvvm.constants.apiState
 import com.example.quoteappmvvm.databinding.QuotesFragmentBinding
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.MobileAds
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.createBalloon
 import dagger.android.support.DaggerFragment
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -30,6 +39,7 @@ class QuotesFragment : DaggerFragment() {
 
     private lateinit var sharedPreferences: SharedPreferences
 
+    private lateinit var mInterstitialAd: InterstitialAd
 
 
     @Inject
@@ -46,24 +56,9 @@ class QuotesFragment : DaggerFragment() {
         viewDataBinding = QuotesFragmentBinding.inflate(inflater, container, false).apply {
             viewmodel = viewModel
         }
-
-        viewDataBinding.setLifecycleOwner(this)
-
-        viewDataBinding.buttonReloadQuote.setOnClickListener {
-            val anim = AnimationUtils.loadAnimation(context, R.anim.spin_anim)
-            it.startAnimation(anim)
-            viewModel.selectNewQuote()
-        }
-
-        viewDataBinding.favoriteAQuote.setOnClickListener {
-            val anim = AnimationUtils.loadAnimation(context, R.anim.grow_anim)
-            it.startAnimation(anim)
-            viewModel.favoriteAQuote()
-        }
-
+        viewDataBinding.lifecycleOwner = this
+        setUpOnClickListeners()
         setHasOptionsMenu(true)
-        setupAnim()
-
 //        sharedPreferences =
 //            requireActivity().getSharedPreferences(sharedPreferencesFile, Context.MODE_PRIVATE)
 //
@@ -76,11 +71,55 @@ class QuotesFragment : DaggerFragment() {
 //        }
 
 
+        viewModel.state.observe(viewLifecycleOwner, Observer {
+            if (it == apiState.SUCCESS) {
+                setupEntranceAnim()
+                firstRun()
+            }
+        })
         enableNavigation()
-        firstRun()
-
-
+        //  firstRun()
         return viewDataBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    fun setUpOnClickListeners() {
+        viewDataBinding.buttonReloadQuote.setOnClickListener {
+            val anim = AnimationUtils.loadAnimation(context, R.anim.spin_anim)
+            it.startAnimation(anim)
+            viewModel.selectNewQuote()
+        }
+
+        viewDataBinding.favoriteAQuote.setOnClickListener {
+            val anim = AnimationUtils.loadAnimation(context, R.anim.grow_anim)
+            it.startAnimation(anim)
+            viewModel.favoriteAQuote()
+        }
+
+        viewDataBinding.buttonAds.setOnClickListener {
+            if (mInterstitialAd.isLoaded) {
+                mInterstitialAd.show()
+            } else {
+                Log.d("TAG", "The interstitial wasn't loaded yet.")
+            }
+        }
+    }
+
+    fun setUpAds() {
+        lifecycleScope.launch {
+            MobileAds.initialize(context) {}
+            mInterstitialAd = InterstitialAd(context)
+            mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
+            mInterstitialAd.loadAd(AdRequest.Builder().build())
+            mInterstitialAd.adListener = object : AdListener() {
+                override fun onAdClosed() {
+                    mInterstitialAd.loadAd(AdRequest.Builder().build())
+                }
+            }
+        }
     }
 
     fun firstRun() {
@@ -153,14 +192,18 @@ class QuotesFragment : DaggerFragment() {
     }
 
 
-    fun setupAnim() {
-        val btt = AnimationUtils.loadAnimation(context, R.anim.btt)
-        val ftv = AnimationUtils.loadAnimation(context, R.anim.ftv)
+    fun setupEntranceAnim() {
+        lifecycleScope.launch {
+            withContext(Dispatchers.Default) {
+                val btt = AnimationUtils.loadAnimation(context, R.anim.btt)
+                val ftv = AnimationUtils.loadAnimation(context, R.anim.ftv)
 
-        viewDataBinding.buttonReloadQuote.startAnimation(btt)
-        viewDataBinding.favoriteAQuote.startAnimation(btt)
-        viewDataBinding.textViewQuoteAuthor.startAnimation(ftv)
-        viewDataBinding.textViewQuoteText.startAnimation(ftv)
+                viewDataBinding.buttonReloadQuote.startAnimation(btt)
+                viewDataBinding.favoriteAQuote.startAnimation(btt)
+                viewDataBinding.textViewQuoteAuthor.startAnimation(ftv)
+                viewDataBinding.textViewQuoteText.startAnimation(ftv)
+            }
+        }
     }
 
     fun disableNavigation() {

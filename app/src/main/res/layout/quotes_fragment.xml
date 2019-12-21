@@ -42,6 +42,7 @@
 
         <ImageButton
                 android:id="@+id/button_reloadQuote"
+                viewConnectionVisibility="@{viewmodel.state}"
                 style="@style/ImageButtonStyle"
                 android:src="@drawable/ic_autorenew_24px"
                 android:clickable="true"
@@ -112,6 +113,7 @@
         <ImageButton
                 android:id="@+id/favoriteAQuote"
                 android:src="@drawable/ic_favorite"
+                viewConnectionVisibility="@{viewmodel.state}"
                 style="@style/ImageButtonStyle"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/button_reloadQuote"
@@ -119,6 +121,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_quote_author"
                 app:layout_constraintVertical_bias="0.482" />
+
+        <Button
+                android:id="@+id/button_ads"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button"
+                app:layout_constraintBottom_toTopOf="@+id/progressBar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.049"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.011" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
