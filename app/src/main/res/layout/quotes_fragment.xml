@@ -9,7 +9,7 @@
 
         <variable
                 name="status"
-                type="com.example.quoteappmvvm.ui.quotes.DataBinderQuotesKt" />
+                type="com.nikolam.simplyquotes.ui.quotes.DataBinderQuotesKt" />
 
         <import type="android.view.View" />
 
@@ -17,7 +17,7 @@
 
         <variable
                 name="viewmodel"
-                type="com.example.quoteappmvvm.ui.quotes.QuotesViewModel" />
+                type="com.nikolam.simplyquotes.ui.quotes.QuotesViewModel" />
 
     </data>
 
@@ -30,13 +30,13 @@
 
         <TextView
                 android:id="@+id/textView_quote_author"
+                noAuthorText="@{String.valueOf(viewmodel.currentQuote.quoteAuthor)}"
                 viewConnectionVisibility="@{viewmodel.state}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                noAuthorText="@{String.valueOf(viewmodel.currentQuote.quoteAuthor)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_bias="0.596"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -100,6 +100,7 @@
         <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyle"
+                android:indeterminateTint="@color/colorPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 viewLoadingVisibility="@{viewmodel.state}"
@@ -122,17 +123,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView_quote_author"
                 app:layout_constraintVertical_bias="0.482" />
 
-        <Button
-                android:id="@+id/button_ads"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Button"
-                app:layout_constraintBottom_toTopOf="@+id/progressBar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.049"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.011" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

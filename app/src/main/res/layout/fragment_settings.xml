@@ -1,16 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.settings.SettingsFragment">
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="androidx.core.content.ContextCompat" />
+
+        <variable
+                name="viewmodel"
+                type="com.nikolam.simplyquotes.ui.settings.SettingsViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"
-            app:fontFamily="@font/roboto" />
+            android:layout_height="match_parent">
 
-</FrameLayout>
+        <TextView
+                android:id="@+id/textView_About"
+                android:layout_width="260dp"
+                android:layout_height="260dp"
+                android:background="@drawable/back"
+                android:padding="10dp"
+                android:text="@string/about"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.155" />
+
+        <TextView
+                android:id="@+id/textView_About_Header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="About"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/textView_About"
+                app:layout_constraintEnd_toEndOf="@+id/textView_About"
+                app:layout_constraintHorizontal_bias="0.494"
+                app:layout_constraintStart_toStartOf="@+id/textView_About"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.707" />
+
+        <ImageButton
+                android:id="@+id/imageButton_Paypal"
+                android:background="@android:color/transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_paypal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.074"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_About"
+                app:layout_constraintVertical_bias="0.179" />
+
+        <TextView
+                android:id="@+id/textView_paypal"
+                android:layout_width="327dp"
+                android:layout_height="19dp"
+                android:text="@string/paypal"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageButton_Paypal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toEndOf="@+id/imageButton_Paypal"
+                app:layout_constraintTop_toTopOf="@+id/imageButton_Paypal"
+                app:layout_constraintVertical_bias="0.47" />
+
+        <TextView
+                android:id="@+id/textView_contact"
+                android:layout_width="340dp"
+                android:layout_height="32dp"
+                android:text="@string/contactme"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageButton_Contact"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.45"
+                app:layout_constraintStart_toEndOf="@+id/imageButton_Contact"
+                app:layout_constraintTop_toTopOf="@+id/imageButton_Contact"
+                app:layout_constraintVertical_bias="0.0" />
+
+        <ImageButton
+                android:id="@+id/imageButton_Contact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_email"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@android:color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.069"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageButton_Paypal"
+                app:layout_constraintVertical_bias="0.399" />
+
+        <ImageButton
+                android:id="@+id/imageButton_Advertisement"
+                android:background="@android:color/transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_ads"
+                app:layout_constraintBottom_toTopOf="@+id/imageButton_Contact"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.069"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageButton_Paypal"
+                app:layout_constraintVertical_bias="0.494" />
+
+        <TextView
+                android:id="@+id/textView_Advertisement"
+                android:layout_width="335dp"
+                android:layout_height="30dp"
+                android:text="@string/advertisement"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageButton_Advertisement"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.36"
+                app:layout_constraintStart_toEndOf="@+id/imageButton_Advertisement"
+                app:layout_constraintTop_toTopOf="@+id/imageButton_Advertisement"
+                app:layout_constraintVertical_bias="0.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

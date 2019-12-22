@@ -13,15 +13,11 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
-        <!--Image Button Style-->
-        <item name="imageButtonStyle">@style/ImageButtonStyle</item>
-
     </style>
 
 
     <style name="ImageButtonStyle" parent="Widget.AppCompat.ImageButton">
-        <item name="android:color">@color/secondaryColor</item>
-        <item name="android:tint">@color/secondaryColor</item>
+        <item name="android:tint">@color/colorPrimary</item>
         <item name="android:layout_width">80dp</item>
         <item name="android:layout_height">80dp</item>
         <item name="android:background">@android:color/transparent</item>

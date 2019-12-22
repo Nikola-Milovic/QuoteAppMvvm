@@ -14,7 +14,7 @@
 
         <variable
                 name="binder"
-                type="com.example.quoteappmvvm.ui.favorite.DataBinderFavoriteQuotesKt" />
+                type="com.nikolam.simplyquotes.ui.favorite.DataBinderFavoriteQuotesKt" />
 
     </data>
 

@@ -12,12 +12,12 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
     defaultConfig {
-        applicationId "com.example.quoteappmvvm"
+        applicationId "com.nikolam.simplyquotes"
         minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "com.example.quoteappmvvm.QuoteTestRunner"
+        testInstrumentationRunner "com.nikolam.simplyquotes.QuoteTestRunner"
         multiDexEnabled true
     }
     buildTypes {

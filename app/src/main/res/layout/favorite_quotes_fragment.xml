@@ -12,7 +12,7 @@
 
         <variable
                 name="viewmodel"
-                type="com.example.quoteappmvvm.ui.favorite.FavoriteQuotesViewModel" />
+                type="com.nikolam.simplyquotes.ui.favorite.FavoriteQuotesViewModel" />
     </data>
 
     <RelativeLayout
@@ -33,6 +33,7 @@
                 android:id="@+id/delete_All_Quotes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/ImageButtonStyle"
                 android:src="@drawable/ic_delete_24px"
                 android:layout_alignParentRight="true"
                 android:padding="10dp" />
