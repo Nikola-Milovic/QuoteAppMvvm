@@ -5,7 +5,7 @@ I tried recreating my old application whilst learning new topics. Along the way 
 
 App overview
 --------------
-First time users get Balloons helping them get a grasp of the app (see Acknowledgments). This only runs once whenever new user enters the app. Every screen has it's own "first time" check so that if a user leaves app before entering a new screen for the first time, it will still show him helpful Balloons! 
+First time users get Balloons helping them get a grasp of the app (see Acknowledgments). This only runs once when a user enters the app for the first time. Every screen has it's own "first time" check so that if a user leaves app before entering a new screen for the first time, it will still show him helpful Balloons on that screen! 
 
 ![Balloons](screenshots/ballonsresized.gif "New user Balloons")
 
