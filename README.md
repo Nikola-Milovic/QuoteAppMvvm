@@ -5,7 +5,9 @@ I tried recreating my old application whilst learning new topics. Along the way 
 
 App overview
 --------------
-First time users get Balloons helping them get a grasp of the app (see Acknowledgments). 
+First time users get Balloons helping them get a grasp of the app (see Acknowledgments). This only runs once whenever new user enters the app. Every screen has it's own "first time" check so that if a user leaves app before entering a new screen for the first time, it will still show him helpful Balloons! 
+
+![Balloons](screenshots/ballonsresized.gif "New user Balloons")
 
 
 
@@ -43,7 +45,7 @@ Libraries Used
 [4]: https://developer.android.com/training/testing/
 [10]: https://developer.android.com/jetpack/arch/
 [11]: https://developer.android.com/topic/libraries/data-binding/
-[12]: https://developer.android.com/topic/libraries/architecture/lifecycle
+[12]: https://developer.android.com/topic/libraries/architecture/lifecycl
 [13]: https://developer.android.com/topic/libraries/architecture/livedata
 [14]: https://developer.android.com/topic/libraries/architecture/navigation/
 [16]: https://developer.android.com/topic/libraries/architecture/room
