@@ -6,15 +6,8 @@ import androidx.databinding.BindingAdapter
 import com.nikolam.simplyquotes.constants.apiState
 import com.nikolam.simplyquotes.constants.apiState.*
 
-//@BindingAdapter("statusImage")
-//fun setVisibility(imageView: ImageView, apiState: apiState) {
-//    when(apiState){
-//        FAILURE ->{imageView.visibility = View.VISIBLE}
-//        SUCCESS ->{imageView.visibility = View.INVISIBLE}
-//        LOADING ->{imageView.visibility = View.INVISIBLE}
-//    }
-//}
 
+// Show a View when there is no Internet connection
 @BindingAdapter("viewNoConnectionVisibility")
 fun View.setNoConnectionVisibility(apiState: apiState?) {
     this.visibility = when (apiState) {
@@ -25,6 +18,7 @@ fun View.setNoConnectionVisibility(apiState: apiState?) {
     }
 }
 
+// Show a View when there is  Internet connection
 @BindingAdapter("viewConnectionVisibility")
 fun View.setConnectionVisibility(apiState: apiState?) {
     this.visibility = when (apiState) {
@@ -35,7 +29,7 @@ fun View.setConnectionVisibility(apiState: apiState?) {
     }
 }
 
-
+// Show a View when the app is Loading
 @BindingAdapter("viewLoadingVisibility")
 fun View.setLoadingVisibility(apiState: apiState?) {
     this.visibility = when (apiState) {
@@ -46,6 +40,7 @@ fun View.setLoadingVisibility(apiState: apiState?) {
     }
 }
 
+// Show Unknown Author when the Quote Author Text is empty
 @BindingAdapter("noAuthorText")
 fun TextView.noAuthorText(item: String?) {
     item?.let {

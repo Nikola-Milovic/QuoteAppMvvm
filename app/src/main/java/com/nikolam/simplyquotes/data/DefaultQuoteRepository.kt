@@ -18,7 +18,7 @@ class DefaultQuoteRepository @Inject constructor(
         quoteLocalDataSource.deleteAllFavoriteQuotes()
     }
 
-
+    // Returns favorite quotes from the Local db, returns Success if succeeds but checks if the data returned is null or empty first
     override suspend fun getFavoriteQuotes(): Result<List<Quote>> {
         return when (val favoriteQuotes = quoteLocalDataSource.getFavoriteQuotes()) {
             is Error -> Result.Error(IOException("Error occurred during fetching favorite quotes!"))

@@ -11,12 +11,12 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.nikolam.simplyquotes.R
-import com.nikolam.simplyquotes.databinding.FragmentSettingsBinding
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
+import com.nikolam.simplyquotes.R
+import com.nikolam.simplyquotes.databinding.FragmentSettingsBinding
 import dagger.android.support.DaggerFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -56,14 +56,14 @@ class SettingsFragment : DaggerFragment() {
 
     override fun onStart() {
         super.onStart()
-        setUpAds()
+        setUpAds() // Load the advertisement beforehand
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
-    fun setupOnClickListeners() {
+    fun setupOnClickListeners() { // Setup Buttons onClicks
         viewDataBinding.imageButtonAdvertisement.setOnClickListener {
             if (mInterstitialAd.isLoaded) {
                 mInterstitialAd.show()
@@ -85,7 +85,7 @@ class SettingsFragment : DaggerFragment() {
         }
     }
 
-    fun setupAnimations() {
+    fun setupAnimations() { // Setup animation of Views when they are appearing onViewCreated, just for looks
         lifecycleScope.launch {
             withContext(Dispatchers.Default) {
                 val btt = AnimationUtils.loadAnimation(context, R.anim.btt)
@@ -105,7 +105,7 @@ class SettingsFragment : DaggerFragment() {
     }
 
 
-    fun setUpAds() {
+    fun setUpAds() { // Setup Ads after a delay so it doesn't slow down the Main Thread and delay creation of the Fragment
         lifecycleScope.launch {
             viewDataBinding.imageButtonAdvertisement.isClickable = false
             delay(1200)
@@ -126,7 +126,7 @@ class SettingsFragment : DaggerFragment() {
         }
     }
 
-    fun sendEmail() {
+    fun sendEmail() { // Opens up Gmail and starts a new E-mail to my E-mail address
         val email = Array(1) { "nikolamilovic2001@gmail.com" }
         val intent = Intent(Intent.ACTION_SENDTO)
         intent.data = Uri.parse("mailto:") // only email apps should handle this
@@ -137,7 +137,7 @@ class SettingsFragment : DaggerFragment() {
         }
     }
 
-    fun openPaypal() {
+    fun openPaypal() { // Opens a paypal.me link, maybe someone feels generous
         val uris = Uri.parse("https://paypal.me/nikolamilovic176?locale.x=en_US")
         val intents = Intent(Intent.ACTION_VIEW, uris)
         val b = Bundle()

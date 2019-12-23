@@ -8,7 +8,7 @@ import com.nikolam.simplyquotes.data.model.Quote
     entities = [Quote::class],
     version = 1,
     exportSchema = false
-) // data base for the quetes
+) // data base for the quotes
 abstract class LocalQuoteDataBase : RoomDatabase() {
 
     abstract fun quotesDao(): QuotesDao

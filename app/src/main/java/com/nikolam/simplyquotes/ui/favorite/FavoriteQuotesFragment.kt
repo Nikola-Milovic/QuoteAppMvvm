@@ -48,8 +48,9 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
 
     private lateinit var currentQuote: Quote
 
+    // Used for storing whether user is first time running the app or not
     companion object {
-        private const val sharedPreferencesFile = "com.example.quoteappmvvm.preferences"
+        private const val sharedPreferencesFile = "com.nikolam.simplyquotes.preferences"
         private const val IS_FIRST_RUN_FAVORITE = "isFirstRunFavorite"
     }
 
@@ -66,7 +67,7 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
         }
         viewDataBinding.lifecycleOwner = this
 
-
+        // Used to swipe delete Recycle View Items, i.e. unfavorite a quote by swiping it
         val mIth = ItemTouchHelper(
             object : ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.UP or ItemTouchHelper.DOWN,
@@ -97,7 +98,7 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
             layoutManager = LinearLayoutManager(activity)
             adapter = favoriteQuotesAdapter
             mIth.attachToRecyclerView(this)
-            this.addItemDecoration(
+            this.addItemDecoration( // Set up the lines below the quotes, just for looks
                 DividerItemDecoration(
                     context!!,
                     DividerItemDecoration.VERTICAL
@@ -119,14 +120,15 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
         viewDataBinding.deleteAllQuotes.startAnimation(btt)
 
 
-        enableNavigation()
+        enableNavigation() // To avoid unforseen situations where somehow the enableNavigation wasn't called before the fragment has been closed
 
-        if (firstRun) firstRun()
+        if (firstRun) firstRun() // If it's the users first time running the app, show him Text Balloons to explain what everything does
 
         return viewDataBinding.root
     }
 
-
+    // Checks whether it's users first time running THIS fragment, as other fragments have different first time checks, so you truly get first time experience on each fragment.
+    // This avoids that user might exit the app while opening a certain fragment
     fun checkFirstRun() {
         sharedPreferences =
             requireActivity().getSharedPreferences(sharedPreferencesFile, Context.MODE_PRIVATE)
@@ -146,7 +148,7 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
     }
 
 
-    private fun firstRun() { // NEED A BETTER WAY TO HANDLE SHOWING BALLOONS
+    private fun firstRun() { // Show user first time Balloons to help him user the app easier.   Thanks to https://github.com/skydoves/Balloon    -  NEED A BETTER WAY TO HANDLE SHOWING BALLOONS as I don't like this code, looks boiler plate-y
         lifecycleScope.launch {
             favoriteQuotesAdapter.quoteList.add(Quote("Sample quote", "The dev guy", true, 13101))
             disableNavigation()
@@ -201,7 +203,7 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
         super.onActivityCreated(savedInstanceState)
     }
 
-    fun disableNavigation() {
+    fun disableNavigation() { // Disable navigation while first time User is shown Balloons, avoids going somewhere else while Balloons haven't finished yet
         lifecycleScope.launch {
             val view = requireActivity().findViewById<View>(R.id.favoriteQuotesFragment)
             val view2 = requireActivity().findViewById<View>(R.id.settingsFragment)
@@ -236,13 +238,13 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
         builder.setNegativeButton("No") { dialog, which ->
             dialog.dismiss()
         }
-        // Finally, make the alert dialog using builder
+        // Make the alert dialog using builder
         val dialog: AlertDialog = builder.create()
         // Display the alert dialog on app interface
         dialog.show()
     }
 
-    override fun quoteClicked(quote: Quote, view: View) {
+    override fun quoteClicked(quote: Quote, view: View) { // Show a PopUp Menu
         val popup = PopupMenu(context, view)
         popup.menuInflater.inflate(R.menu.longclick_popup_menu, popup.menu)
         popup.setOnMenuItemClickListener(this)
@@ -250,7 +252,7 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
         popup.show()
     }
 
-    fun copyQuote() {
+    fun copyQuote() { // Copy a quote to ClipBoard
         val clipBoard =
             context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager // THIS SHOULD PROBABLY BE INJECTED WITH DAGGER AND CONTEXT SHOULD BE PROVIDED WITH DAGGER, BUT DAGGER IS KINDA WEIRD AND I DONT LIKE IT
         viewModel.copyText(currentQuote, clipBoard)

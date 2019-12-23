@@ -11,7 +11,7 @@ class QuoteRemoteDataSource @Inject constructor(
     private val apiService: QuoteApi
 ) {
 
-
+    // Fetch Quotes from Github, return a Result
     suspend fun getQuotes(): Result<List<Quote>> {
         return try {
             val quotes = apiService.getQuotes()

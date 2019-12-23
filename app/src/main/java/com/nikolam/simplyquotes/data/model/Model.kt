@@ -13,9 +13,8 @@ data class Quote(
     @ColumnInfo(name = "favorite") var isFavorite: Boolean = false,
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "entryid") val id: Int
 )
-// val id: String = UUID.randomUUID().toString()
-//A retrofit Network Interface for the Api
 
+//A retrofit Network Interface for the Api
 interface QuoteApi {
     @GET("quotes.json")
     suspend fun getQuotes(): List<Quote>

@@ -56,6 +56,8 @@ class QuotesFragment : DaggerFragment() {
         setHasOptionsMenu(true)
 
         viewModel.state.observe(viewLifecycleOwner, Observer {
+            // Check whether the loading has Succeeded, it it has check if we are running for the first time, if we are, show Balloons.
+            //If we're running for the first time but it's a failure then set the first time running to false so we avoid not showing balloons to disconnected users
             if (it == apiState.SUCCESS) {
                 setupEntranceAnim()
                 if (firstRun) firstRun()
@@ -69,9 +71,12 @@ class QuotesFragment : DaggerFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         checkFirstRun()
     }
 
+    // Checks whether it's users first time running THIS fragment, as other fragments have different first time checks, so you truly get first time experience on each fragment.
+    // This avoids that user might exit the app while opening a certain fragment
     fun checkFirstRun() {
         sharedPreferences =
             requireActivity().getSharedPreferences(sharedPreferencesFile, Context.MODE_PRIVATE)
@@ -84,6 +89,8 @@ class QuotesFragment : DaggerFragment() {
         }
     }
 
+
+    // Set first time to false as we don't want the first time user to get his Balloons not shown if he enters the app while offline and doesn't have data loaded
     fun falseFirstTime() {
         sharedPreferences =
             requireActivity().getSharedPreferences(sharedPreferencesFile, Context.MODE_PRIVATE)
@@ -99,7 +106,7 @@ class QuotesFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    fun setUpOnClickListeners() {
+    fun setUpOnClickListeners() { // Setup onClick for Buttons
         viewDataBinding.buttonReloadQuote.setOnClickListener {
             val anim = AnimationUtils.loadAnimation(context, R.anim.spin_anim)
             it.startAnimation(anim)
@@ -115,7 +122,7 @@ class QuotesFragment : DaggerFragment() {
     }
 
 
-    fun firstRun() {
+    fun firstRun() {  // Show user first time Balloons to help him user the app easier.   Thanks to https://github.com/skydoves/Balloon
         lifecycleScope.launch {
             firstRun = false
             disableNavigation()
@@ -184,7 +191,7 @@ class QuotesFragment : DaggerFragment() {
     }
 
 
-    fun setupEntranceAnim() {
+    fun setupEntranceAnim() { // Setup animation of Views when they are appearing onViewCreated, just for looks
         lifecycleScope.launch {
             withContext(Dispatchers.Default) {
                 val btt = AnimationUtils.loadAnimation(context, R.anim.btt)
@@ -198,7 +205,7 @@ class QuotesFragment : DaggerFragment() {
         }
     }
 
-    fun disableNavigation() {
+    fun disableNavigation() { // Disable navigation while first time User is shown Balloons, avoids going somewhere else while Balloons haven't finished yet
         lifecycleScope.launch {
             val view = requireActivity().findViewById<View>(R.id.favoriteQuotesFragment)
             val view2 = requireActivity().findViewById<View>(R.id.settingsFragment)
@@ -222,7 +229,7 @@ class QuotesFragment : DaggerFragment() {
 
 }
 
-
+// For going fullscreen
 // private fun hideSystemUI() {
 // // Enables sticky immersive mode.
 // // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE_STICKY.

@@ -19,7 +19,7 @@ import com.nikolam.simplyquotes.data.model.Quote
 
 
 /**
- * Main entry point for accessing tasks data.
+ * Main entry point for accessing quotes data.
  */
 interface QuoteDataSource {
 

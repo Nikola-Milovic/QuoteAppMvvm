@@ -35,7 +35,7 @@ class FavoriteQuotesAdapter(
         return quoteList[position]
     }
 
-
+    // Handle updates to the List without causing a lag
     fun updateQuotes(quotes: List<Quote>) {
         DiffUtil.calculateDiff(FavoriteQuoteDiffCallback(quotes, quoteList), false)
             .dispatchUpdatesTo(this)
@@ -79,7 +79,7 @@ class FavoriteQuotesAdapter(
     }
 }
 
-
+// DiffCallBack to help Recycle View handle updates and changes
 class FavoriteQuoteDiffCallback(
     private val newQuotes: List<Quote>,
     private val oldQuotes: List<Quote>

@@ -23,6 +23,7 @@ class QuoteLocalDataSource @Inject constructor( // for fetching locally stored q
         quotesDao.unfavoriteAllQuote()
     }
 
+    // Fetch favorite quotes from local db
     override suspend fun getFavoriteQuotes(): Result<List<Quote>> = withContext(ioDispatcher) {
         return@withContext try {
             Success(quotesDao.getFavoriteQuotes())
@@ -40,7 +41,7 @@ class QuoteLocalDataSource @Inject constructor( // for fetching locally stored q
     }
 
 
-
+    // Fetch Quotes from Github and insert them into Local db, if the fetching succeeds then it inserts, otherwise throw exception
     override suspend fun fetchRemoteQuotesAndInsertThemIntoDataBase() {
         try {
             when (val quotes = quoteRemoteDataSource.getQuotes()) {
@@ -54,6 +55,7 @@ class QuoteLocalDataSource @Inject constructor( // for fetching locally stored q
         }
     }
 
+    // Fetch quotes from Local db
     override suspend fun getQuotes(): Result<List<Quote>> = withContext(ioDispatcher) {
         return@withContext try {
             Success(quotesDao.getQuotes())
