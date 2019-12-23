@@ -1,5 +1,12 @@
 # Simply Quotes
-My take on making my old Quote App into MVVM architecture with some more "advance" additions 
+My take on making my old Quote App into MVVM architecture with some more "advance" additions.
+I tried recreating my old application whilst learning new topics. Along the way I got a deeper understanding of various UI components, lifecycles, architecture components, good practices and so on. It was a fun journey that is nearing it's end. 
+
+
+App overview
+--------------
+First time users get Balloons helping them get a grasp of the app (see Acknowledgments). 
+
 
 
 Libraries Used
@@ -15,6 +22,7 @@ Libraries Used
   maintainable apps. Start with classes for managing your UI component lifecycle and handling data
   persistence.
   * [Data Binding][11] - Declaratively bind observable data to UI elements.
+  * [Dagger-2][100] - For Dependancy Injection and connecting app modules.
   * [Lifecycles][12] - Create a UI that automatically responds to lifecycle events.
   * [LiveData][13] - Build data objects that notify views when the underlying database changes.
   * [Navigation][14] - Handle everything needed for in-app navigation.
@@ -48,6 +56,7 @@ Libraries Used
 [90]: https://bumptech.github.io/glide/
 [91]: https://kotlinlang.org/docs/reference/coroutines-overview.html
 [99]: https://github.com/android/sunflower
+[100]: https://github.com/google/dagger
 
 
 ## Acknowledgments
