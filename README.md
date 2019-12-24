@@ -20,11 +20,15 @@ General idea is simplicity. No ads being displayed every 5 seconds, no distracti
 Favorite quotes
 --------------
 
+In the favorite quotes screen you are able to copy, delete and view your saved quotes! Swipe to delete, click to save, trash can to delete everything. Simplicity throughout. 
+
 ![Favorite Quotes](screenshots/favoritesresized.gif "Favorites")
 
 
 
-
+Future Plans
+--------------
+Some of the features that will be added are accessibility, localization, more quotes and generally more things to do. Main aspects of accessibility will be Text To Speech, better optimization and support for the visually impaired users. Other changes will include eye candy visual changes, mostly to the settings screen and the animations.
 
 
 Libraries Used
