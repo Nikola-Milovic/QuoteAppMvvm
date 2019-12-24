@@ -3,15 +3,26 @@ My take on making my old Quote App into MVVM architecture with some more "advanc
 I tried recreating my old application whilst learning new topics. Along the way I got a deeper understanding of various UI components, lifecycles, architecture components, good practices and so on. It was a fun journey that is nearing it's end. 
 
 
-App overview
---------------
+Opening the app for the first time
+-------------
 First time users get Balloons helping them get a grasp of the app (see Acknowledgments). This only runs once when a user enters the app for the first time. Every screen has it's own "first time" check so that if a user leaves app before entering a new screen for the first time, it will still show him helpful Balloons on that screen! 
 
 ![Balloons](screenshots/ballonsresized.gif "New user Balloons")
 
+
+Main app screen
+--------------
+
 General idea is simplicity. No ads being displayed every 5 seconds, no distractions, just simply, quotes. Once ran and the quotes are loaded then you can use the app fully offline thanks to Rooms Local Database. From this screen, quotes can be saved for later use.
 
 ![Quotes](screenshots/quotes.gif "Main Screen")
+
+Favorite quotes
+--------------
+
+![Favorite Quotes](screenshots/favoritesresized.gif "Favorites")
+
+
 
 
 
@@ -41,7 +52,6 @@ Libraries Used
   * [Fragment][34] - A basic unit of composable UI.
   * [Layout][35] - Lay out widgets using different algorithms.
 * Third party
-  * [Glide][90] for image loading
   * [Kotlin Coroutines][91] for managing background threads with simplified code and reducing needs for callbacks
 
 [0]: https://developer.android.com/jetpack/components
@@ -60,7 +70,6 @@ Libraries Used
 [31]: https://developer.android.com/training/animation/
 [34]: https://developer.android.com/guide/components/fragments
 [35]: https://developer.android.com/guide/topics/ui/declaring-layout
-[90]: https://bumptech.github.io/glide/
 [91]: https://kotlinlang.org/docs/reference/coroutines-overview.html
 [99]: https://github.com/android/sunflower
 [100]: https://github.com/google/dagger
