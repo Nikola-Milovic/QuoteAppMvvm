@@ -21,8 +21,12 @@
 
         <TextView
                 android:id="@+id/textView_About"
-                android:layout_width="262dp"
-                android:layout_height="280dp"
+                android:layout_width="667dp"
+                android:layout_height="127dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
                 android:background="@drawable/back"
                 android:padding="10dp"
                 android:text="@string/about"
@@ -30,7 +34,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.155" />
+                app:layout_constraintVertical_bias="0.115" />
 
         <TextView
                 android:id="@+id/textView_About_Header"
@@ -50,16 +54,16 @@
                 android:id="@+id/imageButton_Paypal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_paypal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.08"
+                app:layout_constraintHorizontal_bias="0.069"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_About"
-                app:layout_constraintVertical_bias="0.042" />
+                app:layout_constraintVertical_bias="0.0" />
 
         <TextView
                 android:id="@+id/textView_paypal"
@@ -82,7 +86,7 @@
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageButton_Contact"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.45"
+                app:layout_constraintHorizontal_bias="0.208"
                 app:layout_constraintStart_toEndOf="@+id/imageButton_Contact"
                 app:layout_constraintTop_toTopOf="@+id/imageButton_Contact"
                 app:layout_constraintVertical_bias="0.0" />
@@ -91,27 +95,30 @@
                 android:id="@+id/imageButton_Contact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_email"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.085"
+                app:layout_constraintHorizontal_bias="0.069"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageButton_Paypal" />
+                app:layout_constraintTop_toBottomOf="@+id/imageButton_Advertisement"
+                app:layout_constraintVertical_bias="0.256" />
 
         <ImageButton
                 android:id="@+id/imageButton_Advertisement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_ads"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.08"
+                app:layout_constraintHorizontal_bias="0.069"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageButton_Contact"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/imageButton_Paypal"
+                app:layout_constraintVertical_bias="0.147" />
 
         <TextView
                 android:id="@+id/textView_Advertisement"

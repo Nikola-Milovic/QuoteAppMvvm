@@ -18,20 +18,23 @@ class FavoriteQuotesViewModel @Inject constructor(
     private val quoteRepository: QuoteRepository
 ) : ViewModel() {
 
-    private var _quoteList = MutableLiveData<List<Quote>>()
-    val quoteList: LiveData<List<Quote>>
-        get() = _quoteList
+    private var _favoritequoteList = MutableLiveData<List<Quote>>()
+    val favoritequoteList: LiveData<List<Quote>>
+        get() = _favoritequoteList
+
+    private lateinit var quotesList: ArrayList<Quote>
 
     init {
-        getQuote()
+        getQuotes()
     }
 
-    private fun getQuote() {
+    private fun getQuotes() {
         viewModelScope.launch {
             try {
                 val quotes = quoteRepository.getFavoriteQuotes()
                 if (quotes.succeeded && quotes is Success) {
-                    _quoteList.postValue(quotes.data)
+                    quotesList = ArrayList(quotes.data)
+                    _favoritequoteList.postValue(quotesList)
                 }
             } catch (e: Exception) {
                 Log.d("TAG", e.message.toString())
@@ -39,9 +42,11 @@ class FavoriteQuotesViewModel @Inject constructor(
         }
     }
 
-    suspend fun deleteFavoriteQuote(id: Int) {
+    suspend fun deleteFavoriteQuote(id: Int, quote: Quote) {
         viewModelScope.launch {
             quoteRepository.unfavoriteAQuote(id)
+            quotesList.remove(quote)
+            _favoritequoteList.postValue(quotesList)
         }
     }
 

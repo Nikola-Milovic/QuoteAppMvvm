@@ -85,17 +85,17 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
                     lifecycleScope.launch {
                         val pos = viewHolder.adapterPosition
                         val quote = favoriteQuotesAdapter.getQuoteAt(pos)
-                        viewModel.deleteFavoriteQuote(quote.id)
+                        viewModel.deleteFavoriteQuote(quote.id, quote)
                         favoriteQuotesAdapter.removeQuote(pos)
                     }
                 }
             })
 
-
-
         favoriteQuotesAdapter = FavoriteQuotesAdapter(requireContext(), this)
         viewDataBinding.quotesList.apply {
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = LinearLayoutManager(activity).apply {
+                isSmoothScrollbarEnabled = true
+            }
             adapter = favoriteQuotesAdapter
             mIth.attachToRecyclerView(this)
             this.addItemDecoration( // Set up the lines below the quotes, just for looks
@@ -106,10 +106,20 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
             )
         }
 
-        viewModel.quoteList.observe(this) {
+        viewModel.favoritequoteList.observe(this) {
             favoriteQuotesAdapter.updateQuotes(it)
         }
 
+        deleteAllButtonSetup()
+
+        enableNavigation() // To avoid unforeseen situations where somehow the enableNavigation wasn't called before the fragment has been closed
+
+        if (firstRun) firstRun() // If it's the users first time running the app, show him Text Balloons to explain what everything does
+
+        return viewDataBinding.root
+    }
+
+    fun deleteAllButtonSetup() {
         viewDataBinding.deleteAllQuotes.setOnClickListener {
             val anim = AnimationUtils.loadAnimation(context, R.anim.grow_anim)
             it.startAnimation(anim)
@@ -118,14 +128,8 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
 
         val btt = AnimationUtils.loadAnimation(context, R.anim.btt)
         viewDataBinding.deleteAllQuotes.startAnimation(btt)
-
-
-        enableNavigation() // To avoid unforseen situations where somehow the enableNavigation wasn't called before the fragment has been closed
-
-        if (firstRun) firstRun() // If it's the users first time running the app, show him Text Balloons to explain what everything does
-
-        return viewDataBinding.root
     }
+
 
     // Checks whether it's users first time running THIS fragment, as other fragments have different first time checks, so you truly get first time experience on each fragment.
     // This avoids that user might exit the app while opening a certain fragment
