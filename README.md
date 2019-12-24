@@ -9,7 +9,10 @@ First time users get Balloons helping them get a grasp of the app (see Acknowled
 
 ![Balloons](screenshots/ballonsresized.gif "New user Balloons")
 
-General idea is simplicity. No ads being displayed every 5 seconds, no distractions, just simply quotes. Once ran and the quotes are loaded then you can use the app fully offline thanks to Rooms Local Database.
+General idea is simplicity. No ads being displayed every 5 seconds, no distractions, just simply, quotes. Once ran and the quotes are loaded then you can use the app fully offline thanks to Rooms Local Database. From this screen, quotes can be saved for later use.
+
+![Quotes](screenshots/quotes.gif "Main Screen")
+
 
 
 
