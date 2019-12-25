@@ -21,28 +21,33 @@
 
         <TextView
                 android:id="@+id/textView_About"
-                android:layout_width="667dp"
-                android:layout_height="127dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_8sdp"
                 android:background="@drawable/back"
-                android:padding="10dp"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingLeft="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_12sdp"
+                android:paddingRight="@dimen/_12sdp"
                 android:text="@string/about"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.115" />
+                app:layout_constraintVertical_bias="0.225" />
 
         <TextView
                 android:id="@+id/textView_About_Header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
+                android:padding="@dimen/_10sdp"
+                android:layout_margin="@dimen/_10sdp"
                 android:text="About"
-                android:textSize="24sp"
+                android:textSize="@dimen/_24sdp"
                 app:layout_constraintBottom_toTopOf="@+id/textView_About"
                 app:layout_constraintEnd_toEndOf="@+id/textView_About"
                 app:layout_constraintHorizontal_bias="0.494"
@@ -67,26 +72,26 @@
 
         <TextView
                 android:id="@+id/textView_paypal"
-                android:layout_width="327dp"
-                android:layout_height="19dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/paypal"
-                android:textSize="12sp"
+                android:textSize="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageButton_Paypal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintHorizontal_bias="0.043"
                 app:layout_constraintStart_toEndOf="@+id/imageButton_Paypal"
                 app:layout_constraintTop_toTopOf="@+id/imageButton_Paypal"
-                app:layout_constraintVertical_bias="0.47" />
+                app:layout_constraintVertical_bias="0.542" />
 
         <TextView
                 android:id="@+id/textView_contact"
-                android:layout_width="340dp"
-                android:layout_height="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/contactme"
-                android:textSize="12sp"
+                android:textSize="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageButton_Contact"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.208"
+                app:layout_constraintHorizontal_bias="0.096"
                 app:layout_constraintStart_toEndOf="@+id/imageButton_Contact"
                 app:layout_constraintTop_toTopOf="@+id/imageButton_Contact"
                 app:layout_constraintVertical_bias="0.0" />
@@ -122,15 +127,15 @@
 
         <TextView
                 android:id="@+id/textView_Advertisement"
-                android:layout_width="335dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/advertisement"
-                android:textSize="12sp"
+                android:textSize="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageButton_Advertisement"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.205"
+                app:layout_constraintHorizontal_bias="0.076"
                 app:layout_constraintStart_toEndOf="@+id/imageButton_Advertisement"
                 app:layout_constraintTop_toTopOf="@+id/imageButton_Advertisement"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.491" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

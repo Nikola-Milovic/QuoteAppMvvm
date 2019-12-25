@@ -103,9 +103,11 @@ dependencies {
 
 
     //first run bubbles
-    implementation "com.github.skydoves:balloon:1.0.6"
+    implementation "com.github.skydoves:balloon:1.0.7"
     //ads
     implementation 'com.google.android.gms:play-services-ads:18.3.0'
+    //sdp
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
 
     // Dagger
     implementation "com.google.dagger:dagger:$dagger2_version"
