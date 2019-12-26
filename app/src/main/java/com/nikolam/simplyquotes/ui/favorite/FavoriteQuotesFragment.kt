@@ -318,7 +318,7 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
             val balloon1 = createBalloon(requireContext()) {
                 setArrowSize(10)
                 setWidthRatio(0.7f)
-                setHeight(50)
+                setHeight(60)
                 setArrowPosition(0.9f)
                 setArrowOrientation(ArrowOrientation.TOP)
                 setCornerRadius(4f)
@@ -327,7 +327,7 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
                 setDismissWhenTouchOutside(true)
                 setOnBalloonDismissListener {
                     if (this@FavoriteQuotesFragment.isVisible) {
-                        balloon2.showAlignTop(viewDataBinding.quotesList, 0, 400)
+                        balloon2.showAlignTop(viewDataBinding.quotesList, 0, 300)
                     }
                 }
                 setText("You can delete all favorite quotes by clicking here!")

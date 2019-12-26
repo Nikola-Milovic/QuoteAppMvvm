@@ -131,7 +131,7 @@ class QuotesFragment : DaggerFragment() {
                 setArrowSize(10)
                 setWidthRatio(0.8f)
                 setHeight(50)
-                setArrowPosition(0.25f)
+                setArrowPosition(0.1f)
                 setArrowOrientation(ArrowOrientation.BOTTOM)
                 setCornerRadius(4f)
                 setAlpha(0.9f)
@@ -157,7 +157,7 @@ class QuotesFragment : DaggerFragment() {
                 setDismissWhenTouchOutside(true)
                 setText("Favorite a quote and save it for later viewing!")
                 setOnBalloonDismissListener {
-                    balloon3.showAlignBottom(viewDataBinding.buttonReloadQuote, 0, 150)
+                    balloon3.showAlignBottom(viewDataBinding.buttonReloadQuote, 0, 125)
                 }
                 setTextColorResource(R.color.colorAccent)
                 setBackgroundColorResource(R.color.colorPrimary)
@@ -176,7 +176,7 @@ class QuotesFragment : DaggerFragment() {
                 setDismissWhenClicked(true)
                 setDismissWhenTouchOutside(true)
                 setOnBalloonDismissListener {
-                    balloon2.showAlignBottom(viewDataBinding.favoriteAQuote, 0, -50)
+                    balloon2.showAlignBottom(viewDataBinding.favoriteAQuote, 0, -25)
                 }
                 setText("Refresh and see a brand new quote!")
                 setTextColorResource(R.color.colorAccent)
@@ -185,7 +185,7 @@ class QuotesFragment : DaggerFragment() {
                 setLifecycleOwner(this@QuotesFragment)
             }
 
-            balloon1.showAlignBottom(viewDataBinding.buttonReloadQuote, 0, -50)
+            balloon1.showAlignBottom(viewDataBinding.buttonReloadQuote, 0, -25)
 
         }
     }
