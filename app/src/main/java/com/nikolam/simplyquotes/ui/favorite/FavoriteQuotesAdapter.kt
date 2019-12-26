@@ -64,7 +64,7 @@ class FavoriteQuotesAdapter(
 
         fun bind(quote: Quote) {
             if (quote.quoteAuthor.isNullOrBlank()) {
-                quoteAuthorTextView?.text = "Unknown Author"
+                quoteAuthorTextView?.text = "- Unknown Author"
             } else {
                 quoteAuthorTextView?.text = "- " + quote.quoteAuthor
             }

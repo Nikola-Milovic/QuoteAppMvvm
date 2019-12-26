@@ -4,6 +4,8 @@ import android.app.AlertDialog
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.*
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +15,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -73,6 +76,18 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
                 ItemTouchHelper.UP or ItemTouchHelper.DOWN,
                 ItemTouchHelper.RIGHT
             ) {
+                private val deleteIcon =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_delete_white)
+                private val intrinsicWidth = deleteIcon!!.intrinsicWidth
+                private val intrinsicHeight = deleteIcon!!.intrinsicHeight
+                private val background = ColorDrawable()
+                private val backgroundColor = Color.parseColor("#f44336")
+                private val clearPaint =
+                    Paint().apply { xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR) }
+
+
+
+
                 override fun onMove(
                     recyclerView: RecyclerView,
                     viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder
@@ -80,6 +95,91 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
                     Log.d("TAG", "Move")
                     return true// true if moved, false otherwise
                 }
+
+                override fun onChildDraw(
+                    c: Canvas,
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    dX: Float,
+                    dY: Float,
+                    actionState: Int,
+                    isCurrentlyActive: Boolean
+                ) {
+
+
+                    val itemView = viewHolder.itemView
+                    val itemHeight = itemView.bottom - itemView.top
+                    val isCanceled = dX == 0f && !isCurrentlyActive
+
+                    if (isCanceled) {
+                        clearCanvas(
+                            c,
+                            itemView.right + dX,
+                            itemView.top.toFloat(),
+                            itemView.right.toFloat(),
+                            itemView.bottom.toFloat()
+                        )
+                        super.onChildDraw(
+                            c,
+                            recyclerView,
+                            viewHolder,
+                            dX,
+                            dY,
+                            actionState,
+                            isCurrentlyActive
+                        )
+                        return
+                    }
+
+                    // Draw the red delete background
+                    background.color = backgroundColor
+                    background.setBounds(
+                        itemView.left + dX.toInt(),
+                        itemView.top,
+                        itemView.left,
+                        itemView.bottom
+                    )
+                    // background.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
+                    background.draw(c)
+
+                    // Calculate position of delete icon
+                    val deleteIconTop = itemView.top + (itemHeight - intrinsicHeight) / 2
+                    val deleteIconMargin = (itemHeight - intrinsicHeight) / 2
+                    val deleteIconLeft = itemView.left + deleteIconMargin
+                    val deleteIconRight = itemView.left + deleteIconMargin + intrinsicWidth
+                    val deleteIconBottom = deleteIconTop + intrinsicHeight
+
+                    // Draw the delete icon
+                    deleteIcon?.setBounds(
+                        deleteIconLeft,
+                        deleteIconTop,
+                        deleteIconRight,
+                        deleteIconBottom
+                    )
+                    deleteIcon?.draw(c)
+
+                    super.onChildDraw(
+                        c,
+                        recyclerView,
+                        viewHolder,
+                        dX,
+                        dY,
+                        actionState,
+                        isCurrentlyActive
+                    )
+                }
+
+                private fun clearCanvas(
+                    c: Canvas?,
+                    left: Float,
+                    top: Float,
+                    right: Float,
+                    bottom: Float
+                ) {
+                    c?.drawRect(left, top, right, bottom, clearPaint)
+                }
+
+
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     lifecycleScope.launch {
@@ -114,7 +214,7 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
 
         enableNavigation() // To avoid unforeseen situations where somehow the enableNavigation wasn't called before the fragment has been closed
 
-        if (firstRun) firstRun() // If it's the users first time running the app, show him Text Balloons to explain what everything does
+        firstRun() // If it's the users first time running the app, show him Text Balloons to explain what everything does
 
         return viewDataBinding.root
     }
@@ -159,6 +259,29 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
             delay(1000)
 
 
+            val balloon3 = createBalloon(requireContext()) {
+                setArrowSize(10)
+                setWidthRatio(0.4f)
+                setHeight(50)
+                setArrowPosition(0.5f)
+                setArrowVisible(false)
+                setArrowOrientation(ArrowOrientation.TOP)
+                setCornerRadius(4f)
+                setAlpha(0.9f)
+                setDismissWhenClicked(true)
+                setDismissWhenTouchOutside(true)
+                setBalloonAnimationStyle(R.style.LeftToRight)
+                setOnBalloonDismissListener {
+                    enableNavigation()
+                }
+                setText("Or swipe to delete it!")
+                setTextColorResource(R.color.colorAccent)
+                setBackgroundColorResource(R.color.colorPrimary)
+                setBalloonAnimation(BalloonAnimation.FADE)
+                setLifecycleOwner(this@FavoriteQuotesFragment)
+            }
+
+
             val balloon2 = createBalloon(requireContext()) {
                 setArrowSize(10)
                 setWidthRatio(0.8f)
@@ -169,8 +292,12 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
                 setAlpha(0.9f)
                 setDismissWhenClicked(true)
                 setDismissWhenTouchOutside(true)
-                setOnBalloonDismissListener { enableNavigation() }
-                setText("You can click on a favorite quote to copy it or swipe right to delete it!")
+                setOnBalloonDismissListener {
+                    if (this@FavoriteQuotesFragment.isVisible) {
+                        balloon3.showAlignTop(viewDataBinding.quotesList, 0, 400)
+                    }
+                }
+                setText("You can click on a favorite quote to copy it")
                 setTextColorResource(R.color.colorAccent)
                 setBackgroundColorResource(R.color.colorPrimary)
                 setBalloonAnimation(BalloonAnimation.FADE)
@@ -226,7 +353,6 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
     }
 
     fun deleteAllQuote() {
-
         // Initialize a new instance of
         val builder = AlertDialog.Builder(context)
         builder.setMessage("Are you sure you want to delete ALL favorite quotes?")
@@ -239,7 +365,7 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
                 .show()
 
         }
-        builder.setNegativeButton("No") { dialog, which ->
+        builder.setNeutralButton("Cancel") { dialog, which ->
             dialog.dismiss()
         }
         // Make the alert dialog using builder

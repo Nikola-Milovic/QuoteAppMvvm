@@ -45,8 +45,10 @@ class FavoriteQuotesViewModel @Inject constructor(
     suspend fun deleteFavoriteQuote(id: Int, quote: Quote) {
         viewModelScope.launch {
             quoteRepository.unfavoriteAQuote(id)
-            quotesList.remove(quote)
-            _favoritequoteList.postValue(quotesList)
+            if (::quotesList.isInitialized) {
+                quotesList.remove(quote)
+                _favoritequoteList.postValue(quotesList)
+            }
         }
     }
 
