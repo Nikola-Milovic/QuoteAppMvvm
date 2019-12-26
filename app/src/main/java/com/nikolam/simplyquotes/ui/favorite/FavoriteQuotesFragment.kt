@@ -206,15 +206,25 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
             )
         }
 
+        //viewModel.checkForEmpty()
+
         viewModel.favoritequoteList.observe(this) {
             favoriteQuotesAdapter.updateQuotes(it)
+        }
+
+        viewModel.favoriteQuotesEmptyCheck.observe(this) {
+            if (it) {
+                viewDataBinding.textViewNoFavoriteQuotes.visibility = View.VISIBLE
+            } else {
+                viewDataBinding.textViewNoFavoriteQuotes.visibility = View.INVISIBLE
+            }
         }
 
         deleteAllButtonSetup()
 
         enableNavigation() // To avoid unforeseen situations where somehow the enableNavigation wasn't called before the fragment has been closed
 
-        firstRun() // If it's the users first time running the app, show him Text Balloons to explain what everything does
+        if (firstRun) firstRun() // If it's the users first time running the app, show him Text Balloons to explain what everything does
 
         return viewDataBinding.root
     }
@@ -288,13 +298,14 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
                 setHeight(50)
                 setArrowPosition(0.5f)
                 setArrowOrientation(ArrowOrientation.TOP)
+                setArrowVisible(false)
                 setCornerRadius(4f)
                 setAlpha(0.9f)
                 setDismissWhenClicked(true)
                 setDismissWhenTouchOutside(true)
                 setOnBalloonDismissListener {
                     if (this@FavoriteQuotesFragment.isVisible) {
-                        balloon3.showAlignTop(viewDataBinding.quotesList, 0, 400)
+                        balloon3.showAlignTop(viewDataBinding.quotesList, 0, 350)
                     }
                 }
                 setText("You can click on a favorite quote to copy it")
@@ -306,7 +317,7 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
 
             val balloon1 = createBalloon(requireContext()) {
                 setArrowSize(10)
-                setWidthRatio(0.6f)
+                setWidthRatio(0.7f)
                 setHeight(50)
                 setArrowPosition(0.9f)
                 setArrowOrientation(ArrowOrientation.TOP)

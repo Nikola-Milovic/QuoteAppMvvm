@@ -16,3 +16,4 @@ fun TextView.noAuthorText(item: String?) {
         }
     }
 }
+

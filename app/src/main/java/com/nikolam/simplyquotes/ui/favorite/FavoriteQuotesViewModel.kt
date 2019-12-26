@@ -24,17 +24,26 @@ class FavoriteQuotesViewModel @Inject constructor(
 
     private lateinit var quotesList: ArrayList<Quote>
 
+    private var _favoriteQuotesEmptyCheck = MutableLiveData<Boolean>()
+    val favoriteQuotesEmptyCheck: LiveData<Boolean>
+        get() = _favoriteQuotesEmptyCheck
+
+
+
     init {
         getQuotes()
+
     }
 
     private fun getQuotes() {
         viewModelScope.launch {
+            _favoriteQuotesEmptyCheck.postValue(true)
             try {
                 val quotes = quoteRepository.getFavoriteQuotes()
-                if (quotes.succeeded && quotes is Success) {
+                if (quotes.succeeded && quotes is Success && quotes.data.isNotEmpty()) {
                     quotesList = ArrayList(quotes.data)
                     _favoritequoteList.postValue(quotesList)
+                    _favoriteQuotesEmptyCheck.postValue(false)
                 }
             } catch (e: Exception) {
                 Log.d("TAG", e.message.toString())
@@ -48,13 +57,26 @@ class FavoriteQuotesViewModel @Inject constructor(
             if (::quotesList.isInitialized) {
                 quotesList.remove(quote)
                 _favoritequoteList.postValue(quotesList)
+                checkForEmpty()
             }
         }
     }
 
+    fun checkForEmpty() {
+        viewModelScope.launch {
+            if (quotesList.isEmpty()) {
+                _favoriteQuotesEmptyCheck.postValue(true)
+            } else {
+                _favoriteQuotesEmptyCheck.postValue(false)
+            }
+        }
+    }
+
+
     suspend fun deleteAllFavoriteQuotes() {
         viewModelScope.launch {
             quoteRepository.deleteAllFavoriteQuotes()
+            checkForEmpty()
         }
 
     }

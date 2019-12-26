@@ -38,6 +38,14 @@
                 android:layout_alignParentRight="true"
                 android:padding="10dp" />
 
+        <TextView
+                android:id="@+id/textView_noFavoriteQuotes"
+                android:layout_width="wrap_content"
+                android:visibility="invisible"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/nofavorites" />
+
 
     </RelativeLayout>
 

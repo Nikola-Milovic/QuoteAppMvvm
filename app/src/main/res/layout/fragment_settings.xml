@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="32dp"
-                android:background="@android:color/transparent"
+                android:background="@drawable/circle"
                 android:src="@drawable/ic_paypal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -64,29 +64,35 @@
 
         <TextView
                 android:id="@+id/textView_paypal"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
                 android:text="@string/paypal"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageButton_Paypal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.056"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/imageButton_Paypal"
-                app:layout_constraintTop_toTopOf="@+id/imageButton_Paypal"
-                app:layout_constraintVertical_bias="0.55" />
+                app:layout_constraintTop_toTopOf="@+id/imageButton_Paypal" />
 
         <TextView
                 android:id="@+id/textView_contact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginRight="32dp"
                 android:text="@string/contactme"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageButton_Contact"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.105"
                 app:layout_constraintStart_toEndOf="@+id/imageButton_Contact"
-                app:layout_constraintTop_toTopOf="@+id/imageButton_Contact"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toTopOf="@+id/imageButton_Contact" />
 
         <ImageButton
                 android:id="@+id/imageButton_Contact"
@@ -118,13 +124,16 @@
                 android:id="@+id/textView_Advertisement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
                 android:text="@string/advertisement"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageButton_Advertisement"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.057"
                 app:layout_constraintStart_toEndOf="@+id/imageButton_Advertisement"
-                app:layout_constraintTop_toTopOf="@+id/imageButton_Advertisement"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toTopOf="@+id/imageButton_Advertisement" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
