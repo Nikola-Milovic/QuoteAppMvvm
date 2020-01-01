@@ -15,7 +15,7 @@ Main app screen
 
 General idea is simplicity. No ads being displayed every 5 seconds, no distractions, just simply, quotes. Once ran and the quotes are loaded then you can use the app fully offline thanks to Rooms Local Database. From this screen, quotes can be saved for later use.
 
-![Quotes](screenshots/quotes.gif "Main Screen")
+![Quotes](screenshots/quotesresized.gif "Main Screen")
 
 Favorite quotes
 --------------
