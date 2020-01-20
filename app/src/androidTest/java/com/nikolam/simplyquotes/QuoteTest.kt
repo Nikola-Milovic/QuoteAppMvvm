@@ -38,7 +38,9 @@ class QuoteTest {
             listOf(
                 Quote(
                     "Expected Author",
-                    "Expected Quote"
+                    "Expected Quote",
+                    false,
+                    12312415
                 )
             )
         )

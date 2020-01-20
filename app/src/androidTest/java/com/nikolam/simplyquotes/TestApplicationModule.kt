@@ -27,11 +27,20 @@ class MockQuoteDataSource : QuoteDataSource {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun favoriteAQuote(quoteID: String) {
+    override suspend fun favoriteAQuote(quoteID: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+
     override suspend fun fetchRemoteQuotesAndInsertThemIntoDataBase() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun unfavoriteAQuote(quoteID: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun deleteAllFavoriteQuotes() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
