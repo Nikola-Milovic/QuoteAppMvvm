@@ -9,21 +9,41 @@ apply plugin: "kotlin-kapt"
 
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/storage/Users/Volks/Desktop/Android-2019/Android2/Fajlovi/SimplyQuotesKey.jks')
+            storePassword 'osmoregulacija1234mile'
+            keyAlias = 'SimplyQuotesKey'
+            keyPassword 'simplyQuotesPasswordCuvamGa'
+        }
+        debug {
+            storeFile file('/storage/Users/Volks/Desktop/Android-2019/Android2/Fajlovi/SimplyQuotesKey.jks')
+            storePassword 'osmoregulacija1234mile'
+            keyAlias = 'SimplyQuotesKey'
+            keyPassword 'simplyQuotesPasswordCuvamGa'
+        }
+    }
     compileSdkVersion 29
-    buildToolsVersion "29.0.0"
+    buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.nikolam.simplyquotes"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 1
+        versionCode 6
         versionName "1.0"
         testInstrumentationRunner "com.nikolam.simplyquotes.QuoteTestRunner"
         multiDexEnabled true
     }
     buildTypes {
         release {
-            minifyEnabled false
+            testCoverageEnabled = false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable = false
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
 
@@ -35,6 +55,11 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     testOptions {
@@ -53,20 +78,20 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
 
     implementation "androidx.fragment:fragment-ktx:$fragmentKtxVersion"
     implementation "androidx.fragment:fragment:$fragmentVersion"
 
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
 
-    implementation 'com.google.android.material:material:1.2.0-alpha02'
+    implementation 'com.google.android.material:material:1.2.0-alpha03'
 
     // Navigation
-    implementation 'androidx.navigation:navigation-fragment:2.2.0-rc02'
-    implementation 'androidx.navigation:navigation-ui:2.2.0-rc02'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0-rc02'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-rc02'
+    implementation 'androidx.navigation:navigation-fragment:2.2.0-rc04'
+    implementation 'androidx.navigation:navigation-ui:2.2.0-rc04'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0-rc04'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-rc04'
 
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation "androidx.constraintlayout:constraintlayout:1.1.3"
@@ -77,18 +102,19 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
-    kapt "androidx.room:room-compiler:$room_version"
+
 
     // Kotlin Android Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0"
 
     // Gson
-    implementation "com.google.code.gson:gson:2.8.5"
-    implementation("com.squareup.okhttp3:okhttp:4.0.1")
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation('com.squareup.okhttp3:okhttp:4.3.1')
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
@@ -126,11 +152,11 @@ dependencies {
 
 
     //Testing
-    testImplementation 'com.squareup.okhttp3:mockwebserver:4.0.1'
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.3.1'
     // Gson
-    testImplementation "com.google.code.gson:gson:2.8.5"
+    testImplementation 'com.google.code.gson:gson:2.8.6'
     // Mockito
-    testImplementation "org.mockito:mockito-core:2.19.0"
+    testImplementation "org.mockito:mockito-core:2.21.0"
     testImplementation "io.mockk:mockk:$mockk_version"
     androidTestImplementation "io.mockk:mockk-android:$mockk_version"
 
@@ -140,7 +166,7 @@ dependencies {
     androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$dexMakerVersion"
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
 
-    androidTestImplementation 'com.squareup.okhttp:mockwebserver:2.7.0'
+    androidTestImplementation 'com.squareup.okhttp:mockwebserver:2.7.5'
 
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test:rules:1.2.0'

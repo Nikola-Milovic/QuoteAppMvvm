@@ -3,6 +3,7 @@ package com.nikolam.simplyquotes.ui.settings
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.nikolam.simplyquotes.R
 import com.nikolam.simplyquotes.databinding.FragmentSettingsBinding
+import com.nikolam.simplyquotes.ui.util.interstatialID
 import dagger.android.support.DaggerFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -65,14 +67,25 @@ class SettingsFragment : DaggerFragment() {
 
     fun setupOnClickListeners() { // Setup Buttons onClicks
         viewDataBinding.imageButtonAdvertisement.setOnClickListener {
-            if (mInterstitialAd.isLoaded) {
-                mInterstitialAd.show()
-            } else {
+            try {
+                if (mInterstitialAd.isLoaded) {
+                    mInterstitialAd.show()
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Please try again in a couple of seconds, the advertisement hasn't loaded yet",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } catch (e: Exception) {
+                Log.d("TAG", e.message)
                 Toast.makeText(
                     context,
-                    "Please try again in a couple of seconds, the add hasn't loaded yet",
+                    "Please try again in a couple of seconds, there was an error",
                     Toast.LENGTH_SHORT
                 ).show()
+
+
             }
         }
 
@@ -113,7 +126,7 @@ class SettingsFragment : DaggerFragment() {
                 viewDataBinding.imageButtonAdvertisement.isClickable = true
                 MobileAds.initialize(context) {}
                 mInterstitialAd = InterstitialAd(context)
-                mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
+                mInterstitialAd.adUnitId = interstatialID
                 withContext(Dispatchers.Main) {
                     mInterstitialAd.loadAd(AdRequest.Builder().build())
                     mInterstitialAd.adListener = object : AdListener() {
@@ -125,6 +138,7 @@ class SettingsFragment : DaggerFragment() {
             }
         }
     }
+
 
     fun sendEmail() { // Opens up Gmail and starts a new E-mail to my E-mail address
         val email = Array(1) { "nikolamilovic2001@gmail.com" }

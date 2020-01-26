@@ -60,9 +60,9 @@ class QuotesFragment : DaggerFragment() {
             //If we're running for the first time but it's a failure then set the first time running to false so we avoid not showing balloons to disconnected users
             if (it == apiState.SUCCESS) {
                 setupEntranceAnim()
-                if (firstRun) firstRun()
+                // if (firstRun) firstRun()
             } else if (it == apiState.FAILURE) {
-                if (firstRun) falseFirstTime()
+                //if (firstRun) falseFirstTime()
             }
         })
         enableNavigation()
