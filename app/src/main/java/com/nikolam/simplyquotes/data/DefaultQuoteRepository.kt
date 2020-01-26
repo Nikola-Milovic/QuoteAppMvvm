@@ -41,8 +41,6 @@ class DefaultQuoteRepository @Inject constructor(
         quoteLocalDataSource.unfavoriteAQuote(quoteID)
     }
 
-
-
     override suspend fun fetchRemoteQuotes() = withContext(ioDispatcher) {
         quoteLocalDataSource.fetchRemoteQuotesAndInsertThemIntoDataBase()
     }
