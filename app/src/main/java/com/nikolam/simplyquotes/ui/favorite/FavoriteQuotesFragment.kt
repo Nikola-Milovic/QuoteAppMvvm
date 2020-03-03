@@ -224,7 +224,7 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
 
         enableNavigation() // To avoid unforeseen situations where somehow the enableNavigation wasn't called before the fragment has been closed
 
-        if (firstRun) firstRun() // If it's the users first time running the app, show him Text Balloons to explain what everything does
+        //if (firstRun) firstRun() // If it's the users first time running the app, show him Text Balloons to explain what everything does
 
         return viewDataBinding.root
     }

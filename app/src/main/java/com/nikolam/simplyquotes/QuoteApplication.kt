@@ -2,6 +2,7 @@ package com.nikolam.simplyquotes
 
 
 import android.annotation.SuppressLint
+import androidx.databinding.library.BuildConfig
 import com.nikolam.simplyquotes.di.DaggerApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication

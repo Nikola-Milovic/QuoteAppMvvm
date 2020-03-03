@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QuoteAppMvvm</string>
+    <string name="app_name">Simply Quotes</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -8,5 +8,5 @@
     <string name="paypal">If you enjoy the app, you can support me by donating!</string>
     <string name="advertisement">If you enjoy the app, you can support me by watching \n an advertisement!</string>
     <string name="contactme">If you have any suggestions, bugs or issues to tell \n me about,  you can contact me by clicking the button!</string>
-    <string name="about"> Thank you for downloading my application! This was made by a student in his spare time. If you encounter any bugs, issues or you have suggestions or feature you would like to see, please contact me using the button below! Don\'t immediately low star it please! This is the only 100% free and advertisement quote application out there, so if you enjoy it, consider watching an advertisement on your own accord or consider donating to help me keep it free. Have a great day!</string>
+    <string name="about"> Thank you for downloading my application! This was made by a student in his spare time. If you encounter any bugs, issues or you have suggestions or feature you would like to see, please contact me using the button below! Don\'t immediately low star it please! There are no ads displayed without your consent, so if you enjoy it, consider watching an advertisement on your own accord or consider donating to help me keep it free. Have a great day!</string>
 </resources>
