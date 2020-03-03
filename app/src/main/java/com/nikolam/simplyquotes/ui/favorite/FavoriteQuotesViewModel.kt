@@ -29,10 +29,8 @@ class FavoriteQuotesViewModel @Inject constructor(
         get() = _favoriteQuotesEmptyCheck
 
 
-
     init {
         getQuotes()
-
     }
 
     private fun getQuotes() {

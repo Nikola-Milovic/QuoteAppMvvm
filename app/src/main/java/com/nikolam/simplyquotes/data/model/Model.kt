@@ -14,8 +14,3 @@ data class Quote(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "entryid") val id: Int
 )
 
-//A retrofit Network Interface for the Api
-interface QuoteApi {
-    @GET("quotes.json")
-    suspend fun getQuotes(): List<Quote>
-}

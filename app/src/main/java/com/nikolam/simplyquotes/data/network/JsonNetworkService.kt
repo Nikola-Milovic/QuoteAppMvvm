@@ -1,6 +1,5 @@
 package com.nikolam.simplyquotes.data.network
 
-import com.nikolam.simplyquotes.data.model.QuoteApi
 import retrofit2.Retrofit
 import javax.inject.Inject
 

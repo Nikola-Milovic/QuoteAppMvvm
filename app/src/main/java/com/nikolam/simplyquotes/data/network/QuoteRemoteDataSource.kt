@@ -3,7 +3,6 @@ package com.nikolam.simplyquotes.data.network
 
 import com.nikolam.simplyquotes.data.Result
 import com.nikolam.simplyquotes.data.model.Quote
-import com.nikolam.simplyquotes.data.model.QuoteApi
 import javax.inject.Inject
 
 

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nikolam.simplyquotes.R
 import com.nikolam.simplyquotes.data.model.Quote
-import com.nikolam.simplyquotes.ui.util.OnQuoteClickListener
+import com.nikolam.simplyquotes.util.OnQuoteClickListener
 
 
 class FavoriteQuotesAdapter(

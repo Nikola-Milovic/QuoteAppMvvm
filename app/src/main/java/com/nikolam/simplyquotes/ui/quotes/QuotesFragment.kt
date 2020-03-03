@@ -60,9 +60,9 @@ class QuotesFragment : DaggerFragment() {
             //If we're running for the first time but it's a failure then set the first time running to false so we avoid not showing balloons to disconnected users
             if (it == apiState.SUCCESS) {
                 setupEntranceAnim()
-                // if (firstRun) firstRun()
+             //   if (firstRun) firstRun()
             } else if (it == apiState.FAILURE) {
-                //if (firstRun) falseFirstTime()
+               // if (firstRun) falseFirstTime()
             }
         })
         enableNavigation()
@@ -100,10 +100,6 @@ class QuotesFragment : DaggerFragment() {
             apply()
         }
 
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     fun setUpOnClickListeners() { // Setup onClick for Buttons
@@ -208,18 +204,18 @@ class QuotesFragment : DaggerFragment() {
     fun disableNavigation() { // Disable navigation while first time User is shown Balloons, avoids going somewhere else while Balloons haven't finished yet
         lifecycleScope.launch {
             val view = requireActivity().findViewById<View>(R.id.favoriteQuotesFragment)
-            val view2 = requireActivity().findViewById<View>(R.id.settingsFragment)
+         //   val view2 = requireActivity().findViewById<View>(R.id.settingsFragment)
             view.isClickable = false
-            view2.isClickable = false
+         //   view2.isClickable = false
         }
     }
 
     fun enableNavigation() {
         lifecycleScope.launch {
             val view = requireActivity().findViewById<View>(R.id.favoriteQuotesFragment)
-            val view2 = requireActivity().findViewById<View>(R.id.settingsFragment)
+          ///  val view2 = requireActivity().findViewById<View>(R.id.settingsFragment)
             view.isClickable = true
-            view2.isClickable = true
+          //  view2.isClickable = true
         }
     }
 

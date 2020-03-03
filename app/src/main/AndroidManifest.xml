@@ -16,8 +16,6 @@
             android:supportsRtl="true"
             android:name="com.nikolam.simplyquotes.QuoteApplication"
             android:theme="@style/AppTheme">
-        <activity android:name="com.nikolam.simplyquotes.ui.quotes.QuotesActivity"></activity>
-        <activity android:name=".data.QuoteApplication" />
         <activity android:name="com.nikolam.simplyquotes.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

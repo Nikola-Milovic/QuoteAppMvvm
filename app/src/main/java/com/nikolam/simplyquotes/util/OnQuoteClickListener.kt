@@ -1,4 +1,4 @@
-package com.nikolam.simplyquotes.ui.util
+package com.nikolam.simplyquotes.util
 
 import android.view.View
 import android.widget.PopupMenu

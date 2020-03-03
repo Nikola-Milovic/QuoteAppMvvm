@@ -8,8 +8,8 @@
             android:id="@+id/quotesFragment"
             android:icon="@drawable/ic_home_black_24dp"
             android:title="Quotes" />
-    <item
-            android:id="@+id/settingsFragment"
-            android:icon="@drawable/ic_settings"
-            android:title="Settings" />
+<!--    <item-->
+<!--            android:id="@+id/settingsFragment"-->
+<!--            android:icon="@drawable/ic_settings"-->
+<!--            android:title="Settings" />-->
 </menu>

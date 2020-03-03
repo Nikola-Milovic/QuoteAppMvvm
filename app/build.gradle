@@ -9,41 +9,21 @@ apply plugin: "kotlin-kapt"
 
 
 android {
-    signingConfigs {
-        release {
-            storeFile file('/storage/Users/Volks/Desktop/Android-2019/Android2/Fajlovi/SimplyQuotesKey.jks')
-            storePassword 'osmoregulacija1234mile'
-            keyAlias = 'SimplyQuotesKey'
-            keyPassword 'simplyQuotesPasswordCuvamGa'
-        }
-        debug {
-            storeFile file('/storage/Users/Volks/Desktop/Android-2019/Android2/Fajlovi/SimplyQuotesKey.jks')
-            storePassword 'osmoregulacija1234mile'
-            keyAlias = 'SimplyQuotesKey'
-            keyPassword 'simplyQuotesPasswordCuvamGa'
-        }
-    }
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.0"
     defaultConfig {
         applicationId "com.nikolam.simplyquotes"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 6
+        versionCode 8
         versionName "1.0"
         testInstrumentationRunner "com.nikolam.simplyquotes.QuoteTestRunner"
         multiDexEnabled true
     }
     buildTypes {
         release {
-            testCoverageEnabled = false
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            debuggable = false
-            signingConfig signingConfigs.release
-        }
-        debug {
-            signingConfig signingConfigs.debug
         }
     }
 
@@ -102,11 +82,10 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
-
+    kapt "androidx.room:room-compiler:$room_version"
 
     // Kotlin Android Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2'
@@ -156,9 +135,11 @@ dependencies {
     // Gson
     testImplementation 'com.google.code.gson:gson:2.8.6'
     // Mockito
-    testImplementation "org.mockito:mockito-core:2.21.0"
+    testImplementation "org.mockito:mockito-core:2.19.0"
     testImplementation "io.mockk:mockk:$mockk_version"
     androidTestImplementation "io.mockk:mockk-android:$mockk_version"
+
+
 
     // Dependencies for Android unit tests
     androidTestImplementation "junit:junit:4.13"

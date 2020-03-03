@@ -27,7 +27,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nikolam.simplyquotes.R
 import com.nikolam.simplyquotes.data.model.Quote
 import com.nikolam.simplyquotes.databinding.FavoriteQuotesFragmentBinding
-import com.nikolam.simplyquotes.ui.util.OnQuoteClickListener
+import com.nikolam.simplyquotes.util.OnQuoteClickListener
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.createBalloon
@@ -84,9 +84,6 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
                 private val backgroundColor = Color.parseColor("#f44336")
                 private val clearPaint =
                     Paint().apply { xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR) }
-
-
-
 
                 override fun onMove(
                     recyclerView: RecyclerView,
@@ -341,25 +338,21 @@ class FavoriteQuotesFragment : DaggerFragment(), OnQuoteClickListener {
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
     fun disableNavigation() { // Disable navigation while first time User is shown Balloons, avoids going somewhere else while Balloons haven't finished yet
         lifecycleScope.launch {
             val view = requireActivity().findViewById<View>(R.id.favoriteQuotesFragment)
-            val view2 = requireActivity().findViewById<View>(R.id.settingsFragment)
+         //   val view2 = requireActivity().findViewById<View>(R.id.settingsFragment)
             view.isClickable = false
-            view2.isClickable = false
+         //   view2.isClickable = false
         }
     }
 
     fun enableNavigation() {
         lifecycleScope.launch {
             val view = requireActivity().findViewById<View>(R.id.favoriteQuotesFragment)
-            val view2 = requireActivity().findViewById<View>(R.id.settingsFragment)
+         //   val view2 = requireActivity().findViewById<View>(R.id.settingsFragment)
             view.isClickable = true
-            view2.isClickable = true
+         //   view2.isClickable = true
         }
     }
 

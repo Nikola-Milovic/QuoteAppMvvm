@@ -14,9 +14,4 @@
             android:name="com.nikolam.simplyquotes.ui.favorite.FavoriteQuotesFragment"
             android:label="favorite_quotes_fragment"
             tools:layout="@layout/favorite_quotes_fragment" />
-    <fragment
-            android:id="@+id/settingsFragment"
-            android:name="com.nikolam.simplyquotes.ui.settings.SettingsFragment"
-            android:label="fragment_settings"
-            tools:layout="@layout/fragment_settings" />
 </navigation>

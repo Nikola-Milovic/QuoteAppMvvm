@@ -1,4 +1,4 @@
-package com.nikolam.simplyquotes.ui.util
+package com.nikolam.simplyquotes.util
 
 import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
