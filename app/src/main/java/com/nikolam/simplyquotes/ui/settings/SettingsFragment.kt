@@ -18,7 +18,7 @@ import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.nikolam.simplyquotes.R
 import com.nikolam.simplyquotes.databinding.FragmentSettingsBinding
-import com.nikolam.simplyquotes.ui.util.interstatialID
+//import com.nikolam.simplyquotes.ui.util.interstatialID
 import dagger.android.support.DaggerFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -126,7 +126,7 @@ class SettingsFragment : DaggerFragment() {
                 viewDataBinding.imageButtonAdvertisement.isClickable = true
                 MobileAds.initialize(context) {}
                 mInterstitialAd = InterstitialAd(context)
-                mInterstitialAd.adUnitId = interstatialID
+               // mInterstitialAd.adUnitId = interstatialID
                 withContext(Dispatchers.Main) {
                     mInterstitialAd.loadAd(AdRequest.Builder().build())
                     mInterstitialAd.adListener = object : AdListener() {

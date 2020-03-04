@@ -64,13 +64,6 @@ class QuotesViewModel @Inject constructor(
         }
     }
 
-    fun getFavorites() {
-        viewModelScope.launch {
-            val quotes = quoteRepository.getFavoriteQuotes()
-            Log.d("TAG", quotes.toString())
-        }
-    }
-
     private fun fetchQuotes() {
         viewModelScope.launch {
             try {

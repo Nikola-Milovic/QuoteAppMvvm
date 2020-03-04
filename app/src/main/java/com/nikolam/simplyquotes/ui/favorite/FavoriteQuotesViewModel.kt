@@ -62,10 +62,12 @@ class FavoriteQuotesViewModel @Inject constructor(
 
     fun checkForEmpty() {
         viewModelScope.launch {
-            if (quotesList.isEmpty()) {
-                _favoriteQuotesEmptyCheck.postValue(true)
-            } else {
-                _favoriteQuotesEmptyCheck.postValue(false)
+            if (::quotesList.isInitialized) {
+                if (quotesList.isEmpty()) {
+                    _favoriteQuotesEmptyCheck.postValue(true)
+                } else {
+                    _favoriteQuotesEmptyCheck.postValue(false)
+                }
             }
         }
     }
