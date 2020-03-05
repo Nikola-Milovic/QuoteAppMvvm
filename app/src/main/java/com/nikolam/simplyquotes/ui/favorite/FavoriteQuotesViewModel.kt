@@ -76,7 +76,9 @@ class FavoriteQuotesViewModel @Inject constructor(
     suspend fun deleteAllFavoriteQuotes() {
         viewModelScope.launch {
             quoteRepository.deleteAllFavoriteQuotes()
-            quotesList.clear()
+            if (::quotesList.isInitialized) {
+                quotesList.clear()
+            }
             checkForEmpty()
         }
 

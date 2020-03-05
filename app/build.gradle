@@ -15,7 +15,7 @@ android {
         applicationId "com.nikolam.simplyquotes"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 8
+        versionCode 9
         versionName "1.0"
         testInstrumentationRunner "com.nikolam.simplyquotes.QuoteTestRunner"
         multiDexEnabled true
