@@ -60,7 +60,7 @@ build/
 captures/
 output.json
 
-release/
+release
 
 .aab
 
