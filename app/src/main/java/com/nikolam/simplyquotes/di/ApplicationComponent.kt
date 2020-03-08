@@ -36,8 +36,7 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         QuotesModule::class,
         NetworkModule::class,
-        FavoriteQuotesModule::class,
-        SettingsModule::class
+        FavoriteQuotesModule::class
     ]
 )
 interface ApplicationComponent : AndroidInjector<QuoteApplication> {
