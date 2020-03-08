@@ -7,23 +7,37 @@ apply plugin: 'kotlin-android-extensions'
 //
 apply plugin: "kotlin-kapt"
 
+// Load keystore
+def keystorePropertiesFile = rootProject.file("keystore.properties");
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
+    signingConfigs {
+        release {
+            storeFile file(keystoreProperties['STORE_FILE'])
+            storePassword keystoreProperties['STORE_PASSWORD']
+            keyAlias = keystoreProperties['KEY_ALIAS']
+            keyPassword keystoreProperties['KEY_PASSWORD']
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
     defaultConfig {
         applicationId "com.nikolam.simplyquotes"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 29
-        versionCode 9
-        versionName "1.0"
+        versionCode 11
+        versionName "1.0.1"
         testInstrumentationRunner "com.nikolam.simplyquotes.QuoteTestRunner"
         multiDexEnabled true
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
@@ -109,8 +123,7 @@ dependencies {
 
     //first run bubbles
     implementation "com.github.skydoves:balloon:1.0.7"
-    //ads
-    implementation 'com.google.android.gms:play-services-ads:18.3.0'
+
     //sdp
     implementation 'com.intuit.sdp:sdp-android:1.0.6' // should remove soon
 
