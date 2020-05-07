@@ -68,3 +68,5 @@ release
 #NDK
 obj/
 .externalNativeBuild
+
+.jks

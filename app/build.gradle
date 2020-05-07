@@ -27,15 +27,13 @@ android {
         applicationId "com.nikolam.simplyquotes"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 11
-        versionName "1.0.1"
+        versionCode 13
+        versionName "1.0.3"
         testInstrumentationRunner "com.nikolam.simplyquotes.QuoteTestRunner"
         multiDexEnabled true
     }
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }

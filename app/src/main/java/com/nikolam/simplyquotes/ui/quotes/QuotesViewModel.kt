@@ -49,7 +49,7 @@ class QuotesViewModel @Inject constructor(
                     fetchQuotes()
                 }
             } catch (e: Exception) {
-                Log.d("TAG", "Message is start app " + e.message)
+                Log.d("TAG", "Message is start app " + e.localizedMessage)
                 _state.postValue(apiState.FAILURE) // SET THE INITIAL STATE AS FAILED
             }
         }
