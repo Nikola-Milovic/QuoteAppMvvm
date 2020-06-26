@@ -3,6 +3,9 @@ My take on making my old Quote App into MVVM architecture with some more "advanc
 I tried recreating my old application whilst learning new topics. Along the way I got a deeper understanding of various UI components, lifecycles, architecture components, good practices and so on. It was a fun journey that is nearing it's end. 
 
 
+PlayStore : https://play.google.com/store/apps/details?id=com.nikolam.simplyquotes
+
+
 Opening the app for the first time
 -------------
 First time users get Balloons helping them get a grasp of the app (see Acknowledgments). This only runs once when a user enters the app for the first time. Every screen has it's own "first time" check so that if a user leaves app before entering a new screen for the first time, it will still show him helpful Balloons on that screen! 
