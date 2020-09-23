@@ -2,6 +2,7 @@ package com.nikolam.simplyquotes.ui.favorite
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
@@ -21,7 +22,8 @@ class FavoriteQuotesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteQuoteViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return FavoriteQuoteViewHolder(inflater, parent)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.favorite_quote_item,parent,false)
+        return FavoriteQuoteViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: FavoriteQuoteViewHolder, position: Int) {
@@ -52,8 +54,7 @@ class FavoriteQuotesAdapter(
         notifyDataSetChanged()
     }
 
-    inner class FavoriteQuoteViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.favorite_quote_item, parent, false)) {
+    inner class FavoriteQuoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var quoteAuthorTextView: TextView? = null
         private var quoteTextTextView: TextView? = null
 

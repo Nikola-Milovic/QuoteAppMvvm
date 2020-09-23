@@ -149,7 +149,7 @@ dependencies {
     testImplementation "org.mockito:mockito-core:2.19.0"
     testImplementation "io.mockk:mockk:$mockk_version"
     androidTestImplementation "io.mockk:mockk-android:$mockk_version"
-
+    testImplementation "org.robolectric:robolectric:3.1.1"
 
 
     // Dependencies for Android unit tests
